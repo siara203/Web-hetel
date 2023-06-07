@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price');
             $table->unsignedBigInteger('type_id');
+            $table->unsignedBigInteger('picture_id');
             $table->foreign('type_id')->references('id')->on('room_types');
+            $table->foreign('picture_id')->references('id')->on('pictures');
             $table->string('status');
             $table->timestamps();
         });
