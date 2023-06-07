@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,34 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('homepage/index');
 });
+//
+Route::group(['prefix' => 'user'], function(){ 
+    Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
+     Route::post('/login', [AuthController::class, 'postLogin']); 
+     Route::get('/register', [AuthController::class, 'getRegister'])->name('register');
+     Route::post('/register', [AuthController::class, 'postRegister']); 
+    });
+    Route::get('logout', [AuthController::class, 'getLogout'
+]);
+
+Route::get('rooms',  [HomeController::class, 'getrooms']
+
+);
+
+Route::get('introduction',  [HomeController::class, 'getintroduction']
+
+);
+
+Route::get('services',  [HomeController::class, 'getservices']
+
+);
+
+Route::get('details',  [HomeController::class, 'getdetails']
+
+);
+
+Route::get('contact',  [HomeController::class, 'getcontact']
+
+);
