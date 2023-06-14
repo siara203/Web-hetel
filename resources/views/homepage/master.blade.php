@@ -57,7 +57,7 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Thông tin tài khoản</a></li>
+                    <li><a href="#">Account information</a></li>
                     <li><a href="{{asset('logout')}}">Logout</a></li>
                 </ul>
             </li>

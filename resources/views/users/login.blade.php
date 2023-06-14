@@ -7,7 +7,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('assets/login.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/material-icon/css/material-design-iconic-font.min.css') }}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
 </head>
 <body>
 <section class="sign-in">
@@ -45,7 +46,7 @@
                             <ul class="socials">
                                 <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
                                 <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                                <li><a href="{{ url('user/auth/google')}}"><i class="display-flex-center zmdi zmdi-google">{{ __('Google Sign in')}}</i></a></li>
                             </ul>
                         </div>
                     </div>

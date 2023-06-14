@@ -8,7 +8,7 @@
     <title>Website with Login & Registration Form</title>
     <link rel="stylesheet" href="{{ asset('assets/login.css') }}">
     <link rel="stylesheet" href="{{ asset('fonts/material-icon/css/material-design-iconic-font.min.css') }}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!-- Unicons -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
   </head>
@@ -39,7 +39,7 @@
                         <input type="phone" name="phone" id="phone" placeholder="Your Phone" required/>
                     </div>
                     <div class="form-group">
-                        <label for="address"><i class="zmdi zmdi-address"></i></label>
+                        <label for="address"><i class="zmdi zmdi-city"></i></label>
                         <input type="address" name="address" id="address" placeholder="Your Address" required/>
                     </div>
                     <div class="form-group">
@@ -52,7 +52,7 @@
                     </div>
                     <div>
                         <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" required/>
-                        <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                        <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="{{ url('terms-of-service') }}" class="term-service">Terms of service</a></label>
                     </div>
     
 

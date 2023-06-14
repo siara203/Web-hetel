@@ -3,46 +3,45 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\AdminController;
+use App\Http\Middleware\RoleMiddleware;
+use App\Http\Middleware\RedirectIfNotLoggedIn;
 
 Route::get('/', function () {
     return view('homepage/index');
 });
-//
-Route::group(['prefix' => 'user'], function(){ 
+
+Route::group(['prefix' => 'user'], function () {
     Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
-     Route::post('/login', [AuthController::class, 'postLogin']); 
-     Route::get('/register', [AuthController::class, 'getRegister'])->name('register');
-     Route::post('/register', [AuthController::class, 'postRegister']); 
-    });
-    Route::get('logout', [AuthController::class, 'getLogout'
-]);
+    Route::post('/login', [AuthController::class, 'postLogin']);
+    Route::get('/register', [AuthController::class, 'getRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'postRegister']);
+    Route::get('/auth/google', [AuthController::class, 'redirectToGoogle']);
+    Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
+});
 
-Route::get('rooms',  [HomeController::class, 'getrooms']
+Route::get('logout', [AuthController::class, 'getLogout']);
 
-);
+Route::get('rooms', [HomeController::class, 'getrooms']);
 
-Route::get('introduction',  [HomeController::class, 'getintroduction']
+Route::get('introduction', [HomeController::class, 'getintroduction']);
 
-);
+Route::get('terms-of-service', [HomeController::class, 'gettermsofservice']);
+Route::get('details', [HomeController::class, 'getdetails']);
 
-Route::get('services',  [HomeController::class, 'getservices']
+Route::get('contact', [HomeController::class, 'getcontact']);
+Route::get('services', [HomeController::class, 'getservices']);
+Route::group(['middleware' => 'auth.redirect'], function () {
+    Route::get('/admin-dashboard', [AdminController::class, 'getdashboard']);
+    Route::get('/admin-services', [AdminController::class, 'getservices']);
+    Route::get('/admin-service-add', [AdminController::class, 'getserviceadd']);
+    Route::get('/admin-orders', [AdminController::class, 'getorders']);
+    Route::get('/admin-order-add', [AdminController::class, 'getorderadd']);
+    Route::get('/admin-users', [AdminController::class, 'getusers']);
+    Route::get('/admin-user-add', [AdminController::class, 'getuseradd']);
+    Route::post('/admin-user-add', [AdminController::class, 'postuseradd'])->name('useradd');
+    Route::get('/admin-users-delete-{id}', [AdminController::class, 'getuserdelete'])->name('getuserdelete');
+    Route::post('/admin-user-edit-{id}', [AdminController::class, 'postuseredit'])->name('postuseredit');
+    Route::get('/admin-users-edit-{id}', [AdminController::class, 'getuseredit'])->name('getuseredit');
 
-);
-
-Route::get('details',  [HomeController::class, 'getdetails']
-
-);
-
-Route::get('contact',  [HomeController::class, 'getcontact']
-
-);
+});

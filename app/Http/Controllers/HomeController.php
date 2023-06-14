@@ -25,6 +25,9 @@ class HomeController extends Controller
     public function getcontact(){
         return view('homepage.contact');
     }
+    public function gettermsofservice(){
+        return view('homepage.terms-of-service');
+    }
 
 
 
