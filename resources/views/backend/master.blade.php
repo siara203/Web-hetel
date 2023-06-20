@@ -46,7 +46,7 @@
                           </a>
                       </li>
                       <li class=" ">
-                          <a href="#people" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                          <a href="{{ url('admin-users') }}" class="collapsed" data-toggle="collapse" aria-expanded="false">
                               <svg class="svg-icon" id="p-dash8" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                               </svg>
@@ -169,8 +169,8 @@
               <nav class="navbar navbar-expand-lg navbar-light p-0">
                   <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
                       <i class="ri-menu-line wrapper-menu"></i>
-                      <a href="../backend/index.html" class="header-logo">
-                          <img src="images/favicon.png" class="img-fluid rounded-normal" alt="logo">
+                      <a href="{{ url('admin-dashboard') }}" class="header-logo">
+                          <img src="adm/images/logo.png" class="img-fluid rounded-normal" alt="logo">
                           <h5 class="logo-title ml-3">SDN Hotel</h5>
                       </a>
                   </div>

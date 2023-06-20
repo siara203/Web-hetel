@@ -53,5 +53,12 @@ Route::group(['middleware' => 'auth.redirect'], function () {
     Route::post('/admin-user-edit-{id}', [AdminController::class, 'postuseredit'])->name('postuseredit');
     Route::get('/admin-users-edit-{id}', [AdminController::class, 'getuseredit'])->name('getuseredit');
 
+    Route::get('/admin-room-types', [AdminController::class, 'getroomtypes']);
+    Route::get('/admin-room-type-add', [AdminController::class, 'getroomtypeadd']);
+    Route::post('/admin-room-type-add', [AdminController::class, 'postroomtypeadd'])->name('roomtypeadd');
+    Route::get('/admin-room-type-delete-{id}',[AdminController::class, 'deleteroomtype'])->name('deleteroomtype');
+    Route::get('/admin-room-type-edit-{id}',[AdminController::class, 'getroomtypeedit'])->name('roomtypeedit');
+    Route::post('/admin-room-type-edit-{id}',[AdminController::class, 'postroomtypeedit'])->name('roomtypeedit');
+
 
 });

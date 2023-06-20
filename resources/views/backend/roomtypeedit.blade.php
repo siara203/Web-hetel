@@ -56,7 +56,7 @@
                               </svg>
                           </a>
                           <ul id="people" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                            <li class="active">
+                            <li class="">
                                           <a href="{{ url('admin-users') }}">
                                               <i class="las la-minus"></i><span>Users</span>
                                           </a>
@@ -107,7 +107,7 @@
                                               <i class="las la-minus"></i><span>List Room Types</span>
                                           </a>
                                   </li>
-                                  <li class="">
+                                  <li class="active">
                                           <a href="{{ url('admin-room-type-add') }}">
                                               <i class="las la-minus"></i><span>Add Room Type</span>
                                           </a>
@@ -164,7 +164,8 @@
               </nav>
               <div class="p-3"></div>
           </div>
-          </div>      <div class="iq-top-navbar">
+          </div>     
+           <div class="iq-top-navbar">
           <div class="iq-navbar-custom">
               <nav class="navbar navbar-expand-lg navbar-light p-0">
                   <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
@@ -261,68 +262,58 @@
                   </div>
               </nav>
           </div>
-      </div>   
+      </div>  
 <!-- main -->    
-      <div class="content-page">
-     <div class="container-fluid">
+<div class="content-page">
+     <div class="container-fluid add-form-list">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
-                    <div>
-                        <h4 class="mb-3">Users List </h4>
-                        <p class="mb-0">@include('errors.note') </p>  
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Add Room Type</h4>
+                            <p>@include('errors.note')</p>
+                        </div>
                     </div>
-                    <a href="{{ url('admin-user-add') }}" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add User</a>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="table-responsive rounded mb-3">
-                <table class="data-table table mb-0 tbl-server-info">
-                    <thead class="bg-white text-uppercase">
-                        <tr class="ligth ligth-data">
-                            <th>Full Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Role</th>
-                           <th>Password</th>
-                            <th>Date created</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="ligth-body">
-                        @foreach($users as $user)
-                        <tr>
-                            <td>{{ $user->full_name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->phone }}</td>
-                            <td>{{ $user->address }}</td>
-                            <td>{{ $user->role }}</td>
-                            <td>{{ str_repeat('*', rand(8, 15)) }}</td>
-                            <td>{{ $user->created_at->format('d F Y, H:i:s') }}</td>
-                            <td>
-                                <div class="d-flex align-items-center list-action">
-                                <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href="{{ route('getuseredit', ['id' => $user->id]) }}">
-                                        <i class="ri-pencil-line mr-0"></i>
-                                    </a>
+                    <div class="card-body">
+                    <form action="{{ route('roomtypeedit', $roomType->id) }}" method="POST" enctype="multipart/form-data" data-toggle="validator">
+                         @csrf
+                            <div class="row">                                
+                                <div class="col-md-12">                      
+                                    <div class="form-group">
+                                        <label>Name *</label>
+                                        <input name="name" value="{{ $roomType->name }}" type="text" class="form-control" placeholder="Enter Name" required>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div> 
 
-                                        <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete"
-                                    href="{{ route('getuserdelete', $user->id) }}"><i class="ri-delete-bin-line mr-0"></i></a>
-
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                <div class="col-md-12">
+                                <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Description</label>                                
+                                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $roomType->description }}</textarea>
+                                     </div>
+                                  </div>
+                               </div>
+                                                               
+                            <button type="submit" class="btn btn-primary mr-2">Add Room Type</button>
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- Page end  -->
-    </div> 
-</div> 
+    </div>
+      </div>
+        <!-- Page end  -->
+    </div>
+      </div>
+    </div>
+ <!--end main  -->
     <!-- Modal Edit -->
 
+    </div>
+    </div>
     <!-- Wrapper End-->
     <footer class="iq-footer">
             <div class="container-fluid">
@@ -347,6 +338,7 @@
     <script src="{{ asset('adm/js/backend-bundle.min.js') }}"></script>
 
 <!-- Table Treeview JavaScript -->
+
 <script src="{{ asset('adm/js/table-treeview.js') }}"></script>
 
 <!-- Chart Custom JavaScript -->

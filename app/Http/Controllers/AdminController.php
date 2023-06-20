@@ -7,20 +7,25 @@ use App\Models\User;
 use App\Models\Picture;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\RoomType;
+use App\Models\Room;
+use App\Models\Order;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 
 {
+    //dashboard show
     public function getdashboard()
     {
         return view('backend.dashboard');
     }
-// services
+    // services show
     public function getserviceadd()
     {
         return view('backend.serviceadd');
     }
+    //service add 
     public function postserviceadd(Request $request)
     {
         $request->validate([
@@ -52,9 +57,9 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Service added successfully.');
     }
     
-    // delete service
+    //service delete 
     public function deleteservice($id)
-{
+    {
     $service = Service::findOrFail($id);
      
     $service->delete();
@@ -66,25 +71,22 @@ class AdminController extends Controller
    
 
     return redirect()->back()->with('success', 'Service deleted successfully.');
-}
-// edit service
-public function postserviceedit(Request $request, $id)
-{ $service = Service::find($id);
-    $request->validate([
+    }
+
+    //service edit 
+    public function postserviceedit(Request $request, $id)
+    { $service = Service::find($id);
+        $request->validate([
         'name' => 'required',
         'price' => 'required|numeric',
         'description' => 'required',
         'pic' => 'image|mimes:jpeg,png,gif,jpg|max:2048',
     ]);
-
-  
-
     if (!$service) {
         return redirect()->back()->with('error', 'Service not found.');
     }
 
     if ($request->hasFile('pic')) {
-        // Xử lý lưu ảnh mới nếu người dùng đã chọn ảnh
         $imagePath = $request->file('pic')->store('images/services');
         $imageName = $request->file('pic')->getClientOriginalName();
         $service->picture->update([
@@ -101,10 +103,10 @@ public function postserviceedit(Request $request, $id)
     ]);
 
     return redirect()->back()->with('success', 'Service updated successfully.');
-}
+    }
 
-public function getserviceedit($id)
-{
+    public function getserviceedit($id)
+    {
     $service = Service::find($id);
 
     if (!$service) {
@@ -112,14 +114,16 @@ public function getserviceedit($id)
     }
 
     return view('backend.serviceedit', compact('service'));
-}
+    }
 
+    //services show
     public function getservices()
     {
         $services = Service::all();
         return view('backend.services', compact('services'));
     }
-    // orders
+    
+    // orders show
     public function getorders()
     {
         return view('backend.orders');
@@ -128,19 +132,19 @@ public function getserviceedit($id)
     {
         return view('backend.orderadd');
     }
-    // users
+    // users show
        public function getusers()
     {
         $users = User::all(); 
 
         return view('backend.users', compact('users'));
     }     
-    //add user
+    //user add 
       public function getuseradd()
     {
         return view('backend.useradd');
     }
-    // 
+    
     public function postuseradd(Request $request)
     {
         $request->validate([
@@ -162,8 +166,6 @@ public function getserviceedit($id)
         $user->address = $request['address'];
         $user->save();
 
-        
-
         return redirect()->back()->with('success', 'User added successfully.');
     }
     // delete user
@@ -174,19 +176,14 @@ public function getserviceedit($id)
         if ($user->email === 'admin@admin.com') {
             return back()->with('error', 'Cannot delete admin account');
         }
-
         $user->delete();
 
-        return back()->with('success', 'User deleted successfully');
-        
-        
+        return back()->with('success', 'User deleted successfully');      
     }
-//edit user
-public function postuseredit(Request $request, $id)
-{
-
+    //edit user
+    public function postuseredit(Request $request, $id)
+    {
     $user = User::findOrFail($id);
- 
     $validatedData = $request->validate([
         'full_name' => 'required',
         'phone' => 'required',
@@ -206,7 +203,7 @@ public function postuseredit(Request $request, $id)
     $user->role = $validatedData['role'];
     $user->save();
     return redirect()->back()->with('success', 'User updated successfully');
-}
+    }
 
     public function getuseredit($id)
     {
@@ -217,5 +214,72 @@ public function postuseredit(Request $request, $id)
             return view('backend.useredit', compact('user'));
     }
 
+
+    //room types show
+     public function getroomtypes()
+    {
+        $roomTypes = RoomType::all();
+        return view('backend.roomtypes', compact('roomTypes'));
+    }
+    //room type add
+    public function postroomtypeadd(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $roomType = new RoomType();
+        $roomType->name = $request->name;
+        $roomType->description = $request->description;
+        $roomType->save();
+
+        return redirect()->back()->with('success', 'Room Type added successfully.');
+          
+    }
+
+    public function getroomtypeadd()
+    {
+        return view('backend.roomtypeadd');
+    }
+   //roomtype delete 
+   public function deleteroomtype($id)
+   {
+        $roomtype = RoomType::findOrFail($id);
+            
+        $roomtype->delete();
+        return back()->with('success', 'Room Type deleted successfully');       
+    }
+    //roomtype edit
+    public function getroomtypeedit($id)
+    {
+    $roomType = RoomType::find($id);
+
+    if (!$roomType) {
+        return redirect()->back()->with('error', 'Room Type not found.');
+    }
+
+    return view('backend.roomtypeedit', compact('roomType'));
+    }
+
+    public function postroomtypeedit(Request $request, $id)
+    {
+    $request->validate([
+        'name' => 'required',
+        'description' => 'required',
+    ]);
+
+    $roomType = RoomType::find($id);
+
+    if (!$roomType) {
+        return redirect()->back()->with('error', 'Room Type not found.');
+    }
+
+    $roomType->name = $request->name;
+    $roomType->description = $request->description;
+    $roomType->save();
+
+    return redirect()->back()->with('success', 'Room Type updated successfully.');
+    }   
 }
 ?>

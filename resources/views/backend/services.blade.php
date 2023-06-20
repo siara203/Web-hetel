@@ -169,8 +169,8 @@
               <nav class="navbar navbar-expand-lg navbar-light p-0">
                   <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
                       <i class="ri-menu-line wrapper-menu"></i>
-                      <a href="../backend/index.html" class="header-logo">
-                          <img src="images/favicon.png" class="img-fluid rounded-normal" alt="logo">
+                      <a href="{{ url('admin-dashboard') }}" class="header-logo">
+                          <img src="adm/images/logo.png" class="img-fluid rounded-normal" alt="logo">
                           <h5 class="logo-title ml-3">SDN Hotel</h5>
                       </a>
                   </div>
@@ -299,7 +299,7 @@
                     <td>
                         <div class="d-flex align-items-center list-action">
                             <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href="{{ route('getserviceedit', ['id' => $service->id]) }}"><i class="ri-pencil-line mr-0"></i></a>
-                            <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href="{{ route('deleteservice', ['id' => $service->id]) }}"><i class="ri-delete-bin-line mr-0"></i></a>
+                            <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href="{{ route('deleteroomtype', ['id' => $service->id]) }}"><i class="ri-delete-bin-line mr-0"></i></a>
                         </div>
                     </td>
                 </tr>
