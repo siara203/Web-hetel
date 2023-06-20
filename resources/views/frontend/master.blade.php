@@ -18,8 +18,8 @@
     <!-- gallery -->
     <link rel="stylesheet" href="{{ asset('assets/gallery/blueimp-gallery.min.css') }}" />
     <!-- favicon -->
-    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('adm/images/favicon.ico') }}" type="image/x-icon">
+   
     <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
 </head>
 
@@ -36,7 +36,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ url('/') }}"><img src="images/favicon.png"  alt="holiday crown"></a>
+      <a class="navbar-brand" href="{{ url('/') }}"><img  src="{{ asset('adm/images/favicon.ico') }}" alt="SDN Hotel"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

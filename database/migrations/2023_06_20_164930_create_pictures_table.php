@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('file_name');
             $table->string('path');
             $table->string('gfi');
+            $table->timestamps();
 
         });
     }

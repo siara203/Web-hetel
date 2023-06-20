@@ -7,26 +7,26 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function getrooms(){
-        return view('homepage.rooms');
+        return view('frontend.rooms');
     }
 
     public function getintroduction(){
-        return view('homepage.introduction');
+        return view('frontend.introduction');
     }
 
     public function getservices(){
-        return view('homepage.services');
+        return view('frontend.services');
     }
 
     public function getdetails(){
-        return view('homepage.details');
+        return view('frontend.details');
     }
 
     public function getcontact(){
-        return view('homepage.contact');
+        return view('frontend.contact');
     }
     public function gettermsofservice(){
-        return view('homepage.terms-of-service');
+        return view('frontend.terms-of-service');
     }
 
 

@@ -6,7 +6,7 @@
       <title>SDN | Admin</title>
       
       <!-- Favicon -->
-      <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
+      <link rel="shortcut icon" href="{{ asset('adm/images/favicon.ico') }}" type="image/x-icon">
       <link rel="stylesheet" href="{{ asset('adm/css/backend-plugin.min.css') }}">
       <link rel="stylesheet" href="{{ asset('adm/css/backend.css?v=1.0.0') }}">
       <link rel="stylesheet" href="{{ asset('adm/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}">
@@ -28,7 +28,7 @@
       <div class="iq-sidebar  sidebar-default ">
           <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
               <a  href="{{ url('admin-dashboard') }}" class="header-logo">
-                  <img src="images/favicon.png"  alt="Favicon"  class="img-fluid rounded-normal light-logo" alt="logo"><h5 class="logo-title light-logo ml-3">SDN Hotel</h5>
+                  <img  src="adm/images/logo.png"  alt="Favicon"  class="img-fluid rounded-normal light-logo" alt="logo"><h5 class="logo-title light-logo ml-3">SDN Hotel</h5>
               </a>
               <div class="iq-menu-bt-sidebar ml-0">
                   <i class="las la-bars wrapper-menu"></i>
@@ -61,11 +61,80 @@
                                               <i class="las la-minus"></i><span>Users</span>
                                           </a>
                                   </li>
-                                  <li class="active">
+                                  <li class="">
                                           <a href="{{ url('admin-user-add') }}">
                                               <i class="las la-minus"></i><span>Add Users</span>
                                           </a>
                                   </li> 
+                          </ul>
+                      </li>
+                      <li class=" ">
+                          <a href="#purchase" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                              <svg class="svg-icon" id="p-dash5" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                  <line x1="1" y1="10" x2="23" y2="10"></line>
+                              </svg>
+                              <span class="ml-4">Services</span>
+                              <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
+                              </svg>
+                          </a>
+                          <ul id="purchase" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                  <li class="active">
+                                          <a href="{{ url('admin-services') }}">
+                                              <i class="las la-minus"></i><span>List Services</span>
+                                          </a>
+                                  </li>
+                                  <li class="">
+                                          <a href="{{ url('admin-service-add') }}">
+                                              <i class="las la-minus"></i><span>Add Service</span>
+                                          </a>
+                                  </li>
+                          </ul>
+                      </li>
+                      <li class=" ">
+                          <a href="#sale" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                              <svg class="svg-icon" id="p-dash4" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                              </svg>
+                              <span class="ml-4">Room Types</span>
+                              <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
+                              </svg>
+                          </a>
+                          <ul id="sale" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                  <li class="">
+                                          <a href="{{ url('admin-room-types') }}">
+                                              <i class="las la-minus"></i><span>List Room Types</span>
+                                          </a>
+                                  </li>
+                                  <li class="">
+                                          <a href="{{ url('admin-room-type-add') }}">
+                                              <i class="las la-minus"></i><span>Add Room Type</span>
+                                          </a>
+                                  </li>
+                          </ul>
+                      </li>
+                      <li class=" ">
+                          <a href="#category" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                              <svg class="svg-icon" id="p-dash3" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                              </svg>
+                              <span class="ml-4">Rooms</span>
+                              <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
+                              </svg>
+                          </a>
+                          <ul id="category" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                  <li class="">
+                                          <a href="{{ url('admin-rooms') }}">
+                                              <i class="las la-minus"></i><span>List Rooms</span>
+                                          </a>
+                                  </li>
+                                  <li class="">
+                                          <a href="{{ url('admin-room-add') }}">
+                                              <i class="las la-minus"></i><span>Add Room</span>
+                                          </a>
+                                  </li>
                           </ul>
                       </li>
                       <li class=" ">
@@ -91,75 +160,6 @@
                               </li>
                           </ul>
                       </li>
-                      <li class=" ">
-                          <a href="#category" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                              <svg class="svg-icon" id="p-dash3" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                              </svg>
-                              <span class="ml-4">Rooms</span>
-                              <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                  <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
-                              </svg>
-                          </a>
-                          <ul id="category" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                                  <li class="">
-                                          <a href="">
-                                              <i class="las la-minus"></i><span>List Rooms</span>
-                                          </a>
-                                  </li>
-                                  <li class="">
-                                          <a href="">
-                                              <i class="las la-minus"></i><span>Add Room</span>
-                                          </a>
-                                  </li>
-                          </ul>
-                      </li>
-                      <li class=" ">
-                          <a href="#sale" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                              <svg class="svg-icon" id="p-dash4" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                  <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path>
-                              </svg>
-                              <span class="ml-4">Room Types</span>
-                              <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                  <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
-                              </svg>
-                          </a>
-                          <ul id="sale" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                                  <li class="">
-                                          <a href="">
-                                              <i class="las la-minus"></i><span>List Room Types</span>
-                                          </a>
-                                  </li>
-                                  <li class="">
-                                          <a href="">
-                                              <i class="las la-minus"></i><span>Add Room Type</span>
-                                          </a>
-                                  </li>
-                          </ul>
-                      </li>
-                      <li class=" ">
-                          <a href="#purchase" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                              <svg class="svg-icon" id="p-dash5" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                                  <line x1="1" y1="10" x2="23" y2="10"></line>
-                              </svg>
-                              <span class="ml-4">Services</span>
-                              <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                  <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
-                              </svg>
-                          </a>
-                          <ul id="purchase" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                                  <li class="">
-                                          <a href="">
-                                              <i class="las la-minus"></i><span>List Services</span>
-                                          </a>
-                                  </li>
-                                  <li class="">
-                                          <a href="">
-                                              <i class="las la-minus"></i><span>Add Service</span>
-                                          </a>
-                                  </li>
-                          </ul>
-                      </li>
                   </ul>
               </nav>
               <div class="p-3"></div>
@@ -170,7 +170,7 @@
                   <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
                       <i class="ri-menu-line wrapper-menu"></i>
                       <a href="../backend/index.html" class="header-logo">
-                          <img src="../assets/images/logo.png" class="img-fluid rounded-normal" alt="logo">
+                          <img src="images/favicon.png" class="img-fluid rounded-normal" alt="logo">
                           <h5 class="logo-title ml-3">SDN Hotel</h5>
                       </a>
                   </div>
@@ -211,10 +211,7 @@
                                               <div class="px-3 pt-0 pb-0 sub-card">
                                                   <a href="#" class="iq-sub-card">
                                                       <div class="media align-items-center cust-card py-3 border-bottom">
-                                                          <div class="">
-                                                              <img class="avatar-50 rounded-small"
-                                                                  src="../assets/images/user/01.jpg" alt="01">
-                                                          </div>
+                                            
                                                           <div class="media-body ml-3">
                                                               <div class="d-flex align-items-center justify-content-between">
                                                                   <h6 class="mb-0">Emma Watson</h6>
@@ -264,7 +261,7 @@
                   </div>
               </nav>
           </div>
-      </div> 
+      </div>  
 <!-- main -->    
 <div class="content-page">
      <div class="container-fluid add-form-list">
@@ -273,75 +270,48 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Add Users</h4>                          
-                <p>@include('errors.note')</p>
+                            <h4 class="card-title">Add service</h4>
+                            <p>@include('errors.note')</p>
                         </div>
                     </div>
                     <div class="card-body">
-                    <form action="{{ route('useradd') }}" method="POST" data-toggle="validator">
-                        @csrf
-                        <div class="row"> 
-                            <div class="col-md-12">                      
-                                <div class="form-group">
-                                    <label>Full Name *</label>
-                                    <input type="text" class="form-control" placeholder="Enter Full Name" name="full_name" required>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div>    
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Phone Number *</label>
-                                    <input type="text" class="form-control" placeholder="Enter Phone No" name="phone" required>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div> 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Email *</label>
-                                    <input type="text" class="form-control" placeholder="Enter Email" name="email" required>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div>  
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Address *</label>
-                                    <input type="text" class="form-control" placeholder="Enter Address" name="address" required>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div> 
-                            <div class="col-md-6">                      
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="password" class="form-control" placeholder="Enter Password" name="password" required>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div>  
-                            <div class="col-md-6">                      
-                                <div class="form-group">
-                                    <label>Confirm Password</label>
-                                    <input type="password" class="form-control" placeholder="Enter Confirm Password" name="confirm_password" required>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div> 
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Role *</label>
-                                    <select name="role" class="selectpicker form-control" data-style="py-0" required>
-                                        <option value="user">user</option>
-                                        <option value="admin">admin</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="checkbox d-inline-block mb-3">
-                                    <input type="checkbox" class="checkbox-input mr-2" id="checkbox1" checked>
-                                    <label for="checkbox1">Notify User by Email</label>
-                                </div>
-                            </div>                               
-                        </div>                            
-                        <button type="submit" class="btn btn-primary mr-2">Add User</button>
-                        <button type="reset" class="btn btn-danger">Reset</button>
-                    </form>
+                    <form action="{{ route('postserviceedit', $service->id) }}" method="POST" enctype="multipart/form-data" data-toggle="validator">
+    @csrf
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Image *</label>
+                <input type="file" class="form-control image-file" name="pic" accept="image/*">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Name *</label>
+                <input name="name" type="text" class="form-control" placeholder="Enter Name" value="{{ $service->name }}" required>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label>Price *</label>
+            <div class="input-group">
+                <input name="price" type="text" class="form-control" value="{{ $service->price }}">
+                <div class="input-group-append">
+                    <span class="input-group-text">$</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Description</label>
+                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $service->description }}</textarea>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mr-2">Edit Service</button>
+    <button type="reset" class="btn btn-danger">Reset</button>
+</form>
+
 
                     </div>
                 </div>
@@ -350,42 +320,13 @@
         <!-- Page end  -->
     </div>
       </div>
+        <!-- Page end  -->
+    </div>
+      </div>
     </div>
  <!--end main  -->
     <!-- Modal Edit -->
-    <div class="modal fade" id="edit-note" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="popup text-left">
-                        <div class="media align-items-top justify-content-between">                            
-                            <h3 class="mb-3">Product</h3>
-                            <div class="btn-cancel p-0" data-dismiss="modal"><i class="las la-times"></i></div>
-                        </div>
-                        <div class="content edit-notes">
-                            <div class="card card-transparent card-block card-stretch event-note mb-0">
-                                <div class="card-body px-0 bukmark">
-                                    <div class="d-flex align-items-center justify-content-between pb-2 mb-3 border-bottom">                                                    
-                                        <div class="quill-tool">
-                                        </div>
-                                    </div>
-                                    <div id="quill-toolbar1">
-                                        <p>Virtual Digital Marketing Course every week on Monday, Wednesday and Saturday.Virtual Digital Marketing Course every week on Monday</p>
-                                    </div>
-                                </div>
-                                <div class="card-footer border-0">
-                                    <div class="d-flex flex-wrap align-items-ceter justify-content-end">
-                                        <div class="btn btn-primary mr-3" data-dismiss="modal">Cancel</div>
-                                        <div class="btn btn-outline-primary" data-dismiss="modal">Save</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     </div>
     </div>
     <!-- Wrapper End-->
@@ -412,6 +353,7 @@
     <script src="{{ asset('adm/js/backend-bundle.min.js') }}"></script>
 
 <!-- Table Treeview JavaScript -->
+
 <script src="{{ asset('adm/js/table-treeview.js') }}"></script>
 
 <!-- Chart Custom JavaScript -->

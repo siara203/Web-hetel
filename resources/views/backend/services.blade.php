@@ -6,7 +6,7 @@
       <title>SDN | Admin</title>
       
       <!-- Favicon -->
-      <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
+      <link rel="shortcut icon" href="{{ asset('adm/images/favicon.ico') }}" type="image/x-icon">
       <link rel="stylesheet" href="{{ asset('adm/css/backend-plugin.min.css') }}">
       <link rel="stylesheet" href="{{ asset('adm/css/backend.css?v=1.0.0') }}">
       <link rel="stylesheet" href="{{ asset('adm/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}">
@@ -28,7 +28,7 @@
       <div class="iq-sidebar  sidebar-default ">
           <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
               <a  href="{{ url('admin-dashboard') }}" class="header-logo">
-                  <img src="images/favicon.png"  alt="Favicon"  class="img-fluid rounded-normal light-logo" alt="logo"><h5 class="logo-title light-logo ml-3">SDN Hotel</h5>
+                  <img  src="adm/images/logo.png"  alt="Favicon"  class="img-fluid rounded-normal light-logo" alt="logo"><h5 class="logo-title light-logo ml-3">SDN Hotel</h5>
               </a>
               <div class="iq-menu-bt-sidebar ml-0">
                   <i class="las la-bars wrapper-menu"></i>
@@ -69,47 +69,24 @@
                           </ul>
                       </li>
                       <li class=" ">
-                          <a href="#product" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                              <svg class="svg-icon" id="p-dash2" width="20" height="20"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
-                                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                          <a href="#purchase" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                              <svg class="svg-icon" id="p-dash5" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                  <line x1="1" y1="10" x2="23" y2="10"></line>
                               </svg>
-                              <span class="ml-4">Orders</span>
+                              <span class="ml-4">Services</span>
                               <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                   <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
                               </svg>
                           </a>
-                          <ul id="product" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                              <li class="active">
-                                  <a href="{{ url('admin-orders') }}">
-                                      <i class="las la-minus"></i><span>List Order</span>
-                                  </a>
-                              </li>
-                              <li class="">
-                                  <a href="{{ url('admin-order-add') }}">
-                                      <i class="las la-minus"></i><span>Add Order</span>
-                                  </a>
-                              </li>
-                          </ul>
-                      </li>
-                      <li class=" ">
-                          <a href="#category" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                              <svg class="svg-icon" id="p-dash3" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                              </svg>
-                              <span class="ml-4">Rooms</span>
-                              <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                  <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
-                              </svg>
-                          </a>
-                          <ul id="category" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                                  <li class="">
-                                          <a href="">
-                                              <i class="las la-minus"></i><span>List Rooms</span>
+                          <ul id="purchase" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                                  <li class="active">
+                                          <a href="{{ url('admin-services') }}">
+                                              <i class="las la-minus"></i><span>List Services</span>
                                           </a>
                                   </li>
                                   <li class="">
-                                          <a href="">
-                                              <i class="las la-minus"></i><span>Add Room</span>
+                                          <a href="{{ url('admin-service-add') }}">
+                                              <i class="las la-minus"></i><span>Add Service</span>
                                           </a>
                                   </li>
                           </ul>
@@ -126,38 +103,61 @@
                           </a>
                           <ul id="sale" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
                                   <li class="">
-                                          <a href="">
+                                          <a href="{{ url('admin-room-types') }}">
                                               <i class="las la-minus"></i><span>List Room Types</span>
                                           </a>
                                   </li>
                                   <li class="">
-                                          <a href="">
+                                          <a href="{{ url('admin-room-type-add') }}">
                                               <i class="las la-minus"></i><span>Add Room Type</span>
                                           </a>
                                   </li>
                           </ul>
                       </li>
                       <li class=" ">
-                          <a href="#purchase" class="collapsed" data-toggle="collapse" aria-expanded="false">
-                              <svg class="svg-icon" id="p-dash5" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                                  <line x1="1" y1="10" x2="23" y2="10"></line>
+                          <a href="#category" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                              <svg class="svg-icon" id="p-dash3" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                               </svg>
-                              <span class="ml-4">Services</span>
+                              <span class="ml-4">Rooms</span>
                               <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                   <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
                               </svg>
                           </a>
-                          <ul id="purchase" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                          <ul id="category" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
                                   <li class="">
-                                          <a href="">
-                                              <i class="las la-minus"></i><span>List Services</span>
+                                          <a href="{{ url('admin-rooms') }}">
+                                              <i class="las la-minus"></i><span>List Rooms</span>
                                           </a>
                                   </li>
                                   <li class="">
-                                          <a href="">
-                                              <i class="las la-minus"></i><span>Add Service</span>
+                                          <a href="{{ url('admin-room-add') }}">
+                                              <i class="las la-minus"></i><span>Add Room</span>
                                           </a>
                                   </li>
+                          </ul>
+                      </li>
+                      <li class=" ">
+                          <a href="#product" class="collapsed" data-toggle="collapse" aria-expanded="false">
+                              <svg class="svg-icon" id="p-dash2" width="20" height="20"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
+                                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                              </svg>
+                              <span class="ml-4">Orders</span>
+                              <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                  <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
+                              </svg>
+                          </a>
+                          <ul id="product" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                              <li class="">
+                                  <a href="{{ url('admin-orders') }}">
+                                      <i class="las la-minus"></i><span>List Order</span>
+                                  </a>
+                              </li>
+                              <li class="">
+                                  <a href="{{ url('admin-order-add') }}">
+                                      <i class="las la-minus"></i><span>Add Order</span>
+                                  </a>
+                              </li>
                           </ul>
                       </li>
                   </ul>
@@ -170,7 +170,7 @@
                   <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
                       <i class="ri-menu-line wrapper-menu"></i>
                       <a href="../backend/index.html" class="header-logo">
-                          <img src="../assets/images/logo.png" class="img-fluid rounded-normal" alt="logo">
+                          <img src="images/favicon.png" class="img-fluid rounded-normal" alt="logo">
                           <h5 class="logo-title ml-3">SDN Hotel</h5>
                       </a>
                   </div>
@@ -211,10 +211,7 @@
                                               <div class="px-3 pt-0 pb-0 sub-card">
                                                   <a href="#" class="iq-sub-card">
                                                       <div class="media align-items-center cust-card py-3 border-bottom">
-                                                          <div class="">
-                                                              <img class="avatar-50 rounded-small"
-                                                                  src="../assets/images/user/01.jpg" alt="01">
-                                                          </div>
+                                            
                                                           <div class="media-body ml-3">
                                                               <div class="d-flex align-items-center justify-content-between">
                                                                   <h6 class="mb-0">Emma Watson</h6>
@@ -264,212 +261,56 @@
                   </div>
               </nav>
           </div>
-      </div> 
-       <!--main  -->
+      </div>  
+<!-- main -->    
 <div class="content-page">
      <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <div class="d-flex flex-wrap flex-wrap align-items-center justify-content-between mb-4">
+                <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
                     <div>
-                        <h4 class="mb-3">Orders List</h4>
-                        <p class="mb-0">Here, you can view and manage the website's order list easily.<br> Get detailed information about your orders and update their status to keep your business running smoothly.</p>
+                        <h4 class="mb-3">Service List</h4>
+                        <p class="mb-0">@include('errors.note')</p>
                     </div>
-                    <a href="page-add-product.html" class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Product</a>
+                    <a  href="{{ url('admin-service-add') }}"class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Service</a>
                 </div>
             </div>
             <div class="col-lg-12">
-                <div class="table-responsive rounded mb-3">
-                <table class="data-tables table mb-0 tbl-server-info">
+            <div class="table-responsive rounded mb-3">
+                <table class="data-table table mb-0 tbl-server-info">
                     <thead class="bg-white text-uppercase">
                         <tr class="ligth ligth-data">
-                            <th>
-                                <div class="checkbox d-inline-block">
-                                    <input type="checkbox" class="checkbox-input" id="checkbox1">
-                                    <label for="checkbox1" class="mb-0"></label>
-                                </div>
-                            </th>
-                            <th>Product</th>
-                            <th>Code</th>
-                            <th>Category</th>
+                            <th>Image</th>
+                            <th>Name</th>
                             <th>Price</th>
-                            <th>Brand Name</th>
-                            <th>Cost</th>
-                            <th>Quantity</th>
+                            <th>Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="ligth-body">
-                        <tr>
-                            <td>
-                                <div class="checkbox d-inline-block">
-                                    <input type="checkbox" class="checkbox-input" id="checkbox6">
-                                    <label for="checkbox6" class="mb-0"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="../assets/images/table/product/05.jpg" class="img-fluid rounded avatar-50 mr-3" alt="image">
-                                    <div>
-                                        Book Shelves                                   
-                                        <p class="mb-0"><small>This is test Product</small></p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>FUN01</td>
-                            <td>Furniture</td>
-                            <td>$30.00</td>
-                            <td>Vintage</td>
-                            <td>$30.00</td>
-                            <td>25.0</td>
-                            <td>
-                                <div class="d-flex align-items-center list-action">
-                                    <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
-                                        href="#"><i class="ri-eye-line mr-0"></i></a>
-                                    <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                        href="#"><i class="ri-pencil-line mr-0"></i></a>
-                                    <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
-                                        href="#"><i class="ri-delete-bin-line mr-0"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox d-inline-block">
-                                    <input type="checkbox" class="checkbox-input" id="checkbox7">
-                                    <label for="checkbox7" class="mb-0"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="../assets/images/table/product/06.jpg" class="img-fluid rounded avatar-50 mr-3" alt="image">
-                                    <div>
-                                        Dinner Set                                  
-                                        <p class="mb-0"><small>This is test Product</small></p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>DIS01</td>
-                            <td>Grocery</td>
-                            <td>$30.00</td>
-                            <td>Rancher's</td>
-                            <td>$20.00</td>
-                            <td>50.0</td>
-                            <td>
-                                <div class="d-flex align-items-center list-action">
-                                    <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
-                                        href="#"><i class="ri-eye-line mr-0"></i></a>
-                                    <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                        href="#"><i class="ri-pencil-line mr-0"></i></a>
-                                    <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
-                                        href="#"><i class="ri-delete-bin-line mr-0"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox d-inline-block">
-                                    <input type="checkbox" class="checkbox-input" id="checkbox8">
-                                    <label for="checkbox8" class="mb-0"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="../assets/images/table/product/07.jpg" class="img-fluid rounded avatar-50 mr-3" alt="image">
-                                    <div>
-                                        Nike Shoes                               
-                                        <p class="mb-0"><small>This is test Product</small></p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>NIS01</td>
-                            <td>Shoes</td>
-                            <td>$78.00</td>
-                            <td>Nike</td>
-                            <td>$50.00</td>
-                            <td>100.0</td>
-                            <td>
-                                <div class="d-flex align-items-center list-action">
-                                    <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
-                                        href="#"><i class="ri-eye-line mr-0"></i></a>
-                                    <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                        href="#"><i class="ri-pencil-line mr-0"></i></a>
-                                    <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
-                                        href="#"><i class="ri-delete-bin-line mr-0"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox d-inline-block">
-                                    <input type="checkbox" class="checkbox-input" id="checkbox9">
-                                    <label for="checkbox9" class="mb-0"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="../assets/images/table/product/08.jpg" class="img-fluid rounded avatar-50 mr-3" alt="image">
-                                    <div>
-                                        Computer Glasses                               
-                                        <p class="mb-0"><small>This is test Product</small></p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>COG01</td>
-                            <td>Frames</td>
-                            <td>$25.00</td>
-                            <td>Ray-Ban</td>
-                            <td>$20.00</td>
-                            <td>30.0</td>
-                            <td>
-                                <div class="d-flex align-items-center list-action">
-                                    <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
-                                        href="#"><i class="ri-eye-line mr-0"></i></a>
-                                    <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                        href="#"><i class="ri-pencil-line mr-0"></i></a>
-                                    <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
-                                        href="#"><i class="ri-delete-bin-line mr-0"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox d-inline-block">
-                                    <input type="checkbox" class="checkbox-input" id="checkbox10">
-                                    <label for="checkbox10" class="mb-0"></label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <img src="../assets/images/table/product/09.jpg" class="img-fluid rounded avatar-50 mr-3" alt="image">
-                                    <div>
-                                        Alloy Jewel Set                   
-                                        <p class="mb-0"><small>This is test Product</small></p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>AJS01</td>
-                            <td>Jewellery</td>
-                            <td>$150.00</td>
-                            <td>Jazzin</td>
-                            <td>$50.00</td>
-                            <td>200.0</td>
-                            <td>
-                                <div class="d-flex align-items-center list-action">
-                                    <a class="badge badge-info mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="View"
-                                        href="#"><i class="ri-eye-line mr-0"></i></a>
-                                    <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"
-                                        href="#"><i class="ri-pencil-line mr-0"></i></a>
-                                    <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"
-                                        href="#"><i class="ri-delete-bin-line mr-0"></i></a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-            </div>
+                @foreach($services as $service)
+                <tr>
+                    <td>
+                    <img src="{{ asset('images/services/' . $service->picture->file_name) }}" class="img-fluid rounded avatar-50 mr-3" alt="image">
+                    </td>
+                    <td>{{ $service->name }}</td>
+                    <td>{{ $service->price }} $</td>
+                    <td>{{ $service->description }}</td>
+                    <td>
+                        <div class="d-flex align-items-center list-action">
+                            <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href="{{ route('getserviceedit', ['id' => $service->id]) }}"><i class="ri-pencil-line mr-0"></i></a>
+                            <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href="{{ route('deleteservice', ['id' => $service->id]) }}"><i class="ri-delete-bin-line mr-0"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
         </div>
+    </div>
         <!-- Page end  -->
     </div>
     <!-- Modal Edit -->
@@ -506,9 +347,9 @@
             </div>
         </div>
     </div>
-      </div>    
-      </div>
-    </div>
+      </div> 
+    <!-- Modal Edit -->
+
     <!-- Wrapper End-->
     <footer class="iq-footer">
             <div class="container-fluid">
