@@ -79,7 +79,7 @@
                               </svg>
                           </a>
                           <ul id="purchase" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                                  <li class="active">
+                                  <li class="">
                                           <a href="{{ url('admin-services') }}">
                                               <i class="las la-minus"></i><span>List Services</span>
                                           </a>
@@ -125,7 +125,7 @@
                               </svg>
                           </a>
                           <ul id="category" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                                  <li class="">
+                                  <li class="active">
                                           <a href="{{ url('admin-rooms') }}">
                                               <i class="las la-minus"></i><span>List Rooms</span>
                                           </a>
@@ -269,41 +269,45 @@
             <div class="col-lg-12">
                 <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
                     <div>
-                        <h4 class="mb-3">Service List</h4>
+                        <h4 class="mb-3">Rooms List</h4>
                         <p class="mb-0">@include('errors.note')</p>
                     </div>
-                    <a  href="{{ url('admin-service-add') }}"class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Service</a>
+                    <a  href="{{ url('admin-room-type-add') }}"class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Room Type</a>
                 </div>
             </div>
             <div class="col-lg-12">
             <div class="table-responsive rounded mb-3">
                 <table class="data-table table mb-0 tbl-server-info">
                     <thead class="bg-white text-uppercase">
-                        <tr class="ligth ligth-data">
-                            <th>Image</th>
+                        <tr class="ligth ligth-data">                      
                             <th>Name</th>
+                            <th>Size</th>
                             <th>Price</th>
+                            <th>Room Type</th>
+                            <th>Status</th>
+                            <th>Images</th>
                             <th>Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="ligth-body">
-                @foreach($services as $service)
-                <tr>
-                    <td>
-                    <img src="{{ asset('images/services/' . $service->picture->file_name) }}" class="img-fluid rounded avatar-50 mr-3" alt="image">
-                    </td>
-                    <td>{{ $service->name }}</td>
-                    <td>{{ $service->price }} $</td>
-                    <td>{{ $service->description }}</td>
-                    <td>
+                    
+            <tr>
+                <td></td>
+                <td> m²</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
                         <div class="d-flex align-items-center list-action">
-                            <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href="{{ route('getserviceedit', ['id' => $service->id]) }}"><i class="ri-pencil-line mr-0"></i></a>
-                            <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href="{{ route('deleteservice', ['id' => $service->id]) }}"><i class="ri-delete-bin-line mr-0"></i></a>
+                            <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href=""><i class="ri-pencil-line mr-0"></i></a>
+                            <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href=""><i class="ri-delete-bin-line mr-0"></i></a>
                         </div>
                     </td>
                 </tr>
-                @endforeach
+              
             </tbody>
         </table>
     </div>
