@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('order_rooms', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('room_id');
-            $table->decimal('price');
-            
-            $table->text('message')->nullable();
+            $table->unsignedBigInteger('room_id');    
             $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('room_id')->references('id')->on('rooms');
             $table->timestamps();

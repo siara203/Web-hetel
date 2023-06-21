@@ -116,7 +116,7 @@
     
     <!--/.footer-bottom--> 
 </footer>
-<div class="text-center copyright">© 2023, <a href="">SDN Hotel</a></div>
+<div class="text-center copyright">© <b>2023 ,</b> <a href="">SDN Hotel</a></div>
 <a href="#home" class="toTop scroll"><i class="fa fa-angle-up"></i></a>
 <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
