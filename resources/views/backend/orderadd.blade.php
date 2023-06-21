@@ -164,7 +164,8 @@
               </nav>
               <div class="p-3"></div>
           </div>
-          </div>      <div class="iq-top-navbar">
+          </div>     
+           <div class="iq-top-navbar">
           <div class="iq-navbar-custom">
               <nav class="navbar navbar-expand-lg navbar-light p-0">
                   <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
@@ -262,74 +263,67 @@
               </nav>
           </div>
       </div>  
-<!-- main -->
+<!-- main -->    
 <div class="content-page">
-<div class="container-fluid add-form-list">
+     <div class="container-fluid add-form-list">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Add Order</h4>
+                            <h4 class="card-title">Add Room</h4>
+                            <p>@include('errors.note')</p>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="page-list-product.html" data-toggle="validator">
-                            <div class="row">
-                                <div class="col-md-6">
+                    <form action="" method="POST" enctype="multipart/form-data" data-toggle="validator">
+                       
+                            <div class="row">                                
+                            <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Customer *</label>
-                                        <select name="type" class="selectpicker form-control" data-style="py-0">
-                                            <option>Standard</option>
-                                            <option>Combo</option>
-                                            <option>Digital</option>
-                                            <option>Service</option>
+                                        <select class="form-control mb-3">
+                                            <option></option>                                                                                 
                                         </select>
                                     </div> 
                                 </div>  
                                 <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="dob">Date and Time of Order *</label>
-                                    <input type="datetime-local" class="form-control" id="dob" name="dob" />
-                                </div>
-                                </div>
-    
-                                <div class="col-md-6"> 
+                                        <label>Check in date *</label>
+                                    <div class="form-group">
+                                            <input type="datetime-local" class="form-control" id="exampleInputdatetime" value="2019-12-19T13:45:00">
+                                    </div>
+                                </div>  
+                                <div class="col-md-6">
+                                         <label>Check out date *</label>
+                                    <div class="form-group">
+                                            <input type="datetime-local" class="form-control" id="exampleInputdatetime" value="2019-12-19T13:45:00">
+                                    </div>
+                                </div>    
+                            <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Status *</label>
                                         <select name="type" class="selectpicker form-control" data-style="py-0">
-                                            <option>CREM01</option>
-                                            <option>UM01</option>
-                                            <option>SEM01</option>
-                                            <option>COF01</option>
-                                            <option>FUN01</option>
-                                            <option>DIS01</option>
-                                            <option>NIS01</option>
+                                            <option>Active</option>                                         
+                                            <option>Cancelled</option>
+                                            <option>Pending</option>
                                         </select>
                                     </div>
-                                </div> 
-                                <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Services *</label>
                                         <select name="type" class="selectpicker form-control" data-style="py-0">
-                                            <option>Beauty</option>
-                                            <option>Grocery</option>
-                                            <option>Food</option>
-                                            <option>Furniture</option>
-                                            <option>Shoes</option>
-                                            <option>Frames</option>
-                                            <option>Jewellery</option>
+                                            <option></option>                                         
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
+                            </div>
+                            <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Description / Orduct Details</label>
-                                        <textarea class="form-control" rows="4"></textarea>
+                                        <label>Images *</label>
+                                        <input type="file" class="form-control image-file" name="images" accept="image/*">
                                     </div>
-                                </div>
-                            </div>                            
-                            <button type="submit" class="btn btn-primary mr-2">Add Orduct</button>
+                            </div>                                                  
+                            <button type="submit" class="btn btn-primary mr-2">Add Order</button>
                             <button type="reset" class="btn btn-danger">Reset</button>
                         </form>
                     </div>
@@ -338,8 +332,15 @@
         </div>
         <!-- Page end  -->
     </div>
-</div>
-</div>
+      </div>
+        <!-- Page end  -->
+    </div>
+      </div>
+    </div>
+ <!--end main  -->
+    <!-- Modal Edit -->
+
+    </div>
     </div>
     <!-- Wrapper End-->
     <footer class="iq-footer">
@@ -365,6 +366,7 @@
     <script src="{{ asset('adm/js/backend-bundle.min.js') }}"></script>
 
 <!-- Table Treeview JavaScript -->
+
 <script src="{{ asset('adm/js/table-treeview.js') }}"></script>
 
 <!-- Chart Custom JavaScript -->

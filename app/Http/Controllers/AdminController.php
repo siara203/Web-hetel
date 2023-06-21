@@ -69,7 +69,6 @@ class AdminController extends Controller
         $picture->delete();
     }
    
-
     return redirect()->back()->with('success', 'Service deleted successfully.');
     }
 
@@ -123,15 +122,6 @@ class AdminController extends Controller
         return view('backend.services', compact('services'));
     }
     
-    // orders show
-    public function getorders()
-    {
-        return view('backend.orders');
-    }
-    public function getorderadd()
-    {
-        return view('backend.orderadd');
-    }
     // users show
        public function getusers()
     {
@@ -268,9 +258,7 @@ class AdminController extends Controller
         'name' => 'required',
         'description' => 'required',
     ]);
-
     $roomType = RoomType::find($id);
-
     if (!$roomType) {
         return redirect()->back()->with('error', 'Room Type not found.');
     }
@@ -280,6 +268,26 @@ class AdminController extends Controller
     $roomType->save();
 
     return redirect()->back()->with('success', 'Room Type updated successfully.');
-    }   
+    } 
+    //rooms show
+    public function getrooms()
+    {
+        return view('backend.rooms');
+    }
+    //room add
+    public function getroomadd()
+    {
+        return view('backend.roomadd');
+    }
+    //orders show
+    public function getorders()
+    {
+        return view('backend.orders');
+    }
+    //order add
+    public function getorderadd()
+    {
+        return view('backend.orderadd');
+    }
 }
 ?>

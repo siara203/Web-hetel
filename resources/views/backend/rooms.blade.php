@@ -272,7 +272,7 @@
                         <h4 class="mb-3">Rooms List</h4>
                         <p class="mb-0">@include('errors.note')</p>
                     </div>
-                    <a  href="{{ url('admin-room-type-add') }}"class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Room Type</a>
+                    <a  href="{{ url('admin-room-add') }}"class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Room</a>
                 </div>
             </div>
             <div class="col-lg-12">
@@ -286,7 +286,7 @@
                             <th>Room Type</th>
                             <th>Status</th>
                             <th>Images</th>
-                            <th>Description</th>
+                           
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -297,8 +297,15 @@
                 <td> m²</td>
                 <td></td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td>
+                    <!-- Maintenance(Đang bảo trì)
+                        Empty(Phòng trống) 
+                        Active(Đang hoạt động)-->
+                    <span class="badge bg-warning-light">Active</span>
+                    <span class="badge bg-danger-light">Maintenance</span>
+                    <span class="badge bg-info-light">Empty</span>
+                </td>
+                
                 <td></td>
                 <td>
                         <div class="d-flex align-items-center list-action">

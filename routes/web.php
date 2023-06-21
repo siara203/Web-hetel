@@ -62,4 +62,11 @@ Route::group(['middleware' => 'auth.redirect'], function () {
     Route::get('/admin-room-delete-{id}',[AdminController::class, 'deleteroom'])->name('deleteroom');
     Route::get('/admin-room-edit-{id}',[AdminController::class, 'getroomedit'])->name('roomedit');
     Route::post('/admin-room-edit-{id}',[AdminController::class, 'postroomedit'])->name('roomedit');
+    //  Orders
+    Route::get('/admin-orders', [AdminController::class, 'getorders']);
+    Route::get('/admin-order-add', [AdminController::class, 'getorderadd']);
+    Route::post('/admin-order-add', [AdminController::class, 'postorderadd'])->name('orderadd');
+    Route::get('/admin-order-delete-{id}',[AdminController::class, 'deleteorder'])->name('deleteorder');
+    Route::get('/admin-order-edit-{id}',[AdminController::class, 'getorderedit'])->name('orderedit');
+    Route::post('/admin-order-edit-{id}',[AdminController::class, 'postorderedit'])->name('orderedit');    
 });

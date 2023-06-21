@@ -270,7 +270,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Add service</h4>
+                            <h4 class="card-title">Add Service</h4>
                             <p>@include('errors.note')</p>
                         </div>
                     </div>
@@ -287,14 +287,14 @@
                                 <div class="col-md-12">                      
                                     <div class="form-group">
                                         <label>Name *</label>
-                                        <input name="name" type="text" class="form-control" placeholder="Enter Name" required>
+                                        <input name="name" type="text" class="form-control" required placeholder="Enter Name">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>                                                              
                                 <div class="col-md-12">
                                     <label>Price *</label>
                                 <div class="input-group">
-                                    <input name="price" type="text" class="form-control" >
+                                    <input name="price" type="text" class="form-control" placeholder="Enter Price" >
                                     <div class="input-group-append">
                                     <span class="input-group-text">$</span>
                                  
@@ -309,7 +309,7 @@
                                   </div>
                                </div>
                                                                
-                            <button type="submit" class="btn btn-primary mr-2">Add service</button>
+                            <button type="submit" class="btn btn-primary mr-2">Add Service</button>
                             <button type="reset" class="btn btn-danger">Reset</button>
                         </form>
                     </div>

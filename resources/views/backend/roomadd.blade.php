@@ -289,7 +289,7 @@
                                 <div class="col-md-6">
                                         <label>Size *</label>
                                     <div class="input-group">
-                                            <input name="size" type="text" class="form-control" >
+                                            <input placeholder="Enter Size" name="size" type="text" class="form-control" >
                                         <div class="input-group-append">
                                             <span class="input-group-text">m²</span>                           
                                         </div>
@@ -298,40 +298,39 @@
                                 <div class="col-md-6">
                                          <label>Price *</label>
                                     <div class="input-group">
-                                            <input name="price" type="text" class="form-control" >
+                                            <input name="price" placeholder="Enter Price" type="text" class="form-control" >
                                         <div class="input-group-append">
                                             <span class="input-group-text">$</span>                                
                                         </div>
                                     </div>
                                 </div>    
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Room Type</label>
+                                        <label>Room Type *</label>
                                         <select class="form-control mb-3">
-                                            <option selected="">Open this select menu</option>
-                                            <option >One</option>                                       
+                                            <option></option>
+                                                                                  
                                         </select>
                                 </div> 
                             </div> 
                             <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Status</label>
+                                        <label>Status *</label>
                                         <select name="type" class="selectpicker form-control" data-style="py-0">
-                                            <option selected="">Open this select menu</option>
-                                            <option></option>
-                                            <option></option>
+                                            <option>Inactive</option>                                         
+                                            <option>Occupied</option>
+                                            <option>Available</option>
                                         </select>
                                     </div>
                             </div>
-                                <div class="col-md-12">
+                            <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Description</label>                                
                                         <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                                      </div>
                                   </div>
-                                </div>
-                                                               
-                            <button type="submit" class="btn btn-primary mr-2">Add Room Type</button>
+                            </div>                                                  
+                            <button type="submit" class="btn btn-primary mr-2">Add Order</button>
                             <button type="reset" class="btn btn-danger">Reset</button>
                         </form>
                     </div>
