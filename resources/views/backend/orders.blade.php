@@ -308,8 +308,8 @@
                 <td></td>
                 <td>
                         <div class="d-flex align-items-center list-action">
-                            <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Payment" href=""><i class="fas fa-money-bill-alt"></i></a>                         
-                            <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href=""><i class="ri-pencil-line mr-0"></i></a>
+                        <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Payment" href=""><i class="fas fa-money-bill-alt text-white"></i></a>                    
+                         <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href=""><i class="ri-pencil-line mr-0"></i></a>
                             <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href=""><i class="ri-delete-bin-line mr-0"></i></a>
                         </div>
                     </td>

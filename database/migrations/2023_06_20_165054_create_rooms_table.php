@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('type_id')->references('id')->on('room_types');
             $table->foreign('picture_id')->references('id')->on('pictures');
             $table->string('status');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

@@ -1,19 +1,20 @@
 <?php
 
+
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use App\Models\Picture;
+use App\Models\Room;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
-use App\Models\Picture;
-use Illuminate\Http\Request;
 use App\Models\Service;
 use App\Models\RoomType;
-use App\Models\Room;
 use App\Models\Order;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
-class AdminController extends Controller
 
+class AdminController extends Controller
 {
     //dashboard show
     public function getdashboard()
@@ -216,12 +217,12 @@ class AdminController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'description' => 'required',
+            
         ]);
 
         $roomType = new RoomType();
         $roomType->name = $request->name;
-        $roomType->description = $request->description;
+       
         $roomType->save();
 
         return redirect()->back()->with('success', 'Room Type added successfully.');
@@ -272,13 +273,61 @@ class AdminController extends Controller
     //rooms show
     public function getrooms()
     {
-        return view('backend.rooms');
+        $rooms = Room::all();
+        
+        return view('backend.rooms', compact('rooms'));
     }
-    //room add
+    
+   //room add
     public function getroomadd()
     {
-        return view('backend.roomadd');
+        $roomTypes = RoomType::all();
+        $room = new Room();
+        return view('backend.roomadd', compact('roomTypes', 'room'));
     }
+
+    public function postroomadd(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|unique:rooms',
+            'size' => 'required',
+            'price' => 'required',
+            'type_id' => 'required',
+            'status' => 'required',
+            'images' => 'required|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'required',
+        ]);
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = $image->getClientOriginalName();
+                $imagePath = $image->move(public_path('images/rooms'), $imageName);
+
+                $picture = new Picture([
+                    'file_name' => $imageName,
+                    'path' => $imagePath,
+                    'gfi' => $image->getClientOriginalExtension(),
+                ]);
+                $picture->save();
+
+                $room = new Room([
+                    'name' => $request->name,
+                    'size' => $request->size,
+                    'price' => $request->price,
+                    'status' => $request->status,
+                    'type_id' => $request->type_id,
+                    'description' => $request->description,
+                ]);
+                $room->save();
+                $room->picture()->associate($picture);
+                $room->save();
+            }
+        }
+
+        return redirect()->back()->with('success', 'Room added successfully.');
+    }
+
     //orders show
     public function getorders()
     {
@@ -290,4 +339,3 @@ class AdminController extends Controller
         return view('backend.orderadd');
     }
 }
-?>

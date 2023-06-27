@@ -286,37 +286,47 @@
                             <th>Room Type</th>
                             <th>Status</th>
                             <th>Images</th>
-                           
+                            <th>Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="ligth-body">
-                    
-            <tr>
-                <td></td>
-                <td> m²</td>
-                <td></td>
-                <td></td>
-                <td>
-                    <!-- Maintenance(Đang bảo trì)
-                        Empty(Phòng trống) 
-                        Active(Đang hoạt động)-->
-                    <span class="badge bg-warning-light">Active</span>
-                    <span class="badge bg-danger-light">Maintenance</span>
-                    <span class="badge bg-info-light">Empty</span>
-                </td>
+                        @foreach($rooms as $room)
+                        <tr>
+                            <td>{{ $room->name }}</td>
+                            <td>{{ $room->size }} m²</td>
+                            <td>{{ $room->price }}</td>
+                            <td>{{ $room->roomType->name }}</td>
+                            <!-- Maintenance(Đang bảo trì)
+                            Empty(Phòng trống) 
+                            Active(Đang hoạt động)-->
+                            <td>
+                                <div class="status-badge">
+                                    @if ($room->status === 'active')
+                                        <span class="badge bg-warning-light">Active</span>
+                                    @elseif ($room->status === 'maintenance')
+                                        <span class="badge bg-danger-light">Maintenance</span>
+                                    @elseif ($room->status === 'empty')
+                                        <span class="badge bg-info-light">Empty</span>
+                                    @endif
+                                </div>
+                            </td>
+                            <td>
+                                <img src="{{ asset('images/rooms/' . $room->picture->file_name) }}" class="img-fluid rounded avatar-50 mr-3" alt="image">
+                                
+                            </td>
+                            <td>{{ $room->description }}</td>
+                            <td>
+                                <div class="d-flex align-items-center list-action">
+                                    <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href=""><i class="ri-pencil-line mr-0"></i></a>
+                                    <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href=""><i class="ri-delete-bin-line mr-0"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 
-                <td></td>
-                <td>
-                        <div class="d-flex align-items-center list-action">
-                            <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href=""><i class="ri-pencil-line mr-0"></i></a>
-                            <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href=""><i class="ri-delete-bin-line mr-0"></i></a>
-                        </div>
-                    </td>
-                </tr>
-              
-            </tbody>
-        </table>
     </div>
 </div>
 

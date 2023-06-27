@@ -276,63 +276,72 @@
                         </div>
                     </div>
                     <div class="card-body">
-                    <form action="" method="POST" enctype="multipart/form-data" data-toggle="validator">
-                       
-                            <div class="row">                                
-                                <div class="col-md-12">                      
+                        <form action="{{ route('roomadd') }}" method="POST" enctype="multipart/form-data" data-toggle="validator">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Name *</label>
                                         <input name="name" type="text" class="form-control" placeholder="Enter Name" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-6">
-                                        <label>Size *</label>
+                                    <label>Size *</label>
                                     <div class="input-group">
-                                            <input placeholder="Enter Size" name="size" type="text" class="form-control" >
+                                        <input placeholder="Enter Size" name="size" type="text" class="form-control">
                                         <div class="input-group-append">
-                                            <span class="input-group-text">m²</span>                           
+                                            <span class="input-group-text">m²</span>
                                         </div>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="col-md-6">
-                                         <label>Price *</label>
+                                    <label>Price *</label>
                                     <div class="input-group">
-                                            <input name="price" placeholder="Enter Price" type="text" class="form-control" >
+                                        <input name="price" placeholder="Enter Price" type="text" class="form-control">
                                         <div class="input-group-append">
-                                            <span class="input-group-text">$</span>                                
+                                            <span class="input-group-text">$</span>
                                         </div>
                                     </div>
-                                </div>    
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Room Type *</label>
-                                        <select class="form-control mb-3">
-                                            <option></option>
-                                                                                  
-                                        </select>
-                                </div> 
-                            </div> 
-                            <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Status *</label>
-                                        <select name="type" class="selectpicker form-control" data-style="py-0">
-                                            <option>Inactive</option>                                         
-                                            <option>Occupied</option>
-                                            <option>Available</option>
+                                        <select name="type_id" class="form-control mb-3">
+                                            <option value="">Select Room Type</option>
+                                            @foreach($roomTypes as $roomType)
+                                            <option value="{{ $roomType->id }}">{{ $roomType->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
-                            </div>
-                            <div class="col-md-12">
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleFormControlTextarea1">Description</label>                                
-                                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                     </div>
-                                  </div>
-                            </div>                                                  
-                            <button type="submit" class="btn btn-primary mr-2">Add Order</button>
+                                        <label>Status *</label>
+                                        <select name="status" class="selectpicker form-control" data-style="py-0">
+                                            <option value="maintenance">Maintenance</option>
+                                            <option value="empty">Empty</option>
+                                            <option value="active">Active</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Image *</label>
+                                        <input multiple type="file" class="form-control image-file" name="images[]" accept="image/*">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">Description</label>                                
+                                            <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                         </div>
+                                 </div>
+                                   
+                            </div>
+                            <button type="submit" class="btn btn-primary mr-2">Add Room</button>
                             <button type="reset" class="btn btn-danger">Reset</button>
-                        </form>
+                        </form>                                               
                     </div>
                 </div>
             </div>

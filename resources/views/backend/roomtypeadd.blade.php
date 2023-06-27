@@ -279,7 +279,7 @@
                     <form action="{{ route('roomtypeadd') }}" method="POST" enctype="multipart/form-data" data-toggle="validator">
                          @csrf
                             <div class="row">                                
-                                <div class="col-md-12">                      
+                                <div class="col-md-6">                      
                                     <div class="form-group">
                                         <label>Name *</label>
                                         <input name="name" type="text" class="form-control" placeholder="Enter Name" required>
@@ -287,13 +287,7 @@
                                     </div>
                                 </div> 
 
-                                <div class="col-md-12">
-                                <div class="form-group">
-                                        <label for="exampleFormControlTextarea1">Description</label>                                
-                                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                     </div>
-                                  </div>
-                               </div>
+                            </div>
                                                                
                             <button type="submit" class="btn btn-primary mr-2">Add Room Type</button>
                             <button type="reset" class="btn btn-danger">Reset</button>
