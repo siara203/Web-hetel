@@ -277,40 +277,45 @@
                     <div class="card-body">
                     <form action="{{ route('postserviceedit', $service->id) }}" method="POST" enctype="multipart/form-data" data-toggle="validator">
                 @csrf
-                <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Image *</label>
-                <input type="file" class="form-control image-file" name="pic" accept="image/*">
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Name *</label>
-                <input name="name" type="text" class="form-control" placeholder="Enter Name" value="{{ $service->name }}" required>
-                <div class="help-block with-errors"></div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <label>Price *</label>
-            <div class="input-group">
-                <input name="price" type="text" class="form-control" value="{{ $service->price }}">
-                <div class="input-group-append">
-                    <span class="input-group-text">$</span>
+                            <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Name *</label>
+                            <input name="name" type="text" class="form-control" placeholder="Enter Name" value="{{ $service->name }}" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Price *</label>
+                        <div class="input-group">
+                            <input name="price" type="text" class="form-control" value="{{ $service->price }}">
+                            <div class="input-group-append">
+                                <span class="input-group-text">$</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Image *</label>
+                            <input type="file" class="form-control image-file" name="pic" accept="image/*">
+                        </div>
+                    </div>                    
+                    <div class="col-md-12" >
+                        <div class="form-group">
+                            <img style="width: 400px;heght:400px" src="{{ asset('images/services/' . $service->picture->file_name) }}" class="img-fluid" alt="Current Image">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Description</label>
+                            <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $service->description }}</textarea>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Description</label>
-                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $service->description }}</textarea>
-            </div>
-        </div>
-    </div>
 
-    <button type="submit" class="btn btn-primary mr-2">Edit Service</button>
-    <button type="reset" class="btn btn-danger">Reset</button>
-</form>
+                <button type="submit" class="btn btn-primary mr-2">Edit Service</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+            </form>
 
 
                     </div>

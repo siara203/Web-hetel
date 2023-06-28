@@ -325,7 +325,65 @@ class AdminController extends Controller
     
         return redirect()->back()->with('success', 'Room added successfully.');
     }
-    
+    //room edit
+    public function getroomedit($id)
+    {
+        $room = Room::findOrFail($id);
+        $roomTypes = RoomType::all();
+        
+        return view('backend/roomedit', compact('room', 'roomTypes'));
+    }
+    public function postroomedit(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|unique:rooms,name,'.$id,
+            'size' => 'required',
+            'price' => 'required',
+            'type_id' => 'required',
+            'status' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'required',
+        ]);
+
+        $room = Room::findOrFail($id);
+        $room->name = $request->name;
+        $room->size = $request->size;
+        $room->price = $request->price;
+        $room->type_id = $request->type_id;
+        $room->status = $request->status;
+        $room->description = $request->description;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $imagePath = $image->move(public_path('images/rooms'), $imageName);
+
+            $picture = new Picture([
+                'file_name' => $imageName,
+                'path' => $imagePath,
+                'gfi' => $image->getClientOriginalExtension(),
+            ]);
+            $picture->save();
+
+            $room->picture()->associate($picture);
+        }
+
+        $room->save();
+
+        return redirect()->back()->with('success', 'Room updated successfully.');
+    }
+    //room delete
+    public function deleteroom($id)
+    {
+        $room = Room::findOrFail($id);
+        $room->delete();
+        $picture = $room->picture;
+        if ($picture) {
+            $picture->delete();
+        }
+        return redirect()->back()->with('success', 'Room deleted successfully.');
+    }
+
 
     //orders show
     public function getorders()

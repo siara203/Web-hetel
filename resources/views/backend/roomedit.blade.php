@@ -276,20 +276,21 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('roomadd') }}" method="POST" enctype="multipart/form-data" data-toggle="validator">
+                        <form action="{{ route('roomedit', $room->id) }}" method="POST" enctype="multipart/form-data" data-toggle="validator">
                             @csrf
+                          
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Name *</label>
-                                        <input name="name" type="text" class="form-control" placeholder="Enter Name" required>
+                                        <input name="name" type="text" class="form-control" placeholder="Enter Name" value="{{ $room->name }}" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Size *</label>
                                     <div class="input-group">
-                                        <input placeholder="Enter Size" name="size" type="text" class="form-control">
+                                        <input placeholder="Enter Size" name="size" type="text" class="form-control" value="{{ $room->size }}">
                                         <div class="input-group-append">
                                             <span class="input-group-text">m²</span>
                                         </div>
@@ -298,7 +299,7 @@
                                 <div class="col-md-6">
                                     <label>Price *</label>
                                     <div class="input-group">
-                                        <input name="price" placeholder="Enter Price" type="text" class="form-control">
+                                        <input name="price" placeholder="Enter Price" type="text" class="form-control" value="{{ $room->price }}">
                                         <div class="input-group-append">
                                             <span class="input-group-text">$</span>
                                         </div>
@@ -310,7 +311,7 @@
                                         <select name="type_id" class="form-control mb-3">
                                             <option value="">Select Room Type</option>
                                             @foreach($roomTypes as $roomType)
-                                            <option value="{{ $roomType->id }}">{{ $roomType->name }}</option>
+                                            <option value="{{ $roomType->id }}" {{ $room->type_id == $roomType->id ? 'selected' : '' }}>{{ $roomType->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -319,29 +320,35 @@
                                     <div class="form-group">
                                         <label>Status *</label>
                                         <select name="status" class="selectpicker form-control" data-style="py-0">
-                                            <option value="maintenance">Maintenance</option>
-                                            <option value="empty">Empty</option>
-                                            <option value="active">Active</option>
+                                            <option value="maintenance" {{ $room->status == 'maintenance' ? 'selected' : '' }}>Maintenance</option>
+                                            <option value="empty" {{ $room->status == 'empty' ? 'selected' : '' }}>Empty</option>
+                                            <option value="active" {{ $room->status == 'active' ? 'selected' : '' }}>Active</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Images *</label>
-                                        <input multiple type="file" class="form-control image-file" name="image" accept="image/*" required>
+                                        <label>Image *</label>
+                                        
+                                        <input type="file" class="form-control image-file" name="image" accept="image/*">
+                                    </div>                             
+                                    <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label></label>
+                                        <img src="{{ asset('images/rooms/' . $room->picture->file_name) }}" class="img-fluid" alt="Current Image">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Description</label>
-                                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $room->description }}</textarea>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary mr-2">Edit Room</button>
+                            <button type="submit" class="btn btn-primary mr-2">Update Room</button>
                             <button type="reset" class="btn btn-danger">Reset</button>
                         </form>
-                                                                     
+                                                             
                     </div>
                 </div>
             </div>
