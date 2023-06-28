@@ -327,21 +327,21 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Image *</label>
-                                        <input multiple type="file" class="form-control image-file" name="images[]" accept="image/*">
+                                        <label>Images *</label>
+                                        <input multiple type="file" class="form-control image-file" name="image" accept="image/*" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlTextarea1">Description</label>                                
-                                            <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                         </div>
-                                 </div>
-                                   
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Description</label>
+                                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary mr-2">Add Room</button>
                             <button type="reset" class="btn btn-danger">Reset</button>
-                        </form>                                               
+                        </form>
+                                                                     
                     </div>
                 </div>
             </div>

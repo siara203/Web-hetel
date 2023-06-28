@@ -294,39 +294,38 @@ class AdminController extends Controller
             'price' => 'required',
             'type_id' => 'required',
             'status' => 'required',
-            'images' => 'required|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'required',
         ]);
-
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $imageName = $image->getClientOriginalName();
-                $imagePath = $image->move(public_path('images/rooms'), $imageName);
-
-                $picture = new Picture([
-                    'file_name' => $imageName,
-                    'path' => $imagePath,
-                    'gfi' => $image->getClientOriginalExtension(),
-                ]);
-                $picture->save();
-
-                $room = new Room([
-                    'name' => $request->name,
-                    'size' => $request->size,
-                    'price' => $request->price,
-                    'status' => $request->status,
-                    'type_id' => $request->type_id,
-                    'description' => $request->description,
-                ]);
-                $room->save();
-                $room->picture()->associate($picture);
-                $room->save();
-            }
+    
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $imagePath = $image->move(public_path('images/rooms'), $imageName);
+    
+            $picture = new Picture([
+                'file_name' => $imageName,
+                'path' => $imagePath,
+                'gfi' => $image->getClientOriginalExtension(),
+            ]);
+            $picture->save();
+    
+            $room = new Room([
+                'name' => $request->name,
+                'size' => $request->size,
+                'price' => $request->price,
+                'status' => $request->status,
+                'type_id' => $request->type_id,
+                'description' => $request->description,
+            ]);
+            $room->save();
+            $room->picture()->associate($picture);
+            $room->save();
         }
-
+    
         return redirect()->back()->with('success', 'Room added successfully.');
     }
+    
 
     //orders show
     public function getorders()

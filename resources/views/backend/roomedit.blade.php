@@ -79,7 +79,7 @@
                               </svg>
                           </a>
                           <ul id="purchase" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                                  <li class="active">
+                                  <li class="">
                                           <a href="{{ url('admin-services') }}">
                                               <i class="las la-minus"></i><span>List Services</span>
                                           </a>
@@ -130,7 +130,7 @@
                                               <i class="las la-minus"></i><span>List Rooms</span>
                                           </a>
                                   </li>
-                                  <li class="">
+                                  <li class="active">
                                           <a href="{{ url('admin-room-add') }}">
                                               <i class="las la-minus"></i><span>Add Room</span>
                                           </a>
@@ -164,7 +164,8 @@
               </nav>
               <div class="p-3"></div>
           </div>
-          </div>      <div class="iq-top-navbar">
+          </div>     
+           <div class="iq-top-navbar">
           <div class="iq-navbar-custom">
               <nav class="navbar navbar-expand-lg navbar-light p-0">
                   <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
@@ -270,49 +271,77 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Add service</h4>
+                            <h4 class="card-title">Add Room</h4>
                             <p>@include('errors.note')</p>
                         </div>
                     </div>
                     <div class="card-body">
-                    <form action="{{ route('postserviceedit', $service->id) }}" method="POST" enctype="multipart/form-data" data-toggle="validator">
-                @csrf
-                <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Image *</label>
-                <input type="file" class="form-control image-file" name="pic" accept="image/*">
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label>Name *</label>
-                <input name="name" type="text" class="form-control" placeholder="Enter Name" value="{{ $service->name }}" required>
-                <div class="help-block with-errors"></div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <label>Price *</label>
-            <div class="input-group">
-                <input name="price" type="text" class="form-control" value="{{ $service->price }}">
-                <div class="input-group-append">
-                    <span class="input-group-text">$</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Description</label>
-                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $service->description }}</textarea>
-            </div>
-        </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary mr-2">Edit Service</button>
-    <button type="reset" class="btn btn-danger">Reset</button>
-</form>
-
-
+                        <form action="{{ route('roomadd') }}" method="POST" enctype="multipart/form-data" data-toggle="validator">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Name *</label>
+                                        <input name="name" type="text" class="form-control" placeholder="Enter Name" required>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Size *</label>
+                                    <div class="input-group">
+                                        <input placeholder="Enter Size" name="size" type="text" class="form-control">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">m²</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Price *</label>
+                                    <div class="input-group">
+                                        <input name="price" placeholder="Enter Price" type="text" class="form-control">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Room Type *</label>
+                                        <select name="type_id" class="form-control mb-3">
+                                            <option value="">Select Room Type</option>
+                                            @foreach($roomTypes as $roomType)
+                                            <option value="{{ $roomType->id }}">{{ $roomType->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Status *</label>
+                                        <select name="status" class="selectpicker form-control" data-style="py-0">
+                                            <option value="maintenance">Maintenance</option>
+                                            <option value="empty">Empty</option>
+                                            <option value="active">Active</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Images *</label>
+                                        <input multiple type="file" class="form-control image-file" name="image" accept="image/*" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Description</label>
+                                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mr-2">Edit Room</button>
+                            <button type="reset" class="btn btn-danger">Reset</button>
+                        </form>
+                                                                     
                     </div>
                 </div>
             </div>
