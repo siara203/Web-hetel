@@ -11,9 +11,11 @@ use App\Models\User;
 use App\Models\Service;
 use App\Models\RoomType;
 use App\Models\Order;
+use App\Models\OrderRoom;
+use App\Models\OrderServices;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
-
+use Carbon\Carbon;
 class AdminController extends Controller
 {
     //dashboard show
@@ -257,7 +259,7 @@ class AdminController extends Controller
     {
     $request->validate([
         'name' => 'required',
-        'description' => 'required',
+       
     ]);
     $roomType = RoomType::find($id);
     if (!$roomType) {
@@ -285,7 +287,7 @@ class AdminController extends Controller
         $room = new Room();
         return view('backend.roomadd', compact('roomTypes', 'room'));
     }
-
+    //
     public function postroomadd(Request $request)
     {
         $request->validate([
@@ -294,9 +296,78 @@ class AdminController extends Controller
             'price' => 'required',
             'type_id' => 'required',
             'status' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image2' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image3' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image4' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image5' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'required',
         ]);
+    
+        $room = new Room([
+            'name' => $request->name,
+            'size' => $request->size,
+            'price' => $request->price,
+            'status' => $request->status,
+            'type_id' => $request->type_id,
+            'description' => $request->description,
+        ]);
+        $room->save();
+    
+        if ($request->hasFile('image2')) {
+            $image2 = $request->file('image2');
+            $image2Name = time() . '_' . $image2->getClientOriginalName();
+            $image2->move(public_path('images/rooms'), $image2Name);
+    
+            $picture2 = new Picture([
+                'file_name' => $image2Name,
+                'path' => $image2Name,
+                'gfi' => $image2->getClientOriginalExtension(),
+            ]);
+            $picture2->save();
+            $room->image2 = $image2Name;
+        }
+    
+        if ($request->hasFile('image3')) {
+            $image3 = $request->file('image3');
+            $image3Name = time() . '_' . $image3->getClientOriginalName();
+            $image3->move(public_path('images/rooms'), $image3Name);
+    
+            $picture3 = new Picture([
+                'file_name' => $image3Name,
+                'path' => $image3Name,
+                'gfi' => $image3->getClientOriginalExtension(),
+            ]);
+            $picture3->save();
+            $room->image3 = $image3Name;
+        }
+    
+        if ($request->hasFile('image4')) {
+            $image4 = $request->file('image4');
+            $image4Name = time() . '_' . $image4->getClientOriginalName();
+            $image4->move(public_path('images/rooms'), $image4Name);
+    
+            $picture4 = new Picture([
+                'file_name' => $image4Name,
+                'path' => $image4Name,
+                'gfi' => $image4->getClientOriginalExtension(),
+            ]);
+            $picture4->save();
+            $room->image4 = $image4Name;
+        }
+    
+        if ($request->hasFile('image5')) {
+            $image5 = $request->file('image5');
+            $image5Name = time() . '_' . $image5->getClientOriginalName();
+            $image5->move(public_path('images/rooms'), $image5Name);
+    
+            $picture5 = new Picture([
+                'file_name' => $image5Name,
+                'path' => $image5Name,
+                'gfi' => $image5->getClientOriginalExtension(),
+            ]);
+            $picture5->save();
+            $room->image5 = $image5Name;
+        }
     
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -305,26 +376,20 @@ class AdminController extends Controller
     
             $picture = new Picture([
                 'file_name' => $imageName,
-                'path' => $imagePath,
+                'path' => $imageName,
                 'gfi' => $image->getClientOriginalExtension(),
             ]);
             $picture->save();
-    
-            $room = new Room([
-                'name' => $request->name,
-                'size' => $request->size,
-                'price' => $request->price,
-                'status' => $request->status,
-                'type_id' => $request->type_id,
-                'description' => $request->description,
-            ]);
-            $room->save();
             $room->picture()->associate($picture);
-            $room->save();
         }
+    
+        $room->save();
     
         return redirect()->back()->with('success', 'Room added successfully.');
     }
+    
+
+
     //room edit
     public function getroomedit($id)
     {
@@ -334,44 +399,109 @@ class AdminController extends Controller
         return view('backend/roomedit', compact('room', 'roomTypes'));
     }
     public function postroomedit(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|unique:rooms,name,'.$id,
-            'size' => 'required',
-            'price' => 'required',
-            'type_id' => 'required',
-            'status' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'description' => 'required',
+{
+    $request->validate([
+        'name' => 'required|unique:rooms,name,'.$id,
+        'size' => 'required',
+        'price' => 'required',
+        'type_id' => 'required',
+        'status' => 'required',
+        'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image2' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image3' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image4' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'image5' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'description' => 'required',
+    ]);
+
+    $room = Room::findOrFail($id);
+    $room->name = $request->name;
+    $room->size = $request->size;
+    $room->price = $request->price;
+    $room->type_id = $request->type_id;
+    $room->status = $request->status;
+    $room->description = $request->description;
+
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = $image->getClientOriginalName();
+        $imagePath = $image->move(public_path('images/rooms'), $imageName);
+
+        $picture = new Picture([
+            'file_name' => $imageName,
+            'path' => $imagePath,
+            'gfi' => $image->getClientOriginalExtension(),
         ]);
+        $picture->save();
 
-        $room = Room::findOrFail($id);
-        $room->name = $request->name;
-        $room->size = $request->size;
-        $room->price = $request->price;
-        $room->type_id = $request->type_id;
-        $room->status = $request->status;
-        $room->description = $request->description;
-
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = $image->getClientOriginalName();
-            $imagePath = $image->move(public_path('images/rooms'), $imageName);
-
-            $picture = new Picture([
-                'file_name' => $imageName,
-                'path' => $imagePath,
-                'gfi' => $image->getClientOriginalExtension(),
-            ]);
-            $picture->save();
-
-            $room->picture()->associate($picture);
-        }
-
-        $room->save();
-
-        return redirect()->back()->with('success', 'Room updated successfully.');
+        $room->picture()->associate($picture);
     }
+
+    if ($request->hasFile('image2')) {
+        $image2 = $request->file('image2');
+        $imageName2 = $image2->getClientOriginalName();
+        $imagePath2 = $image2->move(public_path('images/rooms'), $imageName2);
+
+        $picture2 = new Picture([
+            'file_name' => $imageName2,
+            'path' => $imagePath2,
+            'gfi' => $image2->getClientOriginalExtension(),
+        ]);
+        $picture2->save();
+
+        $room->image2 = $imageName2;
+    }
+
+    if ($request->hasFile('image3')) {
+        $image3 = $request->file('image3');
+        $imageName3 = $image3->getClientOriginalName();
+        $imagePath3 = $image3->move(public_path('images/rooms'), $imageName3);
+
+        $picture3 = new Picture([
+            'file_name' => $imageName3,
+            'path' => $imagePath3,
+            'gfi' => $image3->getClientOriginalExtension(),
+        ]);
+        $picture3->save();
+
+        $room->image3 = $imageName3;
+    }
+
+    if ($request->hasFile('image4')) {
+        $image4 = $request->file('image4');
+        $imageName4 = $image4->getClientOriginalName();
+        $imagePath4 = $image4->move(public_path('images/rooms'), $imageName4);
+
+        $picture4 = new Picture([
+            'file_name' => $imageName4,
+            'path' => $imagePath4,
+            'gfi' => $image4->getClientOriginalExtension(),
+        ]);
+        $picture4->save();
+
+        $room->image4 = $imageName4;
+    }
+
+    if ($request->hasFile('image5')) {
+        $image5 = $request->file('image5');
+        $imageName5 = $image5->getClientOriginalName();
+        $imagePath5 = $image5->move(public_path('images/rooms'), $imageName5);
+
+        $picture5 = new Picture([
+            'file_name' => $imageName5,
+            'path' => $imagePath5,
+            'gfi' => $image5->getClientOriginalExtension(),
+        ]);
+        $picture5->save();
+
+        $room->image5 = $imageName5;
+    }
+
+    $room->save();
+
+    return redirect()->back()->with('success', 'Room updated successfully.');
+}
+
     //room delete
     public function deleteroom($id)
     {
@@ -382,17 +512,214 @@ class AdminController extends Controller
             $picture->delete();
         }
         return redirect()->back()->with('success', 'Room deleted successfully.');
+        
     }
 
 
     //orders show
     public function getorders()
     {
-        return view('backend.orders');
+        $currentDateTime = Carbon::now();
+        $orders = Order::where('check_out_date', '<=', $currentDateTime)
+                    ->where('status', '!=', 'finished')
+                    ->get();
+
+        foreach ($orders as $order) {
+            $order->status = 'finished';
+            $order->save();
+            
+            $orderRooms = $order->orderRooms;
+            foreach ($orderRooms as $orderRoom) {
+                $room = $orderRoom->room;
+                if ($room) {
+                    $room->status = 'vacancy';
+                    $room->save();
+                }
+            }
+        }
+
+        $user = User::all();
+        $room = Room::all();
+        $services =Service::all();
+        $orders = Order::all();
+        return view('backend.orders', compact('orders','user', 'room','services'));
     }
     //order add
     public function getorderadd()
     {
-        return view('backend.orderadd');
+        $users = User::all();
+        $rooms = Room::all();
+        $services =Service::all();
+        return view('backend.orderadd', compact('users', 'rooms','services'));
     }
+    //
+    public function postorderadd(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'check_in_date' => 'required',
+            'check_out_date' => 'required',
+            'status' => 'required',
+            'room_id' => 'required|exists:rooms,id',
+            'service_id' => 'array',
+            'service_id.*' => 'exists:services,id',
+        ]);
+    
+        $order = new Order();
+        $order->user_id = $request->user_id;
+        $order->check_in_date = $request->check_in_date;
+        $order->check_out_date = $request->check_out_date;
+        $order->status = $request->status;
+        $order->description = $request->description;
+        $order->save();
+    
+        $room = Room::find($request->room_id);
+        if ($room) {
+            $orderRoom = new OrderRoom();
+            $orderRoom->order_id = $order->id;
+            $orderRoom->room_id = $room->id;
+            $orderRoom->save();
+        }
+    
+        $services = $request->service_id;
+        if (!empty($services)) {
+            foreach ($services as $serviceId) {
+                $service = Service::find($serviceId);
+                if ($service) {
+                    $orderService = new OrderServices();
+                    $orderService->order_id = $order->id;
+                    $orderService->service_id = $service->id;
+                    $orderService->save();
+                }
+            }
+        }
+    
+        $room = Room::findOrFail($request->input('room_id'));
+        $roomRate = $room->price; 
+    
+        $serviceIds = $request->input('service_id');
+        $totalServiceAmount = Service::whereIn('id', $serviceIds)->sum('price');
+    
+        $checkInDate = Carbon::parse($request->input('check_in_date'));
+        $checkOutDate = Carbon::parse($request->input('check_out_date'));
+        $totalHours = $checkInDate->diffInHours($checkOutDate); 
+    
+        if ($totalHours < 1) {
+            $totalHours = 1; 
+        }
+    
+        $totalAmount = ($totalHours * $roomRate) + $totalServiceAmount; 
+    
+        $order->total_amount = $totalAmount;
+        $order->save();
+    
+        return redirect()->back()->with('success', 'Order added successfully.');
+    }
+        
+    //
+        public function orderactivate($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = 'active';
+        $order->save();
+        $orderRoom = OrderRoom::where('order_id', $order->id)->first();
+        if ($orderRoom) {
+            $room = Room::findOrFail($orderRoom->room_id);
+            $room->status = 'active';
+            $room->save();
+        }
+    
+        return redirect()->back()->with('success', 'Order activated successfully.');
+    }
+    
+
+    public function ordercancel($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = 'cancelled';
+        $order->save();
+        $orderRoom = OrderRoom::where('order_id', $order->id)->first();
+        if ($orderRoom) {
+            $room = Room::findOrFail($orderRoom->room_id);
+            $room->status = 'vacancy';
+            $room->save();
+        }
+    
+        return redirect()->back()->with('success', 'Order cancelled successfully.');
+    } 
+    public function deleteorder($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->rooms()->detach();
+        $order->services()->detach();
+        $order->delete();
+        return redirect()->back()->with('success', 'Order deleted successfully.');
+    }
+        //order edit
+    public function getorderedit(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $users = User::all();
+        $services = Service::all();
+        $rooms = Room::where('status', 'vacancy')->get();
+            
+        return view('backend/orderedit', compact('order', 'users', 'services', 'rooms'));
+        }
+        //
+    public function postorderedit(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        
+        $validatedData = $request->validate([
+            'user_id' => 'required',
+            'check_in_date' => 'required',
+            'check_out_date' => 'required',
+            'status' => 'required',
+            'service_id' => 'required|array',
+            'room_id' => 'required',
+            'description' => 'nullable',
+        ]);
+        
+        $order->user_id = $request->input('user_id');
+        $order->check_in_date = $request->input('check_in_date');
+        $order->check_out_date = $request->input('check_out_date');
+        $order->status = $request->input('status');
+        $order->description = $request->input('description');
+        $order->save();
+        
+        $order->services()->sync($request->input('service_id'));
+        
+        $room = Room::findOrFail($request->input('room_id'));
+        
+        if ($order->status === 'active' && $order->room_id != $request->input('room_id')) {
+            $previousRoom = Room::findOrFail($order->room_id);
+            $previousRoom->status = 'vacancy';
+            $previousRoom->save();
+        }
+
+        if ($request->input('status') === 'cancelled' || $request->input('status') === 'pending') {
+            $room->status = 'vacancy';
+        } else {
+            $room->status = 'active';
+        }
+        $room->save(); 
+
+        $roomRate = $room->price;
+        $serviceIds = $request->input('service_id');
+        $totalServiceAmount = Service::whereIn('id', $serviceIds)->sum('price');
+        $checkInDate = Carbon::parse($request->input('check_in_date'));
+        $checkOutDate = Carbon::parse($request->input('check_out_date'));
+        $totalHours = $checkInDate->diffInHours($checkOutDate);
+        
+        if ($totalHours < 1) {
+            $totalHours = 1;
+        }
+        
+        $totalAmount = ($totalHours * $roomRate) + $totalServiceAmount;
+        $order->total_amount = $totalAmount;
+        $order->save();
+        
+        return redirect()->back()->with('success', 'Order updated successfully.');
+    }
+              
 }

@@ -66,7 +66,11 @@ Route::group(['middleware' => 'auth.redirect'], function () {
     Route::get('/admin-orders', [AdminController::class, 'getorders']);
     Route::get('/admin-order-add', [AdminController::class, 'getorderadd']);
     Route::post('/admin-order-add', [AdminController::class, 'postorderadd'])->name('orderadd');
-    Route::get('/admin-order-delete-{id}',[AdminController::class, 'deleteorder'])->name('deleteorder');
+    Route::get('/admin-order-delete-{id}',[AdminController::class, 'deleteorder'])->name('orderdelete');
     Route::get('/admin-order-edit-{id}',[AdminController::class, 'getorderedit'])->name('orderedit');
-    Route::post('/admin-order-edit-{id}',[AdminController::class, 'postorderedit'])->name('orderedit');    
+    Route::post('/admin-order-edit-{id}',[AdminController::class, 'postorderedit'])->name('orderedit');  
+    
+    Route::get('/admin-order-activate-{id}', [AdminController::class,'orderactivate'])->name('orderactivate');
+    Route::get('/admin-order-cancel-{id}', [AdminController::class,'ordercancel'])->name('ordercancel');
+
 });

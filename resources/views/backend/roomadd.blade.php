@@ -300,7 +300,7 @@
                                     <div class="input-group">
                                         <input name="price" placeholder="Enter Price" type="text" class="form-control">
                                         <div class="input-group-append">
-                                            <span class="input-group-text">$</span>
+                                            <span class="input-group-text">$/h</span>
                                         </div>
                                     </div>
                                 </div>
@@ -319,16 +319,41 @@
                                     <div class="form-group">
                                         <label>Status *</label>
                                         <select name="status" class="selectpicker form-control" data-style="py-0">
-                                            <option value="maintenance">Maintenance</option>
-                                            <option value="empty">Empty</option>
+                                            <option value="vacancy">Vacancy</option>
+                                             <option value="maintenance">Maintenance</option>
                                             <option value="active">Active</option>
+                                           
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Images *</label>
+                                        <label>Image *</label>
                                         <input multiple type="file" class="form-control image-file" name="image" accept="image/*" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Image 2</label>
+                                        <input multiple type="file" class="form-control image-file" name="image2" accept="image/*" >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Image 3</label>
+                                        <input multiple type="file" class="form-control image-file" name="image3" accept="image/*" >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Images 4</label>
+                                        <input multiple type="file" class="form-control image-file" name="image4" accept="image/*" >
+                                    </div>
+                                </div>                               
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Images 5</label>
+                                        <input multiple type="file" class="form-control image-file" name="image5" accept="image/*" >
                                     </div>
                                 </div>
                                 <div class="col-md-12">

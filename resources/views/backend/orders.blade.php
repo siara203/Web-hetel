@@ -275,56 +275,105 @@
                     <a  href="{{ url('admin-order-add') }}"class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Order</a>
                 </div>
             </div>
-            <div class="col-lg-12">
-            <div class="table-responsive rounded mb-3">
-                <table class="data-table table mb-0 tbl-server-info">
-                    <thead class="bg-white text-uppercase">
-                        <tr class="ligth ligth-data">                      
-                            <th>Customer</th>
-                            <th>Check in date</th>
-                            <th>Check out date</th>
-                            <th>Status</th>
-                            <th>Services</th> 
-                            <th>Description</th>
-                                                   
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="ligth-body">
-                    
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>              
-                <td>
-                <!-- Pending(chờ phê duyệt)
-                    Cancelled(Đã huỷ đơn)
-                    Active(Đang hoạt động) -->
-                    <span class="badge bg-warning-light">Cancelled </span>
-                    <span class="badge bg-danger-light">Pending</span>
-                    <span class="badge bg-info-light">Active</span>
-                </td>
-                <td></td>
-                <td></td>
-                <td>
-                        <div class="d-flex align-items-center list-action">
-                        <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Payment" href=""><i class="fas fa-money-bill-alt text-white"></i></a>                    
-                         <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href=""><i class="ri-pencil-line mr-0"></i></a>
-                            <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href=""><i class="ri-delete-bin-line mr-0"></i></a>
-                        </div>
-                    </td>
-                </tr>
-              
-            </tbody>
-        </table>
-    </div>
-</div>
-
+                <div class="col-lg-12">
+                    <div class="table-responsive rounded mb-3">
+                        <table class="data-table table mb-0 tbl-server-info">
+                            <thead class="bg-white text-uppercase">
+                                <tr class="ligth ligth-data">                      
+                                    <th>Customer</th>
+                                    <th>Room</th>
+                                    <th>Services</th> 
+                                    <th>Check in date</th>
+                                    <th>Check out date</th>
+                                    <th>Status</th>
+                                    <th>Total Amount</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="ligth-body">
+                                @foreach($orders as $order)
+                                <tr>
+                                    <td>
+                                        {{ $order->user->full_name }}
+                                    </td>
+                                    <td>
+                                        @foreach($order->rooms as $room)
+                                            {{ $room->name }}
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @if(isset($order->services) && count($order->services) > 0)
+                                            @foreach($order->services as $key => $service)
+                                                {{ $service->name }}
+                                                @if($key < count($order->services) - 1)
+                                                    , <br>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    
+                                    <td>{{ date('D, h:i A  d/m/Y', strtotime($order->check_in_date)) }}</td>
+                                    <td>{{ date('D, h:i A  d/m/Y', strtotime($order->check_out_date)) }}</td>
+                                    <td>
+                                        @if($order->status == 'cancelled')
+                                            <span class="badge bg-warning-light">Cancelled</span>
+                                        @elseif($order->status == 'pending')
+                                            <span class="badge bg-danger-light">Pending</span>
+                                        @elseif($order->status == 'active')
+                                            <span class="badge bg-info-light">Active</span>
+                                        @elseif($order->status == 'finished')
+                                            <span class="badge bg-success-light">Finished</span>
+                                        @endif
+                                    </td>
+                                   
+                                    <td>
+                                        @php
+                                            $room = $order->rooms->first();
+                                            $roomRate = $room->price;
+                                            $totalTime = $order->getTotalHours();
+                                            $servicePrice = $order->getTotalServiceAmount();
+                                            $totalAmount = ($roomRate * $totalTime) + $servicePrice;
+                                            if ($totalTime < 1) {
+                                                $totalTime = 1;
+                                            }
+                                        @endphp
+                                       Time: {{ $totalTime }} h, <br>Room: {{ $roomRate * $totalTime }} $<br>
+                                        Services: {{ $servicePrice }} $<br>
+                                        <i style="color: red">Total Amount: {{ $totalAmount }} $</i>
+                                    </td>
+                                    
+                                    
+                                     <td>{{ $order->description }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center list-action">
+                                            <div class="d-flex align-items-center list-action">
+                                                @if($order->status == 'pending')
+                                                    <a class="badge bg-primary mr-2" data-toggle="tooltip" data-placement="top" title="Active" href="{{ route('orderactivate', $order->id) }}"><i class="fas fa-check" style="color: rgb(255, 255, 255)"></i></a>
+                                                    <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Cancelled" href="{{ route('ordercancel', $order->id) }}"><i class="fas fa-times" style="color: rgb(255, 255, 255)"></i></a>
+                                                @elseif($order->status == 'active')
+                                                    <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Cancelled" href="{{ route('ordercancel', $order->id) }}"><i class="fas fa-times" style="color: rgb(255, 255, 255)"></i></a>
+                                                @endif
+                                           
+                                                <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Payment" href=""><i class="fas fa-money-bill-alt text-white"></i></a>
+                                                <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href="{{ route('orderedit', ['id' => $order->id]) }}"><i class="ri-pencil-line mr-0"></i></a>
+                                                @if($order->status != 'finished')
+                                                @endif
+                                                <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href="{{ route('orderdelete', $order->id) }}"><i class="ri-delete-bin-line mr-0"></i></a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>                
+                    </div>
+                </div>
+            </div>
         </div>
+                <!-- Page end  -->
     </div>
-        <!-- Page end  -->
-    </div>
-    <!-- Modal Edit -->
+                 <!-- Modal Edit -->
     <div class="modal fade" id="edit-note" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">

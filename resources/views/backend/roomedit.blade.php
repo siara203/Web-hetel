@@ -321,7 +321,7 @@
                                         <label>Status *</label>
                                         <select name="status" class="selectpicker form-control" data-style="py-0">
                                             <option value="maintenance" {{ $room->status == 'maintenance' ? 'selected' : '' }}>Maintenance</option>
-                                            <option value="empty" {{ $room->status == 'empty' ? 'selected' : '' }}>Empty</option>
+                                            <option value="vacancy" {{ $room->status == 'vacancy' ? 'selected' : '' }}>Vacancy</option>
                                             <option value="active" {{ $room->status == 'active' ? 'selected' : '' }}>Active</option>
                                         </select>
                                     </div>
@@ -338,6 +338,61 @@
                                         <img src="{{ asset('images/rooms/' . $room->picture->file_name) }}" class="img-fluid" alt="Current Image">
                                     </div>
                                 </div>
+                                
+                                 <!-- Image 2 -->
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Image 2</label>
+                                        <input type="file" class="form-control image-file" name="image2" accept="image/*">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    @if ($room->image2)
+                                        <div class="form-group">
+                                            <img src="{{ asset('images/rooms/' . $room->image2) }}" class="img-fluid" alt="Current Image 2">
+                                        </div>
+                                    @endif
+                                </div>
+                                 <!-- Image 3 -->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Image 3</label>
+                                        <input type="file" class="form-control image-file" name="image3" accept="image/*">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    @if ($room->image3)
+                                        <div class="form-group">     
+                                            <img src="{{ asset('images/rooms/' . $room->image3) }}" class="img-fluid" alt="Current Image 3">
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Image 4 -->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Image 4</label>
+                                        <input type="file" class="form-control image-file" name="image4" accept="image/*">
+                                    </div>
+                                    @if ($room->image4)
+                                        <div class="form-group">
+                                            <img src="{{ asset('images/rooms/' . $room->image4) }}" class="img-fluid" alt="Current Image 4">
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Image 5 -->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Image 5</label>
+                                        <input type="file" class="form-control image-file" name="image5" accept="image/*">
+                                    </div>
+                                    @if ($room->image5)
+                                        <div class="form-group">                                         
+                                            <img src="{{ asset('images/rooms/' . $room->image5) }}" class="img-fluid" alt="Current Image 5">
+                                        </div>
+                                    @endif
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Description</label>
@@ -347,8 +402,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary mr-2">Update Room</button>
                             <button type="reset" class="btn btn-danger">Reset</button>
-                        </form>
-                                                             
+                        </form>                                            
                     </div>
                 </div>
             </div>

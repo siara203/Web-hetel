@@ -15,9 +15,13 @@ return new class extends Migration
                 $table->id();
                 $table->string('name');
                 $table->string('size');
-                $table->decimal('price');
+                $table->integer('price');
                 $table->unsignedBigInteger('type_id');
-                $table->unsignedBigInteger('picture_id');;
+                $table->unsignedBigInteger('picture_id')->nullable();
+                $table->string('image2')->nullable();
+                $table->string('image3')->nullable();
+                $table->string('image4')->nullable();
+                $table->string('image5')->nullable();
                 $table->foreign('type_id')->references('id')->on('room_types');
                 $table->foreign('picture_id')->references('id')->on('pictures');
                 $table->string('status');

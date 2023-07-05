@@ -276,56 +276,78 @@
                         </div>
                     </div>
                     <div class="card-body">
-                    <form action="" method="POST" enctype="multipart/form-data" data-toggle="validator">
-                       
-                            <div class="row">                                
-                            <div class="col-md-12">
+                        <form action="{{ route('orderadd') }}" method="POST" enctype="multipart/form-data" data-toggle="validator">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Customer *</label>
-                                        <select class="form-control mb-3">
-                                            <option></option>                                                                                 
+                                        <select name="user_id" class="form-control mb-3">
+                                            <option value="">Select Customer</option>
+                                           @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->full_name }}</option>
+                                            @endforeach
                                         </select>
-                                    </div> 
-                                </div>  
-                                <div class="col-md-6">
-                                        <label>Check in date *</label>
-                                    <div class="form-group">
-                                            <input type="datetime-local" class="form-control" id="exampleInputdatetime" value="2019-12-19T13:45:00">
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="col-md-6">
-                                         <label>Check out date *</label>
+                                    <label>Check-in date *</label>
                                     <div class="form-group">
-                                            <input type="datetime-local" class="form-control" id="exampleInputdatetime" value="2019-12-19T13:45:00">
+                                        <input type="datetime-local" name="check_in_date" class="form-control" required>
                                     </div>
-                                </div>    
-                            <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Check-out date *</label>
+                                    <div class="form-group">
+                                        <input type="datetime-local" name="check_out_date" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Status *</label>
-                                        <select name="type" class="selectpicker form-control" data-style="py-0">
-                                            <option>Active</option>                                         
-                                            <option>Cancelled</option>
-                                            <option>Pending</option>
+                                        <select name="status" class="selectpicker form-control" data-style="py-0" required>
+                                            <option value="pending">Pending</option>
+                                            <option value="active">Active</option>
+                                            <option value="cancelled">Cancelled</option> 
+                                            <option value="cancelled">Finished</option>
                                         </select>
                                     </div>
-                            </div>
-                            <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Services *</label>
-                                        <select name="type" class="selectpicker form-control" data-style="py-0">
-                                            <option></option>                                         
+                                        <select name="service_id[]" class="selectpicker form-control" multiple data-style="py-0" required>
+
+                                            @foreach($services as $service)
+                                            <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
-                            </div>
-                            <div class="col-md-12">
+                                </div>
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Images *</label>
-                                        <input type="file" class="form-control image-file" name="images" accept="image/*">
+                                        <label>Room *</label>
+                                        <select name="room_id" class="selectpicker form-control" data-style="py-0" required>
+                                            <option value="">Select Room</option> 
+                                            @foreach($rooms as $room)
+                                                @if($room->status == 'vacancy')
+                                                    <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
                                     </div>
-                            </div>                                                  
+                                </div>                                
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Description</label>
+                                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary mr-2">Add Order</button>
                             <button type="reset" class="btn btn-danger">Reset</button>
                         </form>
+                        
                     </div>
                 </div>
             </div>

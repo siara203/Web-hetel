@@ -17,15 +17,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->dateTime('checkindate');
-            $table->dateTime('checkoutdate');
+            $table->dateTime('check_in_date');
+            $table->dateTime('check_out_date');
             $table->string('status');
+            $table->integer('total_amount')->nullable();
             $table->text('description')->nullable();
-            $table->unsignedBigInteger('payment_id');
-            $table->unsignedBigInteger('service_id');
-            $table->foreign('payment_id')->references('id')->on('payments');
-            $table->foreign('service_id')->references('id')->on('services');
-         
+            
             $table->timestamps();
         });
     }
