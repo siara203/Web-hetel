@@ -28,10 +28,5 @@ class HomeController extends Controller
     public function gettermsofservice(){
         return view('frontend.terms-of-service');
     }
-
-
-
-
-
-    
+   
 }
