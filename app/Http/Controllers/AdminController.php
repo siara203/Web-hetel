@@ -564,7 +564,6 @@ class AdminController extends Controller
             'service_id' => 'array',
             'service_id.*' => 'exists:services,id',
         ]);
-    
         $order = new Order();
         $order->user_id = $request->user_id;
         $order->check_in_date = $request->check_in_date;
@@ -572,15 +571,17 @@ class AdminController extends Controller
         $order->status = $request->status;
         $order->description = $request->description;
         $order->save();
-    
         $room = Room::find($request->room_id);
         if ($room) {
             $orderRoom = new OrderRoom();
             $orderRoom->order_id = $order->id;
             $orderRoom->room_id = $room->id;
             $orderRoom->save();
+            if ($order->status == 'active') {
+                $room->status = 'active';
+                $room->save();
+            }
         }
-    
         $services = $request->service_id;
         if (!empty($services)) {
             foreach ($services as $serviceId) {
@@ -593,30 +594,23 @@ class AdminController extends Controller
                 }
             }
         }
-    
         $room = Room::findOrFail($request->input('room_id'));
-        $roomRate = $room->price; 
-    
+        $roomRate = $room->price;
         $serviceIds = $request->input('service_id');
         $totalServiceAmount = Service::whereIn('id', $serviceIds)->sum('price');
-    
         $checkInDate = Carbon::parse($request->input('check_in_date'));
         $checkOutDate = Carbon::parse($request->input('check_out_date'));
-        $totalHours = $checkInDate->diffInHours($checkOutDate); 
-    
+        $totalHours = $checkInDate->diffInHours($checkOutDate);
         if ($totalHours < 1) {
-            $totalHours = 1; 
+            $totalHours = 1;
         }
-    
-        $totalAmount = ($totalHours * $roomRate) + $totalServiceAmount; 
-    
+        $totalAmount = ($totalHours * $roomRate) + $totalServiceAmount;
         $order->total_amount = $totalAmount;
         $order->save();
     
         return redirect()->back()->with('success', 'Order added successfully.');
     }
-        
-    //
+    //button active
         public function orderactivate($id)
     {
         $order = Order::findOrFail($id);
@@ -632,7 +626,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Order activated successfully.');
     }
     
-
+    //button cancel
     public function ordercancel($id)
     {
         $order = Order::findOrFail($id);
@@ -647,6 +641,7 @@ class AdminController extends Controller
     
         return redirect()->back()->with('success', 'Order cancelled successfully.');
     } 
+    //order delete 
     public function deleteorder($id)
     {
         $order = Order::findOrFail($id);
@@ -664,62 +659,63 @@ class AdminController extends Controller
         $rooms = Room::where('status', 'vacancy')->get();
             
         return view('backend/orderedit', compact('order', 'users', 'services', 'rooms'));
-        }
-        //
-    public function postorderedit(Request $request, $id)
-    {
-        $order = Order::findOrFail($id);
-        
-        $validatedData = $request->validate([
-            'user_id' => 'required',
-            'check_in_date' => 'required',
-            'check_out_date' => 'required',
-            'status' => 'required',
-            'service_id' => 'required|array',
-            'room_id' => 'required',
-            'description' => 'nullable',
-        ]);
-        
-        $order->user_id = $request->input('user_id');
-        $order->check_in_date = $request->input('check_in_date');
-        $order->check_out_date = $request->input('check_out_date');
-        $order->status = $request->input('status');
-        $order->description = $request->input('description');
-        $order->save();
-        
-        $order->services()->sync($request->input('service_id'));
-        
-        $room = Room::findOrFail($request->input('room_id'));
-        
-        if ($order->status === 'active' && $order->room_id != $request->input('room_id')) {
-            $previousRoom = Room::findOrFail($order->room_id);
-            $previousRoom->status = 'vacancy';
-            $previousRoom->save();
-        }
-
-        if ($request->input('status') === 'cancelled' || $request->input('status') === 'pending') {
-            $room->status = 'vacancy';
-        } else {
-            $room->status = 'active';
-        }
-        $room->save(); 
-
-        $roomRate = $room->price;
-        $serviceIds = $request->input('service_id');
-        $totalServiceAmount = Service::whereIn('id', $serviceIds)->sum('price');
-        $checkInDate = Carbon::parse($request->input('check_in_date'));
-        $checkOutDate = Carbon::parse($request->input('check_out_date'));
-        $totalHours = $checkInDate->diffInHours($checkOutDate);
-        
-        if ($totalHours < 1) {
-            $totalHours = 1;
-        }
-        
-        $totalAmount = ($totalHours * $roomRate) + $totalServiceAmount;
-        $order->total_amount = $totalAmount;
-        $order->save();
-        
-        return redirect()->back()->with('success', 'Order updated successfully.');
     }
+        //
+        public function postorderedit(Request $request, $id)
+        {
+            $order = Order::findOrFail($id);
+            
+            $validatedData = $request->validate([
+                'user_id' => 'required',
+                'check_in_date' => 'required',
+                'check_out_date' => 'required',
+                'status' => 'required',
+                'service_id' => 'required|array',
+                'room_id' => 'required',
+                'description' => 'nullable',
+            ]);
+            
+            $order->user_id = $request->input('user_id');
+            $order->check_in_date = $request->input('check_in_date');
+            $order->check_out_date = $request->input('check_out_date');
+            $order->status = $request->input('status');
+            $order->description = $request->input('description');
+            $order->save();
+            
+            $order->services()->sync($request->input('service_id'));
+            
+            $orderRoom = OrderRoom::where('order_id', $order->id)->first();
+            $room = Room::findOrFail($orderRoom->room_id);
+            
+            if ($order->status === 'active' && $room->status === 'vacancy') {
+                $room->status = 'active';
+                $room->save();
+            }
+        
+            if ($request->input('status') === 'cancelled' || $request->input('status') === 'finished' || $request->input('status') === 'pending') {
+                $room->status = 'vacancy';
+            }
+            $room->save(); 
+        
+            $roomRate = $room->price;
+            $serviceIds = $request->input('service_id');
+            $totalServiceAmount = Service::whereIn('id', $serviceIds)->sum('price');
+            $checkInDate = Carbon::parse($request->input('check_in_date'));
+            $checkOutDate = Carbon::parse($request->input('check_out_date'));
+            $totalHours = $checkInDate->diffInHours($checkOutDate);
+            
+            if ($totalHours < 1) {
+                $totalHours = 1;
+            }
+            
+            $totalAmount = ($totalHours * $roomRate) + $totalServiceAmount;
+            $order->total_amount = $totalAmount;
+            $order->save();
+            
+            return redirect()->back()->with('success', 'Order updated successfully.');
+        }
+        
+        
+        
               
 }

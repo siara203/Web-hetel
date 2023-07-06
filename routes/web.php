@@ -10,7 +10,7 @@ use App\Http\Middleware\RedirectIfNotLoggedIn;
 Route::get('/', function () {
     return view('frontend/index');
 });
-
+Route::get('logout', [AuthController::class, 'getLogout']);
 Route::group(['prefix' => 'user'], function () {
     Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'postLogin']);
@@ -20,17 +20,22 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 });
 
-Route::get('logout', [AuthController::class, 'getLogout']);
 
-Route::get('rooms', [HomeController::class, 'getrooms']);
 
-Route::get('introduction', [HomeController::class, 'getintroduction']);
+Route::middleware('auth')->group(function () {
+    Route::get('rooms', [HomeController::class, 'getrooms']);
+    Route::get('introduction', [HomeController::class, 'getintroduction']);
+    Route::get('terms-of-service', [HomeController::class, 'gettermsofservice']);
+    Route::get('details', [HomeController::class, 'getdetails']);
+    Route::get('contact', [HomeController::class, 'getcontact']);
+    Route::get('services', [HomeController::class, 'getservices']);
+    Route::get('account', [HomeController::class, 'getaccount'])->name('account');
+    Route::post('updateinfo', [HomeController::class, 'updateProfile'])->name('updateinfo');
+    Route::post('updateorder-{id}', [HomeController::class, 'updateOrder'])->name('updateorder');
+    Route::get('payment-{id}', [HomeController::class, 'payment'])->name('payment');
+});
 
-Route::get('terms-of-service', [HomeController::class, 'gettermsofservice']);
-Route::get('details', [HomeController::class, 'getdetails']);
 
-Route::get('contact', [HomeController::class, 'getcontact']);
-Route::get('services', [HomeController::class, 'getservices']);
 Route::group(['middleware' => 'auth.redirect'], function () {
     // dashboard
     Route::get('/admin-dashboard', [AdminController::class, 'getdashboard']);
@@ -63,7 +68,7 @@ Route::group(['middleware' => 'auth.redirect'], function () {
     Route::get('/admin-room-edit-{id}',[AdminController::class, 'getroomedit'])->name('roomedit');
     Route::post('/admin-room-edit-{id}',[AdminController::class, 'postroomedit'])->name('roomedit');
     //  Orders
-    Route::get('/admin-orders', [AdminController::class, 'getorders']);
+    Route::get('/admin-orders', [AdminController::class, 'getorders'])->name('orders');
     Route::get('/admin-order-add', [AdminController::class, 'getorderadd']);
     Route::post('/admin-order-add', [AdminController::class, 'postorderadd'])->name('orderadd');
     Route::get('/admin-order-delete-{id}',[AdminController::class, 'deleteorder'])->name('orderdelete');

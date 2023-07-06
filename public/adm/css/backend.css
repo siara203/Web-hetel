@@ -8,6 +8,7 @@
 *
 */
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
 :root {
   --iq-primary: #32BDEA;
   --iq-secondary: #FF7E41;
@@ -7613,7 +7614,7 @@ a.text-light-gray:hover, a.text-light-gray:focus {
   top: 0;
   left: auto;
   right: 0;
-  width: calc(100% - 260px);
+  width: calc(100% - 219px);
   display: inline-block;
   z-index: 99;
   margin: 0;
@@ -10348,8 +10349,8 @@ i.amber-text {
 
 .iq-footer {
   padding: 0 15px;
-  margin-left: 260px;
-  width: calc(100vw - 264px);
+  margin-left: 218px;
+  width: calc(100vw - 223px);
   background: #fff;
   box-shadow: none;
   -webkit-transition: all 0.3s ease-in-out;
@@ -10617,7 +10618,7 @@ body.tab-horizontal .iq-footer {
     .table .ligth th {
       padding: 15px 20px !important;
       text-transform: capitalize;
-      font-size: 17px;
+      font-size: 15px;
       line-height: 22px;
       background: #f4f5fa;
       color: #110A57;
@@ -14765,7 +14766,7 @@ g[aria-describedby="id-22-description"] {
 
 .content-page {
   overflow: hidden;
-  margin-left: 260px;
+  margin-left: 219px;
   padding: 105px 15px 0px;
   min-height: 100vh;
   -webkit-transition: all 0.3s ease-in-out;
