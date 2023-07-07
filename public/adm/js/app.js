@@ -611,3 +611,19 @@ Index Of Script
   }
 })(jQuery);
 
+//
+$(document).ready(function() {
+  $('select[name="service_id[]"]').change(function() {
+      var selectedServices = $(this).val();
+      
+      // Hide all quantity rows
+      $('.service-quantity-row').hide();
+      
+      // Show quantity row for selected services
+      if (selectedServices) {
+          selectedServices.forEach(function(serviceId) {
+              $('#service-' + serviceId + '-quantity').show();
+          });
+      }
+  });
+});

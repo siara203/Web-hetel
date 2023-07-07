@@ -12,6 +12,7 @@ class OrderServices extends Model
     protected $fillable = [
         'order_id',
         'service_id',
+        'quantity'
     ];
 
     public function order()

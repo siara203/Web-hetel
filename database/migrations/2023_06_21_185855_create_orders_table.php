@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('status');
             $table->integer('total_amount')->nullable();
             $table->text('description')->nullable();
-            
             $table->timestamps();
         });
     }

@@ -1,39 +1,6 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>SDN | Admin</title>
-      
-      <!-- Favicon -->
-      <link rel="shortcut icon" href="{{ asset('adm/images/favicon.ico') }}" type="image/x-icon">
-      <link rel="stylesheet" href="{{ asset('adm/css/backend-plugin.min.css') }}">
-      <link rel="stylesheet" href="{{ asset('adm/css/backend.css?v=1.0.0') }}">
-      <link rel="stylesheet" href="{{ asset('adm/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}">
-      <link rel="stylesheet" href="{{ asset('adm/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css') }}">
-      <link rel="stylesheet" href="{{ asset('adm/vendor/remixicon/fonts/remixicon.css') }}">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+@extends('backend.master')
 
-    </head>
-  <body class="  ">
-    <!-- loader Start -->
-    <div id="loading">
-          <div id="loading-center">
-          </div>
-    </div>
-    <!-- loader END -->
-    <!-- Wrapper Start -->
-    <div class="wrapper">
-      
-      <div class="iq-sidebar  sidebar-default ">
-          <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
-              <a  href="{{ url('admin-dashboard') }}" class="header-logo">
-                  <img  src="adm/images/logo.png"  alt="Favicon"  class="img-fluid rounded-normal light-logo" alt="logo"><h5 class="logo-title light-logo ml-3">SDN Hotel</h5>
-              </a>
-              <div class="iq-menu-bt-sidebar ml-0">
-                  <i class="las la-bars wrapper-menu"></i>
-              </div>
-          </div>
+@section('main')
           <div class="data-scrollbar" data-scroll="1">
               <nav class="iq-sidebar-menu">
                   <ul id="iq-sidebar-toggle" class="iq-menu">
@@ -162,104 +129,7 @@
                       </li>
                   </ul>
               </nav>
-              <div class="p-3"></div>
-          </div>
-          </div>      <div class="iq-top-navbar">
-          <div class="iq-navbar-custom">
-              <nav class="navbar navbar-expand-lg navbar-light p-0">
-                  <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
-                      <i class="ri-menu-line wrapper-menu"></i>
-                      <a href="{{ url('admin-dashboard') }}" class="header-logo">
-                          <img src="adm/images/logo.png" class="img-fluid rounded-normal" alt="logo">
-                          <h5 class="logo-title ml-3">SDN Hotel</h5>
-                      </a>
-                  </div>
-                  <div class="iq-search-bar device-search">
-                      <form action="#" class="searchbox">
-                          <a class="search-link" href="#"><i class="ri-search-line"></i></a>
-                          <input type="text" class="text search-input" placeholder="Search here...">
-                      </form>
-                  </div>
-                  <div class="d-flex align-items-center">
-                      <button class="navbar-toggler" type="button" data-toggle="collapse"
-                          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                          aria-label="Toggle navigation">
-                          <i class="ri-menu-3-line"></i>
-                      </button>
-                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                          <ul class="navbar-nav ml-auto navbar-list align-items-center">
-                              <li class="nav-item nav-icon dropdown">
-                                  <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton"
-                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                          stroke-linejoin="round" class="feather feather-bell">
-                                          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                                      </svg>
-                                      <span class="bg-primary "></span>
-                                  </a>
-                                  <div class="iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                      <div class="card shadow-none m-0">
-                                          <div class="card-body p-0 ">
-                                              <div class="cust-title p-3">
-                                                  <div class="d-flex align-items-center justify-content-between">
-                                                      <h5 class="mb-0">Notifications</h5>
-                                                      <a class="badge badge-primary badge-card" href="#">3</a>
-                                                  </div>
-                                              </div>
-                                              <div class="px-3 pt-0 pb-0 sub-card">
-                                                  <a href="#" class="iq-sub-card">
-                                                      <div class="media align-items-center cust-card py-3 border-bottom">
-                                            
-                                                          <div class="media-body ml-3">
-                                                              <div class="d-flex align-items-center justify-content-between">
-                                                                  <h6 class="mb-0">Emma Watson</h6>
-                                                                  <small class="text-dark"><b>12 : 47 pm</b></small>
-                                                              </div>
-                                                              <small class="mb-0">Lorem ipsum dolor sit amet</small>
-                                                          </div>
-                                                      </div>
-                                                  </a>
-                                              </div>
-                                              <a class="right-ic btn btn-primary btn-block position-relative p-2" href="#"
-                                                  role="button">
-                                                  View All  
-                                              </a>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </li>
-                              <li class="nav-item nav-icon dropdown caption-content">
-                                  <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton4"
-                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      <img  src="adm/images/user/1.png"  class="img-fluid rounded" alt="user">
-                                  </a>
-                                  <div class="iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                      <div class="card shadow-none m-0">
-                                          <div class="card-body p-0 text-center">
-                                              <div class="media-body profile-detail text-center">
-                                                  <img src="adm/images/page-img/profile-bg.jpg" alt="profile-bg"
-                                                      class="rounded-top img-fluid mb-4">
-                                                  <img src="adm/images/user/1.png"   alt="profile-img"
-                                                      class="rounded profile-img img-fluid avatar-70">
-                                              </div>
-                                              <div class="p-3">
-                                                  <h5 class="mb-1"> {{ Auth::user()->full_name }}</h5>
-                                                  <p class="mb-0"> {{ Auth::user()->email }}</p>
-                                                  <div class="d-flex align-items-center justify-content-center mt-3">
-                                                      <a href="" class="btn border mr-2">Profile</a>
-                                                      <a  href="{{asset('logout')}}" class="btn border">Sign Out</a>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </li>
-                          </ul>
-                      </div>
-                  </div>
-              </nav>
+              
           </div>
       </div>  
 <!-- main -->    
@@ -277,173 +147,101 @@
             </div>
             <div class="col-lg-12">
                 <div class="table-responsive rounded mb-3">
-                <table class="data-tables table mb-0 tbl-server-info">
-                    <thead class="bg-white text-uppercase">
-                        <tr class="ligth ligth-data">
-                            <th>Customer</th>
-                            <th>Room</th>
-                            <th>Services</th>
-                            <th>Check in date</th>
-                            <th>Check out date</th>
-                            <th>Status</th>
-                            <th>Total</th>
-                            <th>Description</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="ligth-body">
-                        @foreach($orders as $order)
-                        <tr>
-                            <td>
-                                {{ $order->user->full_name }}
-                            </td>
-                            <td>
-                                @foreach($order->rooms as $room)
-                                    {{ $room->name }}
-                                @endforeach
-                            </td>
-                            <td>
-                                @if(isset($order->services) && count($order->services) > 0)
-                                    @foreach($order->services as $key => $service)
-                                        {{ $service->name }}
-                                        @if($key < count($order->services) - 1)
-                                            , <br>
-                                        @endif
+                    <table class="data-tables table mb-0 tbl-server-info">
+                        <thead class="bg-white text-uppercase">
+                            <tr class="ligth ligth-data">
+                                <th>Customer</th>
+                                <th>Room</th>
+                                <th>Services (Quantity)</th>
+                                <th>Check in date</th>
+                                <th>Check out date</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="ligth-body">
+                            @foreach($orders as $order)
+                            <tr>
+                                <td>
+                                    {{ $order->user->full_name }}
+                                </td>
+                                <td>
+                                    @foreach($order->rooms as $room)
+                                        {{ $room->name }}
                                     @endforeach
-                                @endif
-                            </td>
-                            
-                            <td>{{ date('D, h:i A  d/m/Y', strtotime($order->check_in_date)) }}</td>
-                            <td>{{ date('D, h:i A  d/m/Y', strtotime($order->check_out_date)) }}</td>
-                            <td>
-                                @if($order->status == 'cancelled')
-                                    <span class="badge bg-warning-light">Cancelled</span>
-                                @elseif($order->status == 'pending')
-                                    <span class="badge bg-danger-light">Pending</span>
-                                @elseif($order->status == 'active')
-                                    <span class="badge bg-info-light">Active</span>
-                                @elseif($order->status == 'finished')
-                                    <span class="badge bg-success-light">Finished</span>
-                                @endif
-                            </td>
-                           
-                            <td>
-                                @php
-                                    $room = $order->rooms->first();
-                                    $roomRate = $room->price;
-                                    $totalTime = $order->getTotalHours();
-                                    $servicePrice = $order->getTotalServiceAmount();
-                                    $totalAmount = ($roomRate * $totalTime) + $servicePrice;
-                                    if ($totalTime < 1) {
-                                        $totalTime = 1;
-                                    }
-                                @endphp
-                               Time: {{ $totalTime }} h, <br>Room: {{ $roomRate * $totalTime }} $<br>
-                                Services: {{ $servicePrice }} $<br>
-                                <i style="color: red">Total: {{ $totalAmount }} $</i>
-                            </td>
-                            
-                            
-                             <td>{{ $order->description }}</td>
-                            <td>
-                                <div class="d-flex align-items-center list-action">
+                                </td>
+                                <td>
+                                    @if(isset($order->services) && count($order->services) > 0)
+                                        @foreach($order->services as $key => $service)
+                                            {{ $service->name }} ({{ $order->getServiceQuantity($service->id) }})
+                                            @if($key < count($order->services) - 1)
+                                                <br>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                </td>
+                    
+                                <td>{{ date('D, h:i A  d/m/Y', strtotime($order->check_in_date)) }}</td>
+                                <td>{{ date('D, h:i A  d/m/Y', strtotime($order->check_out_date)) }}</td>
+                                <td>
+                                    @if($order->status == 'cancelled')
+                                        <span class="badge bg-warning-light">Cancelled</span>
+                                    @elseif($order->status == 'pending')
+                                        <span class="badge bg-danger-light">Pending</span>
+                                    @elseif($order->status == 'active')
+                                        <span class="badge bg-info-light">Active</span>
+                                    @elseif($order->status == 'finished')
+                                        <span class="badge bg-success-light">Finished</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @php
+                                        $room = $order->rooms->first();
+                                        $roomRate = $room->price;
+                                        $totalTime = $order->getTotalHours();
+                                        $servicePrice = $order->getTotalServiceAmount();
+                                        $totalAmount = ($roomRate * $totalTime) + $servicePrice;
+                                        if ($totalTime < 1) {
+                                            $totalTime = 1;
+                                        }
+                                    @endphp
+                                    Time: {{ $totalTime }} h, <br>
+                                    Room: $ {{ $roomRate * $totalTime }}<br>
+                                    Services: $ {{ $servicePrice }}<br>
+                                    <i style="color: red">Total: $ {{ $totalAmount }}</i>
+                                </td>
+                                 
+                                 <td>{{ $order->description }}</td>
+                                <td>
                                     <div class="d-flex align-items-center list-action">
-                                        @if($order->status == 'pending')
-                                            <a class="badge bg-primary mr-2" data-toggle="tooltip" data-placement="top" title="Active" href="{{ route('orderactivate', $order->id) }}"><i class="fas fa-check" style="color: rgb(255, 255, 255)"></i></a>
-                                            <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Cancelled" href="{{ route('ordercancel', $order->id) }}"><i class="fas fa-times" style="color: rgb(255, 255, 255)"></i></a>
-                                        @elseif($order->status == 'active')
-                                            <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Cancelled" href="{{ route('ordercancel', $order->id) }}"><i class="fas fa-times" style="color: rgb(255, 255, 255)"></i></a>
-                                        @endif
-                                   
-                                        <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Payment" href="{{ route('payment', ['id' => $order->id]) }}"><i class="fas fa-money-bill-alt text-white"></i></a>
-                                        <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href="{{ route('orderedit', ['id' => $order->id]) }}"><i class="ri-pencil-line mr-0"></i></a>
-                                        @if($order->status != 'finished')
-                                        @endif
-                                        <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href="{{ route('orderdelete', $order->id) }}"><i class="ri-delete-bin-line mr-0"></i></a>
+                                        <div class="d-flex align-items-center list-action">
+                                            @if($order->status == 'pending')
+                                                <a class="badge bg-primary mr-2" data-toggle="tooltip" data-placement="top" title="Active" href="{{ route('orderactivate', $order->id) }}"><i class="fas fa-check" style="color: rgb(255, 255, 255)"></i></a>
+                                                <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Cancelled" href="{{ route('ordercancel', $order->id) }}"><i class="fas fa-times" style="color: rgb(255, 255, 255)"></i></a>
+                                            @elseif($order->status == 'active')
+                                                <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Cancelled" href="{{ route('ordercancel', $order->id) }}"><i class="fas fa-times" style="color: rgb(255, 255, 255)"></i></a>
+                                            @endif
+                                       
+                                            <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Payment" href="{{ route('payment', ['id' => $order->id]) }}"><i class="fas fa-money-bill-alt text-white"></i></a>
+                                            <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href="{{ route('orderedit', ['id' => $order->id]) }}"><i class="ri-pencil-line mr-0"></i></a>
+                                            @if($order->status != 'finished')
+                                            @endif
+                                            <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href="{{ route('orderdelete', $order->id) }}"><i class="ri-delete-bin-line mr-0"></i></a>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    
                 </div>
             </div>
         </div>
        
                 <!-- Page end  -->
     </div>
-                 <!-- Modal Edit -->
-    <div class="modal fade" id="edit-note" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="popup text-left">
-                        <div class="media align-items-top justify-content-between">                            
-                            <h3 class="mb-3">Product</h3>
-                            <div class="btn-cancel p-0" data-dismiss="modal"><i class="las la-times"></i></div>
-                        </div>
-                        <div class="content edit-notes">
-                            <div class="card card-transparent card-block card-stretch event-note mb-0">
-                                <div class="card-body px-0 bukmark">
-                                    <div class="d-flex align-items-center justify-content-between pb-2 mb-3 border-bottom">                                                    
-                                        <div class="quill-tool">
-                                        </div>
-                                    </div>
-                                    <div id="quill-toolbar1">
-                                        <p>Virtual Digital Marketing Course every week on Monday, Wednesday and Saturday.Virtual Digital Marketing Course every week on Monday</p>
-                                    </div>
-                                </div>
-                                <div class="card-footer border-0">
-                                    <div class="d-flex flex-wrap align-items-ceter justify-content-end">
-                                        <div class="btn btn-primary mr-3" data-dismiss="modal">Cancel</div>
-                                        <div class="btn btn-outline-primary" data-dismiss="modal">Save</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-      </div> 
-    <!-- Modal Edit -->
-
     <!-- Wrapper End-->
-    <footer class="iq-footer">
-            <div class="container-fluid">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <ul class="list-inline mb-0">
-                                <li class="list-inline-item"><a href="{{ url('admin-privacy-policy') }}">Privacy Policy</a></li>
-                                <li class="list-inline-item"><a href="{{ url('admin-terms-of-use') }}">Terms of Use</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-6 text-right">
-                            <span class="mr-1"><script>document.write(new Date().getFullYear())</script>©</span> <a href="#" class="">SDN Hotel</a>.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Backend Bundle JavaScript -->
-    <script src="{{ asset('adm/js/backend-bundle.min.js') }}"></script>
-
-<!-- Table Treeview JavaScript -->
-<script src="{{ asset('adm/js/table-treeview.js') }}"></script>
-
-<!-- Chart Custom JavaScript -->
-<script src="{{ asset('adm/js/customizer.js') }}"></script>
-
-<!-- Chart Custom JavaScript -->
-<script async src="{{ asset('adm/js/chart-custom.js') }}"></script>
-
-<!-- app JavaScript -->
-<script src="{{ asset('adm/js/app.js') }}"></script>
-
-  </body>
-</html>
+@stop

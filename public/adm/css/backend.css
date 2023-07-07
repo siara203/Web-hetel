@@ -20216,3 +20216,27 @@ i {
     border: 0 !important; }
   .card-item-right .style-text {
     margin-left: 10px; } }
+
+
+.service-quantity-row {
+            display: none;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .service-name {
+            flex-grow: 1;
+        }
+        
+        .quantity-input {
+            width: 70px;
+        }
+        
+        .service-option {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .service-option span {
+            flex-basis: 100%;
+        }

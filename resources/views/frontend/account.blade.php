@@ -281,7 +281,7 @@
                                              @endif
                                          </div>                                         
                                         </td>
-                                    </tr>
+                                    </tr>   
                                    
                                     <div class="modal fade" id="editModal{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="editModal{{ $order->id }}Label" aria-hidden="true">
                                        <div class="modal-dialog" role="document">

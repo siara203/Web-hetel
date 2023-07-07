@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Coding by CodingLab || www.codinglabweb.com -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -14,6 +13,12 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
   </head>
   <body>
+        <!-- loader Start -->
+        <div id="loading">
+            <div id="loading-center">
+            </div>
+      </div>
+      <!-- loader END -->
    
   <div class="main">
 
@@ -71,8 +76,6 @@
         </div>
     </div>
 </section>
-
-
     <script src="{{ asset('assets/login.js') }}"></script>
     <script>
         document.getElementById("register-form").addEventListener("submit", function(event) {

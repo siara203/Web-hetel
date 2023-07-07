@@ -24,7 +24,12 @@
 </head>
 
 <body id="home">
-   
+       <!-- loader Start -->
+       <div id="loading">
+        <div id="loading-center">
+        </div>
+  </div>
+  <!-- loader END -->
 <!-- header -->
 <nav class="navbar  navbar-default" role="navigation">
   <div class="container">

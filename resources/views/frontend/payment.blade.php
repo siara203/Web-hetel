@@ -86,53 +86,53 @@
                                     </div>
                                  </div>
                               </div>
+                              <hr>
                               <div class="row">
                                  <div class="col-sm-12">
                                     <h5 class="mb-3">Order Summary</h5>
                                     <div class="table-responsive-sm">
                                        <table class="table">
-                                          <thead>
-                                             <tr>
-                                                <th class="text-center" scope="col">#</th>
-                                                <th scope="col">Item</th>
-                                                <th class="text-center" scope="col">Quantity</th>
-                                                <th class="text-center" scope="col">Price</th>
-                                                <th class="text-center" scope="col">Totals</th>
-                                             </tr>
-                                          </thead>
-                                          <tbody>
-                                             @php
-                                             $totalAmount = 0;
-                                             @endphp
-                                             @foreach($order->services as $key => $service)
-                                             <tr>
-                                                <th class="text-center" scope="row">{{ $key + 1 }}</th>
-                                                <td>
-                                                   <h6 class="mb-0">{{ $service->name }}</h6>
-                                                
-                                                </td>
-                                                <td class="text-center">1 turn</td>
-                                                <td class="text-center">${{ $service->price }}</td>
-                                                <td class="text-center"><b>${{ $service->price }}</b></td>
-                                             </tr>
-                                             @php
-                                             $totalAmount += $service->price;
-                                             @endphp
-                                             @endforeach
-                                             <tr>
-                                                <th class="text-center" scope="row">{{ $key + 2 }}</th>
-                                                <td>
-                                                   <h6 class="mb-0">{{ $room->name }}</h6>
-                                                  
-                                                </td>
-                                                <td class="text-center">{{ $totalTime }} hours</td>
-                                                <td class="text-center">${{ $roomRate }}</td>
-                                                <td class="text-center"><b>${{ $roomRate * $totalTime }}</b></td>
-                                             </tr>
-                                          </tbody>
+                                           <thead>
+                                               <tr>
+                                                   <th class="text-center" scope="col">#</th>
+                                                   <th scope="col">Item</th>
+                                                   <th class="text-center" scope="col">Quantity</th>
+                                                   <th class="text-center" scope="col">Price</th>
+                                                   <th class="text-center" scope="col">Totals</th>
+                                               </tr>
+                                           </thead>
+                                           <tbody>
+                                               @php
+                                                   $totalAmount = 0;
+                                               @endphp
+                                               @foreach($order->services as $key => $service)
+                                                   <tr>
+                                                       <th class="text-center" scope="row">{{ $key + 1 }}</th>
+                                                       <td>
+                                                           <h6 class="mb-0">{{ $service->name }}</h6>
+                                                       </td>
+                                                       <td class="text-center">{{ $service->pivot->quantity }}</td>
+                                                       <td class="text-center">$ {{ $service->price }}</td>
+                                                       <td class="text-center"><b>$ {{ $service->price * $service->pivot->quantity }}</b></td>
+                                                   </tr>
+                                                   @php
+                                                       $totalAmount += $service->price * $service->pivot->quantity;
+                                                   @endphp
+                                               @endforeach
+                                               <tr>
+                                                   <th class="text-center" scope="row">{{ count($order->services) + 1 }}</th>
+                                                   <td>
+                                                       <h6 class="mb-0">{{ $room->name }}</h6>
+                                                   </td>
+                                                   <td class="text-center">{{ $totalTime }} hours</td>
+                                                   <td class="text-center">$ {{ $roomRate }}</td>
+                                                   <td class="text-center"><b>$ {{ $roomRate * $totalTime }}</b></td>
+                                               </tr>
+                                               
+                                           </tbody>
                                        </table>
-                                       
-                                    </div>
+                                   </div>
+                                   
                                  </div>                              
                               </div>
                               <div class="row">
