@@ -11,15 +11,17 @@ Route::get('/', function () {
     return view('frontend/index');
 });
 Route::get('logout', [AuthController::class, 'getLogout']);
+
 Route::group(['prefix' => 'user'], function () {
     Route::get('/login', [AuthController::class, 'getLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'postLogin']);
     Route::get('/register', [AuthController::class, 'getRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'postRegister']);
-    Route::get('/auth/google', [AuthController::class, 'redirectToGoogle']);
-    Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
+
 });
 
+Route::get('/user/auth/google', [AuthController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 
 
 Route::middleware('auth')->group(function () {

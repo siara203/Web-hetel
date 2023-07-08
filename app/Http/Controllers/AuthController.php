@@ -75,14 +75,18 @@ class AuthController extends Controller
 
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->stateless()->redirect();
     }
-
+    /**
+     * Create new controller instance
+     * 
+     * @return void
+     */
     public function handleGoogleCallback()
     {
         $user = Socialite::driver('google')->stateless()->user();
+    
         $findUser = User::where('email', $user->getEmail())->first();
-
         if ($findUser) {
             Auth::login($findUser);
             return redirect()->intended('/');
@@ -92,12 +96,11 @@ class AuthController extends Controller
             $newUser->provider_id = $user->getId();
             $newUser->full_name = $user->getName();
             $newUser->email = $user->getEmail();
-            $newUser->email_verified_at = now();
             $newUser->role = 'user';
             $newUser->save();
-
             Auth::login($newUser);
             return redirect()->intended('/');
         }
     }
+    
 }
