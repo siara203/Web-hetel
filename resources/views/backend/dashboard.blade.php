@@ -156,7 +156,8 @@
                                     </div>
                                     <div>
                                         <p class="mb-2">Total Sales</p>
-                                        <h4>31.50</h4>
+                                        <h4>$ {{ $totalSales }}</h4>
+
                                     </div>
                                 </div>                                
                                 <div class="iq-progress-bar mt-2">
@@ -174,8 +175,8 @@
                                     <img src="adm/images/product/2.png"  class="img-fluid" alt="image">
                                     </div>
                                     <div>
-                                        <p class="mb-2">Total Cost</p>
-                                        <h4>$ 4598</h4>
+                                        <p class="mb-2">Total Room</p>
+                                        <h4>{{ $totalRooms }}</h4>
                                     </div>
                                 </div>
                                 <div class="iq-progress-bar mt-2">
@@ -193,8 +194,8 @@
                                     <img src="adm/images/product/3.png"  class="img-fluid" alt="image">
                                     </div>
                                     <div>
-                                        <p class="mb-2">Product Sold</p>
-                                        <h4>4589 M</h4>
+                                        <p class="mb-2">Total Orders</p>
+                                        <h4>{{ $totalOrders  }}</h4>
                                     </div>
                                 </div>
                                 <div class="iq-progress-bar mt-2">

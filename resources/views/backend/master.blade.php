@@ -78,7 +78,7 @@
                                                 </div>
                                                 <div class="px-3 pt-0 pb-0 sub-card">
                                                     <h6 style="color: rgb(58, 122, 232)" class="mb-0">New customers</h6>
-                                                    @foreach($users->take(3) as $user)
+                                                    @foreach(App\Models\User::latest()->take(2)->get() as $user)
                                                         <a href="#" class="iq-sub-card">
                                                             <div class="media align-items-center cust-card py-3 border-bottom">
                                                                 <div class="media-body ml-3">
@@ -95,7 +95,7 @@
                                                         </a>
                                                     @endforeach
                                                     <h6 style="color: rgb(58, 122, 232)" class="mb-0">New Orders</h6>
-                                                    @foreach($orders->take(3)  as $order)
+                                                    @foreach($orders->sortByDesc('created_at')->take(2) as $order)
                                                     
                                                         <a href="#" class="iq-sub-card">
                                                             <div class="media align-items-center cust-card py-3 border-bottom">
