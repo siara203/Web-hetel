@@ -30,7 +30,7 @@
                                   </li>
                                   <li class="">
                                           <a href="{{ url('admin-user-add') }}">
-                                              <i class="las la-minus"></i><span>Add Users</span>
+                                              <i class="las la-minus"></i><span>Add User</span>
                                           </a>
                                   </li> 
                           </ul>
@@ -139,7 +139,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                            <h4 class="card-title">Update service</h4>
+                            <h4 class="card-title">Update Service</h4>
                             <p>@include('errors.note')</p>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input name="price" type="text" class="form-control" value="{{ $service->price }}">
+                            <input placeholder="Enter Price"  name="price" type="text" class="form-control" value="{{ $service->price }}">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -172,13 +172,13 @@
                     </div>                    
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <img style="width: 400px;heght:400px" src="{{ asset('images/services/' . $service->picture->file_name) }}" class="img-fluid" alt="Current Image">
+                            <img style="width: 400px;heght:200px" src="{{ asset('images/services/' . $service->picture->file_name) }}" class="img-fluid" alt="Current Image">
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Description</label>
-                            <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $service->description }}</textarea>
+                            <textarea placeholder="Enter Descripition "  name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $service->description }}</textarea>
                         </div>
                     </div>
                 </div>

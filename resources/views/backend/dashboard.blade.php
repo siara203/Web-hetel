@@ -30,7 +30,7 @@
                                   </li>
                                   <li class="">
                                           <a href="{{ url('admin-user-add') }}">
-                                              <i class="las la-minus"></i><span>Add Users</span>
+                                              <i class="las la-minus"></i><span>Add User</span>
                                           </a>
                                   </li> 
                           </ul>
@@ -175,7 +175,7 @@
                                     <img src="adm/images/product/2.png"  class="img-fluid" alt="image">
                                     </div>
                                     <div>
-                                        <p class="mb-2">Total Room</p>
+                                        <p class="mb-2">Total Rooms</p>
                                         <h4>{{ $totalRooms }}</h4>
                                     </div>
                                 </div>

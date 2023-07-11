@@ -41,11 +41,22 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ url('/') }}"><img  src="{{ asset('adm/images/favicon.ico') }}" alt="SDN Hotel"></a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url('/') }}">
+            <img src="{{ asset('adm/images/favicon.ico') }}" alt="SDN Hotel">
+          </a>
+        </div>
+        <div class="navbar-header" style="margin-top: 10px">
+        <form class="navbar-form navbar-right" role="search" method="GET" action="{{ url('/search') }}">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Enter search"style="
+              padding-right: 11px;width: 300px" name="keyword">
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+          </form>
+        </div>
 <!-- header -->
 <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">        
@@ -90,9 +101,9 @@
 
                 </div>
                  <div class="col-sm-4 subscribe">
-                    <h4>Subscription</h4>
+                    <h4>Advisory</h4>
                     <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Enter email id here">
+                    <input type="text" class="form-control" placeholder="Enter email or phone here">
                     <span class="input-group-btn">
                     <button class="btn btn-default" type="button">Get Notify</button>
                     </span>
@@ -113,7 +124,9 @@
     
     <!--/.footer-bottom--> 
 </footer>
-<div class="text-center copyright">© <b>2023 ,</b> <a href="">SDN Hotel</a></div>
+
+
+<div class="text-center copyright">© <b><script>document.write(new Date().getFullYear())</script> ,</b> <a href="">SDN Hotel</a></div>
 <a href="#home" class="toTop scroll"><i class="fa fa-angle-up"></i></a>
 <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">

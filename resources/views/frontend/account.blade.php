@@ -55,7 +55,7 @@
                                 <li class="nav-item nav-icon dropdown caption-content">
                                     <div class="p-3">
                                         <div class="d-flex align-items-center justify-content-center mt-3">
-                                            <a  href="{{asset('logout')}}" class="btn border">Sign Out</a>
+                                            <a  href="{{asset('logout')}}" class="btn border">Logout</a>
                                         </div>
                                     </div>
                                 </li>
@@ -167,7 +167,7 @@
                                  <thead>
                                     <tr>
                                        <th>Room</th>
-                                       <th style="padding-right: 55px">Services</th>
+                                       <th style="padding-right: 55px">Services (Quantity)</th>
                                        <th style="font-size: 14px;">Check in date</th>
                                        <th style="font-size: 14px;">Check out date</th>
                                        <th tyle="font-size: 14px;">Status</th>
@@ -187,14 +187,13 @@
                                         <td>
                                             @if(isset($order->services) && count($order->services) > 0)
                                                 @foreach($order->services as $key => $service)
-                                                    {{ $service->name }}
+                                                    {{ $service->name }} ({{ $order->getServiceQuantity($service->id) }})
                                                     @if($key < count($order->services) - 1)
-                                                        , <br>
+                                                        <br>
                                                     @endif
                                                 @endforeach
                                             @endif
                                         </td>
-                                        
                                         <td>{{ date('D, h:i A  d/m/Y', strtotime($order->check_in_date)) }}</td>
                                         <td>{{ date('D, h:i A  d/m/Y', strtotime($order->check_out_date)) }}</td>
                                         <td>
@@ -220,9 +219,9 @@
                                                     $totalTime = 1;
                                                 }
                                             @endphp
-                                            Time: {{ $totalTime }} h, <br>Room: {{ $roomRate * $totalTime }} $<br>
+                                            Time: {{ $totalTime }} h, <br>Room: $ {{ $roomRate * $totalTime }}<br>
                                             Services: {{ $servicePrice }} $<br>
-                                            <i style="color: red">Total Amount: {{ $totalAmount }} $</i>
+                                            <i style="color: red">Total Amount: $ {{ $totalAmount }}</i>
                                         </td>
                                         
                                         <td>{{ $order->description }}</td>
@@ -240,44 +239,61 @@
                                     </tr>   
                                    
                                     <div class="modal fade" id="editModal{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="editModal{{ $order->id }}Label" aria-hidden="true">
-                                       <div class="modal-dialog" role="document">
-                                           <div class="modal-content">
-                                               <div class="modal-header">
-                                                   <h5 class="modal-title" id="editModal{{ $order->id }}Label">Edit Order Information</h5>
-                                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                       <span aria-hidden="true">&times;</span>
-                                                   </button>
-                                               </div>
-                                               <div class="modal-body">
-                                                <form action="{{ route('updateorder', ['id' => $order->id]) }}" method="POST">
-                                                       @csrf
-                                                       <div class="form-group">
-                                                            <label>Services *</label>
-                                                            <select name="service_id[]" class="selectpicker form-control" multiple data-style="py-0" required>
-                                                                @foreach($services as $service)
-                                                                    <option value="{{ $service->id }}" {{ in_array($service->id, $order->services->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $service->name }}</option>
-                                                                @endforeach
-                                                            </select>
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModal{{ $order->id }}Label">Edit Order Information</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ route('updateorder', ['id' => $order->id]) }}" method="POST">
+                                                        @csrf
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label>Services *</label>
+                                                                <select name="service_id[]" class="selectpicker form-control" multiple data-style="py-0" required>
+                                                                    @foreach($services as $service)
+                                                                        @if (!$order->services->contains('id', $service->id))
+                                                                            <option class="service-option" value="{{ $service->id }}" data-quantity-input="{{ $service->id }}">{{ $service->name }}</option>
+                                                                        @else
+                                                                            <option class="service-option selected" value="{{ $service->id }}" data-quantity-input="{{ $service->id }}" selected>{{ $service->name }}</option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>                                    
                                                         </div>
-                                                       <div class="form-group">
-                                                           <label for="check_in_date">Check in date *</label>
-                                                           <input type="datetime-local" name="check_in_date" class="form-control" value="{{ date('Y-m-d\TH:i', strtotime($order->check_in_date)) }}" required>
-                                                         </div>
-                                                       <div class="form-group">
-                                                           <label for="check_out_date">Check out date *</label>
-                                                           <input type="datetime-local" name="check_out_date" class="form-control" value="{{ date('Y-m-d\TH:i', strtotime($order->check_out_date)) }}" required>
-                                                         </div>
-                                                         
-                                                       <div class="form-group">
-                                                           <label for="description">Description</label>
-                                                           <input type="text" id="description" name="description" value="{{ $order->description }}" class="form-control">
-                                                       </div>
-                                                       <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                   </form>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
+                                                        <div id="service-quantity-container">
+                                                            <div id="existing-service-quantity-container">
+                                                                @foreach($order->services as $orderService)
+                                                                    <div class="service-quantity-row" id="service-{{ $orderService->id }}-quantity">
+                                                                        <div class="service-name col-sm">{{ $orderService->name }}</div>
+                                                                        <input type="number" name="quantity[]" class="form-control quantity-input col-sm" value="{{ $orderService->pivot->quantity ?? 1 }}" min="0">
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                            <div id="new-service-quantity-container"></div>
+                                                        </div>                                                
+                                                        <div class="form-group">
+                                                            <label for="check_in_date">Check in date *</label>
+                                                            <input type="datetime-local" name="check_in_date" class="form-control" value="{{ date('Y-m-d\TH:i', strtotime($order->check_in_date)) }}" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="check_out_date">Check out date *</label>
+                                                            <input type="datetime-local" name="check_out_date" class="form-control" value="{{ date('Y-m-d\TH:i', strtotime($order->check_out_date)) }}" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="description">Description</label>
+                                                            <input type="text" id="description" name="description" value="{{ $order->description }}" class="form-control">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                @endforeach
                                  </tbody>
                               </table>
@@ -419,8 +435,8 @@
                         </div>
                         
                         <div id="profile5" class="tab-pane fade">
-                           <p style="text-align: center">Thank you for trusting and using our hotel. We are always healthy.</p>
-                             <p style="text-align: center">------------------- Love you ! "  -------------------<p>
+                           <p style="text-align: center">Thank you for trusting and using our hotel. Wish you always healthy.</p>
+                             <p style="text-align: center">------------------- Love you ! -------------------<p>
                         </div>
                      </div>
                   </div>
@@ -442,7 +458,7 @@
                           </ul>
                       </div>
                       <div class="col-lg-6 text-right">
-                          <span class="mr-1"><script>document.write(new Date().getFullYear())</script>©</span> <a href="#" class="">SDN Hotel</a>.
+                          <span class="mr-1">©<b><script>document.write(new Date().getFullYear())</script></span></b> <a href="#" class="">SDN Hotel</a>.
                       </div>
                     </div>
                 </div>
@@ -463,6 +479,33 @@
 
 <!-- app JavaScript -->
 <script src="{{ asset('adm/js/app.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var select = document.querySelector('select[name="service_id[]"]');
+        var quantityInputs = document.querySelectorAll('.quantity-input');
+
+        select.addEventListener('change', function() {
+            var selectedOptions = select.selectedOptions;
+
+            // Reset quantity inputs
+            quantityInputs.forEach(function(input) {
+                input.value = 1;
+            });
+
+            // Update quantity inputs for selected options
+            for (var i = 0; i < selectedOptions.length; i++) {
+                var selectedOption = selectedOptions[i];
+                var serviceId = selectedOption.value;
+                var quantityInput = document.getElementById('quantity-' + serviceId);
+
+                if (quantityInput) {
+                    quantityInput.value = 1;
+                }
+            }
+        });
+    });
+</script>
+
 <script>
     function updateCurrentTime() {
        var currentTimeElement = document.getElementById('current-time');
@@ -491,6 +534,6 @@
     updateCurrentTime();
     setInterval(updateCurrentTime, 1000);
  </script>
- 
+
   </body>
 </html>

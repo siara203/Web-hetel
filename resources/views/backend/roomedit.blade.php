@@ -30,7 +30,7 @@
                                   </li>
                                   <li class="">
                                           <a href="{{ url('admin-user-add') }}">
-                                              <i class="las la-minus"></i><span>Add Users</span>
+                                              <i class="las la-minus"></i><span>Add User</span>
                                           </a>
                                   </li> 
                           </ul>
@@ -169,7 +169,7 @@
                                     <label>Price *</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">$</span>
+                                            <span class="input-group-text">$/h</span>
                                         </div>
                                         <input name="price" placeholder="Enter Price" type="text" class="form-control" value="{{ $room->price }}">
 

@@ -32,7 +32,7 @@
                                   </li>
                                   <li class="">
                                           <a href="{{ url('admin-user-add') }}">
-                                              <i class="las la-minus"></i><span>Add Users</span>
+                                              <i class="las la-minus"></i><span>Add User</span>
                                           </a>
                                   </li> 
                           </ul>

@@ -30,7 +30,7 @@
                                   </li>
                                   <li class="">
                                           <a href="{{ url('admin-user-add') }}">
-                                              <i class="las la-minus"></i><span>Add Users</span>
+                                              <i class="las la-minus"></i><span>Add User</span>
                                           </a>
                                   </li> 
                           </ul>
@@ -133,7 +133,7 @@
           </div>
       </div>  
 <!-- main -->    
-<div class="content-page">
+<div class="content-page" >
      <div class="container-fluid add-form-list">
         <div class="row">
             <div class="col-sm-12">
@@ -148,7 +148,7 @@
                     <form action="{{ route('roomtypeadd') }}" method="POST" enctype="multipart/form-data" data-toggle="validator">
                          @csrf
                             <div class="row">                                
-                                <div class="col-md-6">                      
+                                <div class="col-md-12">                      
                                     <div class="form-group">
                                         <label>Name *</label>
                                         <input name="name" type="text" class="form-control" placeholder="Enter Name" required>

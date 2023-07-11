@@ -30,7 +30,7 @@
                                   </li>
                                   <li class="">
                                           <a href="{{ url('admin-user-add') }}">
-                                              <i class="las la-minus"></i><span>Add Users</span>
+                                              <i class="las la-minus"></i><span>Add User</span>
                                           </a>
                                   </li> 
                           </ul>
@@ -139,7 +139,7 @@
             <div class="col-lg-12">
                 <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
                     <div>
-                        <h4 class="mb-3"> List Room Type</h4>
+                        <h4 class="mb-3"> List Room Types</h4>
                         <p class="mb-0">@include('errors.note')</p>
                     </div>
                     <a  href="{{ url('admin-room-type-add') }}"class="btn btn-primary add-list"><i class="las la-plus mr-3"></i>Add Room Type</a>

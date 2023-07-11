@@ -1,3 +1,4 @@
+
 @extends('frontend.master')
 
 @section('content')
@@ -20,50 +21,57 @@
 
 <!-- reservation-information -->
 <div id="information" class="spacer reserve-info ">
-<div class="container">
-<div class="row">
-<div class="col-sm-7 col-md-8">
-    <div class="embed-responsive embed-responsive-16by9 wowload fadeInLeft"><iframe  class="embed-responsive-item" src="//player.vimeo.com/video/55057393?title=0" width="100%" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>
-</div>
-<div class="col-sm-5 col-md-4">
-
-    <form role="form" class="wowload fadeInRight">
-        <div class="form-group">
-            <input type="text" class="form-control"  >
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7 col-md-8">
+                <div class="embed-responsive embed-responsive-16by9 wowload fadeInLeft">
+                    <iframe  class="embed-responsive-item" src="//player.vimeo.com/video/55057393?title=0" width="100%" height="400" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        <div class="col-sm-5 col-md-4">
+            </br></br>
+            <div class="feature">        
+                <h4><i class="fa fa-home"></i> Comfortable Rooms</h4>
+                <p>Relax and unwind in our spacious and comfortable rooms designed for your ultimate comfort.</p>
+            </div>
+            <hr>
+            <div class="feature">
+                <h4><i class="fa fa-cutlery"></i> Delicious Dining</h4>
+                <p>Indulge in a culinary journey with our exquisite menu and a variety of dining options.</p>
+            </div>  
+            <hr>
+            <div class="feature">
+                <h4><i class="fa fa-map-marker" aria-hidden="true"></i> Convenient Location</h4>
+                <p>Located in the heart of the city, our hotel offers easy access to popular attractions and amenities.</p>
+            </div>
+            <hr></br></br></br> 
         </div>
-        <div class="form-group">
-            <input type="email" class="form-control"  >
+        <!-- Services Section -->
+        <div id="services" class="spacer">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="service">
+                            <h4><i class="fa fa-wifi"></i> Free Wi-Fi</h4>
+                            <p>Stay connected with our high-speed Wi-Fi throughout the hotel premises.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="service">
+                            <h4><i class="fa fa-car" aria-hidden="true"></i> Parking</h4>
+                            <p>Convenient and secure parking facilities available for our guests.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <input type="Phone" class="form-control"  >
-        </div>        
-        <div class="form-group">
-            <input type="Address" class="form-control" >
-        </div>        
-        <div class="form-group">
-            <input type="Address" class="form-control" >
-        </div>     
-        <div class="form-group">
-            <input type="Address" class="form-control" >
-        </div>        
-        <div class="form-group">
-            <input type="Address" class="form-control" >
-        </div>  
-        <div class="form-group">
-            <input type="Address" class="form-control" >
-        </div>        
-        <div class="form-group">
-            <input type="Address" class="form-control" >
-        </div> 
-    </form>    
-</div>
-</div>  
+  </div>
+  <!-- Services Section -->
 </div>
 </div>
 <!-- reservation-information -->
-
-
-
 <!-- services -->
 <div class="spacer services wowload fadeInUp">
 <div class="container">
@@ -113,7 +121,7 @@
             <a class="right carousel-control" href="#FoodCarousel" role="button" data-slide="next"><i class="fa fa-angle-right"></i></a>
         </div>
         <!-- FoodCarousel -->
-        <div class="caption">Food and Drinks<a href="{{ url('/services') }}" class="pull-right"><i class="fa fa-edit"></i></a></div>
+        <div class="caption">Services<a href="{{ url('/services') }}" class="pull-right"><i class="fa fa-edit"></i></a></div>
     </div>
 </div>
 

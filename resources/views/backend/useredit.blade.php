@@ -30,7 +30,7 @@
                                   </li>
                                   <li class="">
                                           <a href="{{ url('admin-user-add') }}">
-                                              <i class="las la-minus"></i><span>Add Users</span>
+                                              <i class="las la-minus"></i><span>Add User</span>
                                           </a>
                                   </li> 
                           </ul>
@@ -177,14 +177,14 @@
                                 </div> 
                                 <div class="col-md-6">                      
                                     <div class="form-group">
-                                        <label>Password</label>
+                                        <label>Password *</label>
                                         <input type="password" class="form-control" placeholder="Enter Password" name="password" value="{{ $user->password }}">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>  
                                 <div class="col-md-6">                      
                                     <div class="form-group">
-                                        <label>Confirm Password</label>
+                                        <label>Confirm Password *</label>
                                         <input type="password" class="form-control" placeholder="Enter Confirm Password" value="{{ $user->password }}" name="confirm_password">
                                         <div class="help-block with-errors"></div>
                                     </div>

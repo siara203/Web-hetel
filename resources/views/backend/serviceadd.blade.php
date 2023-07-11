@@ -30,7 +30,7 @@
                                   </li>
                                   <li class="">
                                           <a href="{{ url('admin-user-add') }}">
-                                              <i class="las la-minus"></i><span>Add Users</span>
+                                              <i class="las la-minus"></i><span>Add User</span>
                                           </a>
                                   </li> 
                           </ul>
@@ -174,7 +174,7 @@
                                 <div class="col-md-12">
                                 <div class="form-group">
                             <label for="exampleFormControlTextarea1">Description</label>                                
-                            <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea name="description" class="form-control" id="exampleFormControlTextarea1" placeholder="Enter Descripition " rows="3"></textarea>
                                      </div>
                                   </div>
                                </div>

@@ -117,53 +117,59 @@ class HomeController extends Controller
     public function updateorder(Request $request, $id)
     {
         $order = Order::findOrFail($id);
-            
+    
         $validatedData = $request->validate([
             'check_in_date' => 'required',
             'check_out_date' => 'required',
             'service_id' => 'required|array',
             'description' => 'nullable',
+            'quantity' => 'required|array',
         ]);
-        
-        
+    
         $order->check_in_date = $request->input('check_in_date');
         $order->check_out_date = $request->input('check_out_date');
-      
         $order->description = $request->input('description');
         $order->save();
-        
+    
         $order->services()->sync($request->input('service_id'));
-        
-        $orderRoom = OrderRoom::where('order_id', $order->id)->first();
-        $room = Room::findOrFail($orderRoom->room_id);
-        
-        if ($order->status === 'active' && $room->status === 'vacancy') {
-            $room->status = 'active';
-            $room->save();
-        }
     
-        if ($request->input('status') === 'cancelled' || $request->input('status') === 'finished' || $request->input('status') === 'pending') {
-            $room->status = 'vacancy';
-        }
-        $room->save(); 
-    
-        $roomRate = $room->price;
+        $roomRate = $order->room->price ?? 0;   
         $serviceIds = $request->input('service_id');
-        $totalServiceAmount = Service::whereIn('id', $serviceIds)->sum('price');
+        $quantityValues = $request->input('quantity');
+        $totalServiceAmount = 0;
+    
+        foreach ($serviceIds as $key => $serviceId) {
+            $service = Service::find($serviceId);
+    
+            if ($service) {
+                $quantity = $quantityValues[$key] ?? 1;
+                $totalServiceAmount += $quantity * $service->price;
+                $orderService = OrderServices::where('order_id', $order->id)
+                    ->where('service_id', $serviceId)
+                    ->first();
+    
+                if ($orderService) {
+                    $orderService->quantity = $quantity;
+                    $orderService->save();
+                }
+            }
+        }
+    
         $checkInDate = Carbon::parse($request->input('check_in_date'));
         $checkOutDate = Carbon::parse($request->input('check_out_date'));
         $totalHours = $checkInDate->diffInHours($checkOutDate);
-        
+    
         if ($totalHours < 1) {
             $totalHours = 1;
         }
-        
+    
         $totalAmount = ($totalHours * $roomRate) + $totalServiceAmount;
         $order->total_amount = $totalAmount;
         $order->save();
-        
+    
         return redirect()->back()->with('success', 'Order updated successfully.');
-    }  
+    }
+    
     public function payment($id)
     {
         $order = Order::findOrFail($id);
