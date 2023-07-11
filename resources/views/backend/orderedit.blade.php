@@ -159,13 +159,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Check-in date *</label>
+                                    <label>Check In Date *</label>
                                     <div class="form-group">
                                         <input type="datetime-local" name="check_in_date" class="form-control" value="{{ date('Y-m-d\TH:i', strtotime($order->check_in_date)) }}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Check-out date *</label>
+                                    <label>Check Out Date *</label>
                                     <div class="form-group">
                                         <input type="datetime-local" name="check_out_date" class="form-control" value="{{ date('Y-m-d\TH:i', strtotime($order->check_out_date)) }}" required>
                                     </div>

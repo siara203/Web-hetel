@@ -162,13 +162,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Check-in date *</label>
+                                    <label>Check In Date *</label>
                                     <div class="form-group">
                                         <input type="datetime-local" name="check_in_date" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Check-out date *</label>
+                                    <label>Check Out Date *</label>
                                     <div class="form-group">
                                         <input type="datetime-local" name="check_out_date" class="form-control" required>
                                     </div>
@@ -200,7 +200,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Services *</label>
-                                        <select name="service_id[]" class="selectpicker form-control" multiple data-style="py-0" required>
+                                        <select name="service_id[]" class="selectpicker form-control"  data-style="py-0" required>
+                                            <option value="">Select Services</option>
                                             @foreach($services as $service)
                                                 <option class="service-option" value="{{ $service->id }}" data-quantity-input="{{ $service->id }}">{{ $service->name }}</option>
                                             @endforeach
@@ -220,7 +221,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Description</label>
-                                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea placeholder="Enter Description" name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>

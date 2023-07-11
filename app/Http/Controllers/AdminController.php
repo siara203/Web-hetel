@@ -27,6 +27,13 @@ class AdminController extends Controller
         $totalOrders = Order::count();
         $users = User::all();
         return view('backend.dashboard', compact('users', 'orders','totalSales','totalOrders','totalRooms'));
+    }    
+    // show notification
+    public function notification()
+    {
+        $orders = Order::all();
+        $users = User::all();
+        return view('backend.notification', compact('users', 'orders'));
     }
     // show services
     public function getserviceadd()

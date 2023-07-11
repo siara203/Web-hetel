@@ -266,7 +266,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Description</label>
-                                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $room->description }}</textarea>
+                                        <textarea placeholder="Enter Description" name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $room->description }}</textarea>
                                     </div>
                                 </div>
                             </div>

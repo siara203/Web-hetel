@@ -142,7 +142,7 @@
                                                     <h5 class="mb-1"> {{ Auth::user()->full_name }}</h5>
                                                     <p class="mb-0"> {{ Auth::user()->email }}</p>
                                                     <div class="d-flex align-items-center justify-content-center mt-3">
-                                                        <a href="" class="btn border mr-2">Profile</a>
+                                                        
                                                         <a  href="{{asset('logout')}}" class="btn border">Sign Out</a>
                                                     </div>
                                                 </div>
