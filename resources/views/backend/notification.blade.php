@@ -74,7 +74,7 @@
                                               <i class="las la-minus"></i><span>List Room Types</span>
                                           </a>
                                   </li>
-                                  <li class="active">
+                                  <li class="">
                                           <a href="{{ url('admin-room-type-add') }}">
                                               <i class="las la-minus"></i><span>Add Room Type</span>
                                           </a>
@@ -128,52 +128,71 @@
                           </ul>
                       </li>
                   </ul>
-              </nav>
-              
-          </div>
-      </div>  
-<!-- main -->    
-<div class="content-page">
-     <div class="container-fluid add-form-list">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between">
-                        <div class="header-title">
-                            <h4 class="card-title">Add Room Type</h4>
-                            <p>@include('errors.note')</p>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                    <form action="{{ route('roomtypeadd') }}" method="POST" enctype="multipart/form-data" data-toggle="validator">
-                         @csrf
-                            <div class="row">                                
-                                <div class="col-md-6">                      
-                                    <div class="form-group">
-                                        <label>Name *</label>
-                                        <input name="name" type="text" class="form-control" placeholder="Enter Name" required>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div> 
-
-                            </div>
-                                                               
-                            <button type="submit" class="btn btn-primary mr-2">Add Room Type</button>
-                            <button type="reset" class="btn btn-danger">Reset</button>
-                        </form>
-                    </div>
-                </div>
+              </nav>    
             </div>
-        </div>
-        <!-- Page end  -->
-    </div>
-      </div>
-        <!-- Page end  -->
-    </div>
-      </div>
-    </div>
- <!--end main  -->
-    </div>
-    </div>
-    <!-- Wrapper End-->
-@stop
+        </div>    
+        <div class="content-page">
+            <div class="container-fluid timeline-page">
+                <h4 class="mb-0">Notifications</h4><hr>
+                  <div class="row">
+                     <div class="col-lg-6">
+                        <div class="card card-block card-stretch card-height">                          
+                           <div class="card-header d-flex justify-content-between">
+                              <div class="header-title">
+                                 <h5 style="color: rgb(58, 122, 232)"class="card-title">New Customers</h5>
+                              </div>
+                           </div>
+                           <div class="card-body">
+                              <div class="iq-timeline0 m-0 d-flex align-items-center justify-content-between position-relative">
+                                 <ul class="list-inline p-0 m-0">
+                                    @foreach($users->sortByDesc('created_at') as $user)
+                                    <li>
+                                       <div class="timeline-dots timeline-dot1 border-warning text-warning">
+                                       </div>
+                                       <h6 class="float-left mb-1">Full Name: {{ $user->full_name }}</h6>
+                                       <small class="float-right mt-1">
+                                        <b>{{ $user->created_at->format('D, h:i A - d/m/Y') }}</b>
+                                        </small>
+                                       <div class="d-inline-block w-100">
+                                          <p>Email: {{ $user->email }}</p>
+                                       </div>
+                                    </li>
+                                    @endforeach
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-lg-6">
+                        <div class="card card-block card-stretch card-height">
+                           <div class="card-header d-flex justify-content-between">
+                              <div class="header-title">
+                                <h5 style="color: rgb(58, 122, 232)"class="card-title">New Orders</h5>
+                              </div>
+                           </div>
+                           <div class="card-body">
+                              <div class="iq-timeline0 m-0 d-flex align-items-center justify-content-between position-relative">
+                                 <ul class="list-inline p-0 m-0">
+                                    @foreach($orders->sortByDesc('created_at') as $order)
+                                    <li>
+                                       <div class="timeline-dots timeline-dot1 border-primary text-primary"></div>
+                                       <h6 class="float-left mb-1">Customer: {{ $order->user->full_name }}</h6>
+                                       <small class="float-right mt-1"> 
+                                        <b>{{ date('D, h:i A - d/m/Y', strtotime($order->check_in_date)) }}</b>
+                                        </small>
+                                       <div class="d-inline-block w-100">
+                                          <p>@foreach($order->rooms as $room)Room: {{ $room->name }}@endforeach
+                                        </p>
+                                       </div>
+                                    </li>
+                                    @endforeach 
+                                 </ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+            </div>
+          </div>
+        @stop

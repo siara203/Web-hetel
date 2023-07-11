@@ -87,15 +87,7 @@
                 </div>              
                  
                  <div class="col-sm-3">
-                    <h4>Quick Links</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="rooms-tariff.php">Rooms</a></li>        
-                        <li><a href="introduction.php">Introduction</a></li>
-                        <li><a href="gallery.php">Services</a></li>
-                        <li><a href="tour.php">Tour Packages</a></li>
-                        <li><a href="contact.php">Contact</a></li>
-                        
-                    </ul>
+
                 </div>
                  <div class="col-sm-4 subscribe">
                     <h4>Subscription</h4>

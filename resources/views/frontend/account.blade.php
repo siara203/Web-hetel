@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>POS Dash | Responsive Bootstrap 4 Admin Dashboard Template</title>
+      <title>SDN Hotel | Account</title>
       
       <!-- Favicon -->
       <link rel="shortcut icon" href="{{ asset('adm/images/favicon.ico') }}" type="image/x-icon">
@@ -28,7 +28,7 @@
                     <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
                        
                         
-                        <a href="{{ url('admin-dashboard') }}" class="header-logo">
+                        <a href="{{ url('/') }}" class="header-logo">
                             <img src="adm/images/logo.png" class="img-fluid rounded-normal" alt="logo">
                             <h5 class="logo-title ml-3">SDN Hotel</h5>
                         </a>
@@ -44,56 +44,14 @@
                             <i class="ri-menu-3-line"></i>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                           <ul class="nav navbar-nav">        
-                              <li class="nav-link"><a href="{{ url('/') }}" >Home</a></li>
-                              <li class="nav-link"><a href="{{ url('/rooms') }}">Rooms</a></li>
-                              <li class="nav-link"><a href="{{ url('/introduction') }}">Introduction</a></li>
-                              <li class="nav-link"><a href="{{ url('/services') }}">Services</a></li>
-                              <li class="nav-link"><a href="{{ url('/contact') }}">Contact</a></li>
+                           <ul class="navbar-nav ml-auto navbar-list align-items-center nav">        
+                              <li class="d-flex align-items-center justify-content-center mt-3"><a href="{{ url('/') }}" >Home</a></li>
+                              <li class="d-flex align-items-center justify-content-center mt-3"><a href="{{ url('/rooms') }}">Rooms</a></li>
+                              <li class="d-flex align-items-center justify-content-center mt-3"><a href="{{ url('/introduction') }}">Introduction</a></li>
+                              <li class="d-flex align-items-center justify-content-center mt-3"><a href="{{ url('/services') }}">Services</a></li>
+                              <li class="d-flex align-items-center justify-content-center mt-3"><a href="{{ url('/contact') }}">Contact</a></li>
                            </ul>
                             <ul class="navbar-nav ml-auto navbar-list align-items-center">
-                                <li class="nav-item nav-icon dropdown">
-                                    <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" class="feather feather-bell">
-                                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                                        </svg>
-                                        <span class="bg-primary "></span>
-                                    </a>
-                                    <div class="iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <div class="card shadow-none m-0">
-                                            <div class="card-body p-0 ">
-                                                <div class="cust-title p-3">
-                                                    <div class="d-flex align-items-center justify-content-between">
-                                                        <h5 class="mb-0">Notifications</h5>
-                                                        <a class="badge badge-primary badge-card" href="#">3</a>
-                                                    </div>
-                                                </div>
-                                                <div class="px-3 pt-0 pb-0 sub-card">
-                                                    <a href="#" class="iq-sub-card">
-                                                        <div class="media align-items-center cust-card py-3 border-bottom">
-                                              
-                                                            <div class="media-body ml-3">
-                                                                <div class="d-flex align-items-center justify-content-between">
-                                                                    <h6 class="mb-0">Emma Watson</h6>
-                                                                    <small class="text-dark"><b>12 : 47 pm</b></small>
-                                                                </div>
-                                                                <small class="mb-0">Lorem ipsum dolor sit amet</small>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <a class="right-ic btn btn-primary btn-block position-relative p-2" href="#"
-                                                    role="button">
-                                                    View All  
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
                                 <li class="nav-item nav-icon dropdown caption-content">
                                     <div class="p-3">
                                         <div class="d-flex align-items-center justify-content-center mt-3">
@@ -129,8 +87,6 @@
                         </div>
                         <div class="ml-3">
                            <h4 class="mb-1"> {{ Auth::user()->full_name }}</h4>
-                          
-                          
                         </div>
                      </div>
                      <p>Welcome <b>{{ Auth::user()->full_name }}</b> to SDN Hotel account! Here you can edit your account information, view your Order history.

@@ -19,9 +19,12 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 class HomeController extends Controller
 {
-    public function getrooms(){
-        return view('frontend.rooms');
+    public function getrooms()
+    {
+        $rooms = Room::all();
+        return view('frontend.rooms', compact('rooms'));
     }
+    
 
     public function getintroduction(){
         return view('frontend.introduction');

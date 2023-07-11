@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>POS Dash | Responsive Bootstrap 4 Admin Dashboard Template</title>
+      <title>SDN Hotel | Bill</title>
       
       <!-- Favicon -->
       <link rel="shortcut icon" href="{{ asset('adm/images/favicon.ico') }}" type="image/x-icon">
@@ -109,7 +109,7 @@
                                                    <tr>
                                                        <th class="text-center" scope="row">{{ $key + 1 }}</th>
                                                        <td>
-                                                           <h6 class="mb-0">{{ $service->name }}</h6>
+                                                           <h6 class="mb-0">Service: {{ $service->name }}</h6>
                                                        </td>
                                                        <td class="text-center">{{ $service->pivot->quantity }}</td>
                                                        <td class="text-center">$ {{ $service->price }}</td>
@@ -122,7 +122,7 @@
                                                <tr>
                                                    <th class="text-center" scope="row">{{ count($order->services) + 1 }}</th>
                                                    <td>
-                                                       <h6 class="mb-0">{{ $room->name }}</h6>
+                                                       <h6 class="mb-0">Room: {{ $room->name }}</h6>
                                                    </td>
                                                    <td class="text-center">{{ $totalTime }} hours</td>
                                                    <td class="text-center">$ {{ $roomRate }}</td>

@@ -23,14 +23,14 @@ Route::group(['prefix' => 'user'], function () {
 Route::get('/user/auth/google', [AuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 
-
+Route::get('rooms', [HomeController::class, 'getrooms']);
+Route::get('introduction', [HomeController::class, 'getintroduction']);
+Route::get('terms-of-service', [HomeController::class, 'gettermsofservice']);
+Route::get('details', [HomeController::class, 'getdetails']);
+Route::get('contact', [HomeController::class, 'getcontact']);
+Route::get('services', [HomeController::class, 'getservices']);
 Route::middleware('auth')->group(function () {
-    Route::get('rooms', [HomeController::class, 'getrooms']);
-    Route::get('introduction', [HomeController::class, 'getintroduction']);
-    Route::get('terms-of-service', [HomeController::class, 'gettermsofservice']);
-    Route::get('details', [HomeController::class, 'getdetails']);
-    Route::get('contact', [HomeController::class, 'getcontact']);
-    Route::get('services', [HomeController::class, 'getservices']);
+   
     Route::get('account', [HomeController::class, 'getaccount'])->name('account');
     Route::post('updateinfo', [HomeController::class, 'updateProfile'])->name('updateinfo');
     Route::post('updateorder-{id}', [HomeController::class, 'updateOrder'])->name('updateorder');
@@ -79,5 +79,5 @@ Route::group(['middleware' => 'auth.redirect'], function () {
     
     Route::get('/admin-order-activate-{id}', [AdminController::class,'orderactivate'])->name('orderactivate');
     Route::get('/admin-order-cancel-{id}', [AdminController::class,'ordercancel'])->name('ordercancel');
-
+    Route::get('/notification', [AdminController::class,'notification'])->name('notification');
 });

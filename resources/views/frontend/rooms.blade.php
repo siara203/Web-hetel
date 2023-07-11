@@ -9,28 +9,23 @@
 
 <!-- form -->
 
-<div class="row">
-      <div class="col-sm-6 wowload fadeInUp">
-        <div class="rooms">
-          <img src="images/photos/8.jpg" class="img-responsive">
-          <div class="info">
-            <h3>Phòng sang trọng</h3>
-            <p>...</p>
-            <a href="{{ url('/details') }}" class="btn btn-default">Xem chi tiết</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 wowload fadeInUp">
-        <div class="rooms">
-          <img src="images/photos/9.jpg" class="img-responsive">
-          <div class="info">
-            <h3>Phòng sang trọng</h3>
-            <p>...</p>
-            <a href="{{ url('/details') }}" class="btn btn-default">Xem chi tiết</a>
-          </div>
-        </div>
-      </div>
-</div>
+                    <div class="row">
+                          <div class="col-sm-6 wowload fadeInUp">
+                            @foreach($rooms as $room)
+                            <div class="rooms">
+                              <img src="{{ asset('images/rooms/' . $room->picture->file_name) }}"  class="img-responsive">
+
+                              <div class="info">
+                                <h3>{{ $room->name }}</h3>
+                                <p>$/h {{ $room->price }}</p>
+                                <p>{{ $room->roomType->name }}</p>
+                                <a href="{{ url('/details') }}" class="btn btn-default">Xem chi tiết</a>
+                              </div>
+                            </div>
+                            @endforeach
+                          </div>
+                          
+                    </div>
                      <div class="text-center">
                      <ul class="pagination">
                      <li class="disabled"><a href="#">«</a></li>

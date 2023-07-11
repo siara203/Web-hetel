@@ -287,7 +287,7 @@ class AdminController extends Controller
     }
 
     $roomType->name = $request->name;
-    $roomType->description = $request->description;
+
     $roomType->save();
 
     return redirect()->back()->with('success', 'Room Type updated successfully.');

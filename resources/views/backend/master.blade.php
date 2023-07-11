@@ -77,7 +77,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="px-3 pt-0 pb-0 sub-card">
-                                                    <h6 style="color: rgb(58, 122, 232)" class="mb-0">New customers</h6>
+                                                    <h6 style="color: rgb(58, 122, 232)" class="mb-0">New Customers</h6>
                                                     @foreach(App\Models\User::latest()->take(2)->get() as $user)
                                                         <a href="#" class="iq-sub-card">
                                                             <div class="media align-items-center cust-card py-3 border-bottom">
@@ -113,7 +113,11 @@
                                                                 </div>
                                                             </div>
                                                         </a>
-                                                    @endforeach                                           
+                                                    @endforeach   
+                                                    <a class="right-ic btn btn-primary btn-block position-relative p-2" href="{{ url('notification') }}"
+                                                  role="button">
+                                                  View All
+                                                    </a>                                        
                                                 </div>            
                                             </div>
                                         </div>
