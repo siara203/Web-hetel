@@ -21,9 +21,12 @@ class AdminController extends Controller
     // show dashboard
     public function getdashboard()
     {
+        $totalSales = Order::where('status', 'finished')->sum('total_amount');
         $orders = Order::all();
+        $totalRooms = Room::count();
+        $totalOrders = Order::count();
         $users = User::all();
-        return view('backend.dashboard', compact('users', 'orders'));
+        return view('backend.dashboard', compact('users', 'orders','totalSales','totalOrders','totalRooms'));
     }
     // show services
     public function getserviceadd()
@@ -284,7 +287,7 @@ class AdminController extends Controller
     }
 
     $roomType->name = $request->name;
-    $roomType->description = $request->description;
+
     $roomType->save();
 
     return redirect()->back()->with('success', 'Room Type updated successfully.');
