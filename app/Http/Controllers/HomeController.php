@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 class HomeController extends Controller
 {
-    public function getrooms(){
-        return view('frontend.rooms');
+    public function getrooms()
+    {
+        $rooms = Room::all();
+        return view('frontend.rooms', compact('rooms'));
     }
 
     public function getintroduction(){
@@ -32,7 +34,8 @@ class HomeController extends Controller
     }
 
     public function getdetails(){
-        return view('frontend.details');
+        $rooms = Room::all();
+        return view('frontend.details', compact('rooms'));
     }
 
     public function getcontact(){
@@ -41,6 +44,18 @@ class HomeController extends Controller
     public function gettermsofservice(){
         return view('frontend.terms-of-service');
     }
+    //search
+    // public function search(Request $request)
+    // {
+    //     $keyword = $request->input('keyword');
+    //  $rooms = Room::where('name','like','%'.$keyword.'%')->get();
+
+
+    //  return view('frontend.searchs',compact('rooms'));
+
+
+    // }
+
     //account
     public function getaccount()
     {
