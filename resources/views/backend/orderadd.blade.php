@@ -19,7 +19,7 @@
                               <svg class="svg-icon" id="p-dash8" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                               </svg>
-                              <span class="ml-4">Users</span>
+                              <span class="ml-4">People</span>
                               <svg class="svg-icon iq-arrow-right arrow-active" width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                   <polyline points="10 15 15 20 20 15"></polyline><path d="M4 4h7a4 4 0 0 1 4 4v12"></path>
                               </svg>
@@ -32,7 +32,7 @@
                                   </li>
                                   <li class="">
                                           <a href="{{ url('admin-user-add') }}">
-                                              <i class="las la-minus"></i><span>Add User</span>
+                                              <i class="las la-minus"></i><span>Add Users</span>
                                           </a>
                                   </li> 
                           </ul>
@@ -162,13 +162,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Check In Date *</label>
+                                    <label>Check-in date *</label>
                                     <div class="form-group">
                                         <input type="datetime-local" name="check_in_date" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Check Out Date *</label>
+                                    <label>Check-out date *</label>
                                     <div class="form-group">
                                         <input type="datetime-local" name="check_out_date" class="form-control" required>
                                     </div>
@@ -200,8 +200,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Services *</label>
-                                        <select name="service_id[]" class="selectpicker form-control"  data-style="py-0" required>
-                                            <option value="">Select Services</option>
+                                        <select name="service_id[]" class="selectpicker form-control" multiple data-style="py-0" required>
                                             @foreach($services as $service)
                                                 <option class="service-option" value="{{ $service->id }}" data-quantity-input="{{ $service->id }}">{{ $service->name }}</option>
                                             @endforeach
@@ -221,7 +220,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Description</label>
-                                        <textarea placeholder="Enter Description" name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>

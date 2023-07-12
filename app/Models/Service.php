@@ -11,7 +11,11 @@ class Service extends Model
     {
         return $this->belongsTo(Picture::class);
     }
-    
+    public function orders()
+{
+    return $this->belongsToMany(Order::class, 'order_services')->withTimestamps();
+}
+
 }
 
 

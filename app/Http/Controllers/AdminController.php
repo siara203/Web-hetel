@@ -1,7 +1,7 @@
 <?php
 
-
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Picture;
 use App\Models\Room;
@@ -16,6 +16,7 @@ use App\Models\OrderServices;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+
 class AdminController extends Controller
 {
     // show dashboard
@@ -26,22 +27,28 @@ class AdminController extends Controller
         $totalRooms = Room::count();
         $totalOrders = Order::count();
         $users = User::all();
+
         return view('backend.dashboard', compact('users', 'orders','totalSales','totalOrders','totalRooms'));
     }    
+
     // show notification
     public function notification()
     {
         $orders = Order::all();
         $users = User::all();
+
         return view('backend.notification', compact('users', 'orders'));
     }
+
     // show services
     public function getserviceadd()
     {
         $orders = Order::all();
         $users = User::all();
+        
         return view('backend.serviceadd', compact('users', 'orders'));
     }
+
     // add service
     public function postserviceadd(Request $request)
     {
@@ -53,7 +60,7 @@ class AdminController extends Controller
         ]);
         $imageName = $request->file('pic')->getClientOriginalName();
         $imagePath = $request->file('pic')->move(public_path('images/services'), $imageName);
-   
+
         $picture = new Picture([
             'file_name' => $imageName,
             'path' => $imagePath,
@@ -74,52 +81,60 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Service added successfully.');
     }
     
-    // delete service 
+    //delete service
     public function deleteservice($id)
     {
-    $service = Service::findOrFail($id);
-     
-    $service->delete();
+        $service = Service::findOrFail($id);
     
-    $picture = $service->picture;
-    if ($picture) {
-        $picture->delete();
+        if ($service->orders()->exists()) {
+            return redirect()->back()->with('error', 'Cannot delete service as it has associated orders.');
+        }
+    
+        $service->delete();
+    
+        $picture = $service->picture;
+        if ($picture) {
+            $picture->delete();
+        }
+    
+        return redirect()->back()->with('success', 'Service deleted successfully.');
     }
-   
-    return redirect()->back()->with('success', 'Service deleted successfully.');
-    }
+    
 
     // edit service
     public function postserviceedit(Request $request, $id)
-    { $service = Service::find($id);
+    { 
+        $service = Service::find($id);
         $request->validate([
         'name' => 'required',
         'price' => 'required|numeric',
         'description' => 'required',
         'pic' => 'image|mimes:jpeg,png,gif,jpg|max:2048',
-    ]);
-    if (!$service) {
-        return redirect()->back()->with('error', 'Service not found.');
-    }
-
-    if ($request->hasFile('pic')) {
-        $imagePath = $request->file('pic')->store('images/services');
-        $imageName = $request->file('pic')->getClientOriginalName();
-        $service->picture->update([
-            'file_name' => $imageName,
-            'path' => $imagePath,
-            'gfi' => $request->pic->getClientOriginalExtension(),
         ]);
+
+        if (!$service) {
+            return redirect()->back()->with('error', 'Service not found.');
+        }
+
+        if ($request->hasFile('pic')) {
+            $imagePath = $request->file('pic')->store('images/services');
+            $imageName = $request->file('pic')->getClientOriginalName();
+            $service->picture->update([
+                'file_name' => $imageName,
+                'path' => $imagePath,
+                'gfi' => $request->pic->getClientOriginalExtension(),
+            ]);
+        }
+
+        $service->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+        ]);
+
+        return redirect()->back()->with('success', 'Service updated successfully.');
     }
 
-    $service->update([
-        'name' => $request->name,
-        'price' => $request->price,
-        'description' => $request->description,
-    ]);
-
-    return redirect()->back()->with('success', 'Service updated successfully.');
-    }
     //
     public function getserviceedit($id)
     {
@@ -150,6 +165,7 @@ class AdminController extends Controller
         $orders = Order::all();
         return view('backend.users', compact('users', 'orders'));
     }     
+
     // add user
       public function getuseradd()
     {
@@ -157,6 +173,7 @@ class AdminController extends Controller
         $orders = Order::all();
         return view('backend.useradd', compact('users', 'orders'));
     }
+
     //
     public function postuseradd(Request $request)
     {
@@ -181,42 +198,51 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'User added successfully.');
     }
+    
     // delete user
     public function getuserdelete($id)
     {
         $user = User::find($id);
-
+    
         if ($user->email === 'admin@admin.com') {
             return back()->with('error', 'Cannot delete admin account');
         }
+    
+        if ($user->orders()->count() > 0) {
+            return back()->with('error', 'Cannot delete user because there is an order');
+        }
+    
         $user->delete();
-
-        return back()->with('success', 'User deleted successfully');      
+    
+        return back()->with('success', 'User deleted successfully');
     }
+    
     // edit user
     public function postuseredit(Request $request, $id)
     {
-    $user = User::findOrFail($id);
-    $validatedData = $request->validate([
+        $user = User::findOrFail($id);
+        $validatedData = $request->validate([
         'full_name' => 'required',
         'phone' => 'required',
         'email' => 'required|email|unique:users,email,'.$id,
         'password'=>'required',
         'confirm_password' => 'required|same:password',
         'role' => 'required|in:user,admin', 
-    ],[
+        ],[
         'email.unique' => 'The email has already been taken.',
-        'confirm_password.same' => 'The password confirmation does not match.',
-        
-    ]);
-    $user->full_name = $validatedData['full_name'];
-    $user->phone = $validatedData['phone'];
-    $user->email = $validatedData['email'];
-    $user->password = $validatedData['password'];
-    $user->role = $validatedData['role'];
-    $user->save();
-    return redirect()->back()->with('success', 'User updated successfully');
+        'confirm_password.same' => 'The password confirmation does not match.',  
+        ]);
+
+        $user->full_name = $validatedData['full_name'];
+        $user->phone = $validatedData['phone'];
+        $user->email = $validatedData['email'];
+        $user->password = $validatedData['password'];
+        $user->role = $validatedData['role'];
+        $user->save();
+
+        return redirect()->back()->with('success', 'User updated successfully');
     }
+
     //
     public function getuseredit($id)
     {           
@@ -229,7 +255,6 @@ class AdminController extends Controller
         return view('backend.useredit', compact('user','users', 'orders'));
     }
 
-
     // show room types
      public function getroomtypes()
     {
@@ -238,6 +263,7 @@ class AdminController extends Controller
         $roomTypes = RoomType::all();
         return view('backend.roomtypes', compact('roomTypes','users', 'orders'));
     }
+
     // add room type
     public function postroomtypeadd(Request $request)
     {
@@ -254,6 +280,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Room Type added successfully.');
           
     }
+
     //
     public function getroomtypeadd()
     {
@@ -261,14 +288,20 @@ class AdminController extends Controller
         $users = User::all();
         return view('backend.roomtypeadd', compact('users', 'orders'));
     }
+
    // delete roomtype
    public function deleteroomtype($id)
    {
-        $roomtype = RoomType::findOrFail($id);
-            
-        $roomtype->delete();
-        return back()->with('success', 'Room Type deleted successfully');       
-    }
+       $roomtype = RoomType::findOrFail($id);
+          $roomCount = Room::where('type_id', $roomtype->id)->count();
+       if ($roomCount > 0) {
+           return back()->with('error', 'Cannot delete room type. It has associated rooms.');
+       }
+          $roomtype->delete();
+   
+       return back()->with('success', 'Room Type deleted successfully');
+   }
+   
     // edit roomtype
     public function getroomtypeedit($id)
     {
@@ -281,30 +314,33 @@ class AdminController extends Controller
 
         return view('backend.roomtypeedit', compact('roomType','users', 'orders'));
     }
+
     //
     public function postroomtypeedit(Request $request, $id)
     {
-    $request->validate([
-        'name' => 'required',
-       
-    ]);
-    $roomType = RoomType::find($id);
-    if (!$roomType) {
+        $request->validate([
+            'name' => 'required',
+        
+        ]);
+        $roomType = RoomType::find($id);
+        if (!$roomType) {
+
         return redirect()->back()->with('error', 'Room Type not found.');
-    }
+        }
 
-    $roomType->name = $request->name;
+     $roomType->name = $request->name;
+     $roomType->save();
 
-    $roomType->save();
-
-    return redirect()->back()->with('success', 'Room Type updated successfully.');
+        return redirect()->back()->with('success', 'Room Type updated successfully.');
     } 
+
     // show rooms
     public function getrooms()
     {
         $orders = Order::all();
         $users = User::all();
         $rooms = Room::all();
+
         return view('backend.rooms', compact('rooms','users', 'orders'));
     }
     
@@ -315,8 +351,10 @@ class AdminController extends Controller
         $users = User::all();
         $roomTypes = RoomType::all();
         $room = new Room();
+
         return view('backend.roomadd', compact('roomTypes', 'room','users', 'orders'));
     }
+
     //
     public function postroomadd(Request $request)
     {
@@ -418,8 +456,6 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Room added successfully.');
     }
     
-
-
     // edit room
     public function getroomedit($id)
     {
@@ -430,6 +466,7 @@ class AdminController extends Controller
 
         return view('backend/roomedit', compact('room', 'roomTypes','users', 'orders'));
     }
+
     //
     public function postroomedit(Request $request, $id)
     {
@@ -543,7 +580,6 @@ class AdminController extends Controller
                 }
             }
         }
-    
 
         return redirect()->back()->with('success', 'Room updated successfully.');
     }
@@ -552,16 +588,21 @@ class AdminController extends Controller
     public function deleteroom($id)
     {
         $room = Room::findOrFail($id);
+        $orderCount = $room->orders()->count();
+
+        if ($orderCount > 0) {
+            return redirect()->back()->with('error', 'Cannot delete room. It has associated orders.');
+        }
+
         $room->delete();
         $picture = $room->picture;
         if ($picture) {
             $picture->delete();
         }
+    
         return redirect()->back()->with('success', 'Room deleted successfully.');
-        
     }
-
-
+    
     // show orders
     public function getorders()
     {
@@ -574,9 +615,9 @@ class AdminController extends Controller
             $order->status = 'finished';
             $order->save();
             
-            $orderRooms = $order->orderRooms;
-            foreach ($orderRooms as $orderRoom) {
-                $room = $orderRoom->room;
+        $orderRooms = $order->orderRooms;
+        foreach ($orderRooms as $orderRoom) {
+            $room = $orderRoom->room;
                 if ($room) {
                     $room->status = 'vacancy';
                     $room->save();
@@ -585,6 +626,7 @@ class AdminController extends Controller
         }
         $users = User::all();
         $orders = Order::all();
+
         return view('backend.orders', compact('orders','users'));
     }
 
@@ -595,84 +637,85 @@ class AdminController extends Controller
         $users = User::all();
         $rooms = Room::all();
         $services =Service::all();
+
         return view('backend.orderadd', compact('orders','users', 'rooms','services'));
     }
     //
     public function postorderadd(Request $request)
-{
-    $request->validate([
-        'user_id' => 'required',
-        'check_in_date' => 'required',
-        'check_out_date' => 'required',
-        'status' => 'required',
-        'room_id' => 'required|exists:rooms,id',
-        'service_id' => 'array',
-        'service_id.*' => 'exists:services,id',
-        'quantity' => 'array', 
-    ]);
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'check_in_date' => 'required',
+            'check_out_date' => 'required',
+            'status' => 'required',
+            'room_id' => 'required|exists:rooms,id',
+            'service_id' => 'array',
+            'service_id.*' => 'exists:services,id',
+            'quantity' => 'array', 
+        ]);
 
-    $order = new Order();
-    $order->user_id = $request->user_id;
-    $order->check_in_date = $request->check_in_date;
-    $order->check_out_date = $request->check_out_date;
-    $order->status = $request->status;
-    $order->description = $request->description;
-    $order->save();
+        $order = new Order();
+        $order->user_id = $request->user_id;
+        $order->check_in_date = $request->check_in_date;
+        $order->check_out_date = $request->check_out_date;
+        $order->status = $request->status;
+        $order->description = $request->description;
+        $order->save();
 
-    $room = Room::find($request->room_id);
-    if ($room) {
-        $orderRoom = new OrderRoom();
-        $orderRoom->order_id = $order->id;
-        $orderRoom->room_id = $room->id;
-        $orderRoom->save();
+        $room = Room::find($request->room_id);
+        if ($room) {
+            $orderRoom = new OrderRoom();
+            $orderRoom->order_id = $order->id;
+            $orderRoom->room_id = $room->id;
+            $orderRoom->save();
 
-        if ($order->status == 'active') {
-            $room->status = 'active';
-            $room->save();
-        }
-    }
-
-    $services = $request->service_id;
-    $quantities = $request->quantity;
-
-    $totalServiceAmount = 0; 
-
-    if (!empty($services)) {
-        foreach ($services as $key => $serviceId) {
-            $service = Service::find($serviceId);
-            if ($service) {
-                $orderService = new OrderServices();
-                $orderService->order_id = $order->id;
-                $orderService->service_id = $service->id;
-                $orderService->quantity = $quantities[$key];
-                $orderService->save();
-
-                $totalServiceAmount += $quantities[$key] * $service->price; 
+            if ($order->status == 'active') {
+                $room->status = 'active';
+                $room->save();
             }
         }
+
+        $services = $request->service_id;
+        $quantities = $request->quantity;
+
+        $totalServiceAmount = 0; 
+
+        if (!empty($services)) {
+            foreach ($services as $key => $serviceId) {
+                $service = Service::find($serviceId);
+                if ($service) {
+                    $orderService = new OrderServices();
+                    $orderService->order_id = $order->id;
+                    $orderService->service_id = $service->id;
+                    $orderService->quantity = $quantities[$key];
+                    $orderService->save();
+
+                    $totalServiceAmount += $quantities[$key] * $service->price; 
+                }
+            }
+        }
+
+        $room = Room::findOrFail($request->input('room_id'));
+        $roomRate = $room->price;
+        $totalHours = 0;
+        foreach ($services as $key => $serviceId) {
+            $service = Service::find($serviceId);
+            $totalHours += $quantities[$key] * $service->duration;
+        }
+
+        if ($totalHours < 1) {
+            $totalHours = 1;
+        }
+
+        $roomTotal = $roomRate * $totalHours;
+        $subtotal = $roomTotal + $totalServiceAmount;
+        $totalAmount = $subtotal;
+
+        $order->total_amount = $totalAmount;
+        $order->save();
+
+        return redirect()->back()->with('success', 'Order added successfully.');
     }
-
-    $room = Room::findOrFail($request->input('room_id'));
-    $roomRate = $room->price;
-    $totalHours = 0;
-    foreach ($services as $key => $serviceId) {
-        $service = Service::find($serviceId);
-        $totalHours += $quantities[$key] * $service->duration;
-    }
-
-    if ($totalHours < 1) {
-        $totalHours = 1;
-    }
-
-    $roomTotal = $roomRate * $totalHours;
-    $subtotal = $roomTotal + $totalServiceAmount;
-    $totalAmount = $subtotal;
-
-    $order->total_amount = $totalAmount;
-    $order->save();
-
-    return redirect()->back()->with('success', 'Order added successfully.');
-}
 
     //button active
     public function orderactivate($id)
@@ -685,12 +728,15 @@ class AdminController extends Controller
                 return redirect()->back()->with('error', 'This room is already active.');
             }
         }
+
         $order->status = 'active';
         $order->save();
+
         if ($orderRoom) {
             $room->status = 'active';
             $room->save();
         }
+
         return redirect()->back()->with('success', 'Order activated successfully.');
     }
     
@@ -701,6 +747,7 @@ class AdminController extends Controller
         $order = Order::findOrFail($id);
         $order->status = 'cancelled';
         $order->save();
+
         $orderRoom = OrderRoom::where('order_id', $order->id)->first();
         if ($orderRoom) {
             $room = Room::findOrFail($orderRoom->room_id);
@@ -710,6 +757,7 @@ class AdminController extends Controller
     
         return redirect()->back()->with('success', 'Order cancelled successfully.');
     } 
+
     // delete order
     public function deleteorder($id)
     {
@@ -717,8 +765,10 @@ class AdminController extends Controller
         $order->rooms()->detach();
         $order->services()->detach();
         $order->delete();
+
         return redirect()->back()->with('success', 'Order deleted successfully.');
     }
+
         // edit order
     public function getorderedit(Request $request, $id)
     {
@@ -730,73 +780,72 @@ class AdminController extends Controller
             
         return view('backend/orderedit', compact('orders','order', 'users', 'services', 'rooms'));
     }
+
     //
     public function postorderedit(Request $request, $id)
-{
-    $order = Order::findOrFail($id);
+    {
+        $order = Order::findOrFail($id);
 
-    $validatedData = $request->validate([
-        'user_id' => 'required',
-        'check_in_date' => 'required',
-        'check_out_date' => 'required',
-        'status' => 'required',
-        'service_id' => 'required|array',
-        'room_id' => 'required',
-        'description' => 'nullable',
-        'quantity' => 'required|array',
-    ]);
+        $validatedData = $request->validate([
+            'user_id' => 'required',
+            'check_in_date' => 'required',
+            'check_out_date' => 'required',
+            'status' => 'required',
+            'service_id' => 'required|array',
+            'room_id' => 'required',
+            'description' => 'nullable',
+            'quantity' => 'required|array',
+        ]);
 
-    $order->user_id = $request->input('user_id');
-    $order->check_in_date = $request->input('check_in_date');
-    $order->check_out_date = $request->input('check_out_date');
-    $order->status = $request->input('status');
-    $order->description = $request->input('description');
-    $order->save();
+        $order->user_id = $request->input('user_id');
+        $order->check_in_date = $request->input('check_in_date');
+        $order->check_out_date = $request->input('check_out_date');
+        $order->status = $request->input('status');
+        $order->description = $request->input('description');
+        $order->save();
 
-    $order->services()->sync($request->input('service_id'));
+        $order->services()->sync($request->input('service_id'));
 
-    $orderRoom = OrderRoom::where('order_id', $order->id)->first();
-    $room = Room::findOrFail($orderRoom->room_id);
+        $orderRoom = OrderRoom::where('order_id', $order->id)->first();
+        $room = Room::findOrFail($orderRoom->room_id);
 
-    if ($order->status === 'active' && $room->status === 'vacancy') {
-        $room->status = 'active';
+        if ($order->status === 'active' && $room->status === 'vacancy') {
+            $room->status = 'active';
+            $room->save();
+        }
+
+        if ($request->input('status') === 'cancelled' || $request->input('status') === 'finished' || $request->input('status') === 'pending') {
+            $room->status = 'vacancy';
+        }
         $room->save();
-    }
 
-    if ($request->input('status') === 'cancelled' || $request->input('status') === 'finished' || $request->input('status') === 'pending') {
-        $room->status = 'vacancy';
-    }
-    $room->save();
+        $roomRate = $room->price;
+        $serviceIds = $request->input('service_id');
+        $totalServiceAmount = 0;
 
-    $roomRate = $room->price;
-    $serviceIds = $request->input('service_id');
-    $totalServiceAmount = 0;
+        foreach ($serviceIds as $key => $serviceId) {
+            $quantity = $request->input('quantity.' . $key, 0);
+            $service = Service::findOrFail($serviceId);
+            $totalServiceAmount += $quantity * $service->price;
+            $orderService = OrderServices::where('order_id', $order->id)
+                ->where('service_id', $serviceId)
+                ->first();
+            $orderService->quantity = $quantity;
+            $orderService->save();
+        }
 
-    foreach ($serviceIds as $key => $serviceId) {
-        $quantity = $request->input('quantity.' . $key, 0);
-        $service = Service::findOrFail($serviceId);
-        $totalServiceAmount += $quantity * $service->price;
-        $orderService = OrderServices::where('order_id', $order->id)
-            ->where('service_id', $serviceId)
-            ->first();
-        $orderService->quantity = $quantity;
-        $orderService->save();
-    }
+        $checkInDate = Carbon::parse($request->input('check_in_date'));
+        $checkOutDate = Carbon::parse($request->input('check_out_date'));
+        $totalHours = $checkInDate->diffInHours($checkOutDate);
 
-    $checkInDate = Carbon::parse($request->input('check_in_date'));
-    $checkOutDate = Carbon::parse($request->input('check_out_date'));
-    $totalHours = $checkInDate->diffInHours($checkOutDate);
+        if ($totalHours < 1) {
+            $totalHours = 1;
+        }
 
-    if ($totalHours < 1) {
-        $totalHours = 1;
-    }
+        $totalAmount = ($totalHours * $roomRate) + $totalServiceAmount;
+        $order->total_amount = $totalAmount;
+        $order->save();
 
-    $totalAmount = ($totalHours * $roomRate) + $totalServiceAmount;
-    $order->total_amount = $totalAmount;
-    $order->save();
-
-    return redirect()->back()->with('success', 'Order updated successfully.');
-}
-
-        
+        return redirect()->back()->with('success', 'Order updated successfully.');
+    }    
 }

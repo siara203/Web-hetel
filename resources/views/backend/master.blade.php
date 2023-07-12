@@ -143,7 +143,7 @@
                                                     <p class="mb-0"> {{ Auth::user()->email }}</p>
                                                     <div class="d-flex align-items-center justify-content-center mt-3">
                                                         
-                                                        <a  href="{{asset('logout')}}" class="btn border">Sign Out</a>
+                                                        <a  href="{{asset('logout')}}" class="btn border">Logout</a>
                                                     </div>
                                                 </div>
                                             </div>
