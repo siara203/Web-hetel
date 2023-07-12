@@ -45,7 +45,7 @@ class AdminController extends Controller
     {
         $orders = Order::all();
         $users = User::all();
-        
+
         return view('backend.serviceadd', compact('users', 'orders'));
     }
 
@@ -226,6 +226,7 @@ class AdminController extends Controller
         'phone' => 'required',
         'email' => 'required|email|unique:users,email,'.$id,
         'password'=>'required',
+        'address' => 'required',
         'confirm_password' => 'required|same:password',
         'role' => 'required|in:user,admin', 
         ],[
@@ -238,6 +239,7 @@ class AdminController extends Controller
         $user->email = $validatedData['email'];
         $user->password = $validatedData['password'];
         $user->role = $validatedData['role'];
+        $user->address = $request['address'];
         $user->save();
 
         return redirect()->back()->with('success', 'User updated successfully');

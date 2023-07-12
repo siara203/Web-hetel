@@ -29,6 +29,7 @@ Route::get('terms-of-service', [HomeController::class, 'gettermsofservice']);
 Route::get('details', [HomeController::class, 'getdetails']);
 Route::get('contact', [HomeController::class, 'getcontact']);
 Route::get('services', [HomeController::class, 'getservices']);
+
 Route::middleware('auth')->group(function () {
    
     Route::get('account', [HomeController::class, 'getaccount'])->name('account');
