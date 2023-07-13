@@ -12,6 +12,7 @@ use App\Models\Service;
 use App\Models\RoomType;
 use App\Models\Order;
 use App\Models\OrderRoom;
+use App\Models\RoomDetail;
 use App\Models\OrderServices;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
@@ -44,17 +45,23 @@ class HomeController extends Controller
     public function gettermsofservice(){
         return view('frontend.terms-of-service');
     }
-    //search
-    // public function search(Request $request)
-    // {
-    //     $keyword = $request->input('keyword');
-    //  $rooms = Room::where('name','like','%'.$keyword.'%')->get();
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+     $rooms = Room::where('name','like','%'.$keyword.'%')->get();
+     return view('frontend.search',compact('rooms'));
+    }
 
-
-    //  return view('frontend.searchs',compact('rooms'));
-
-
-    // }
+    public function show($id)
+    {
+        $room = Room::findOrFail($id);
+        return view('frontend.room_detail', compact('room'));
+    }
+    public function showDetail($id)
+    {
+        $room = Room::findOrFail($id);
+        return view('frontend.room_detail', compact('room'));
+    }
 
     //account
     public function getaccount()

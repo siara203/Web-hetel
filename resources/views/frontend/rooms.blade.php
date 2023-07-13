@@ -186,8 +186,7 @@
           <span class="badge bg-info-light">Vacancy</span>
           @endif
         </div>
-        <p class="purchase-info"><a href="" class="btn btn-primary btn-block text-center" role="button">Order</a></p>
-        <p class="purchase-info"><a href="{{ url('/details', $room->id) }}" class="btn btn-primary btn-block text-center" role="button">View Detail</a></p>
+        <p class="purchase-info"><a href="{{ url('/room_detail', $room->id) }}" class="btn btn-primary btn-block text-center" role="button">View Detail</a></p>
       </div>
     </div>
     @endforeach

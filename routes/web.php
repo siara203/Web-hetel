@@ -60,13 +60,6 @@ Route::group(['middleware' => 'auth.redirect'], function () {
     Route::get('/admin-room-type-delete-{id}',[AdminController::class, 'deleteroomtype'])->name('deleteroomtype');
     Route::get('/admin-room-type-edit-{id}',[AdminController::class, 'getroomtypeedit'])->name('roomtypeedit');
     Route::post('/admin-room-type-edit-{id}',[AdminController::class, 'postroomtypeedit'])->name('roomtypeedit');
-    //rooms
-    Route::get('/admin-rooms', [AdminController::class, 'getrooms']);
-    Route::get('/admin-room-add', [AdminController::class, 'getroomadd']);
-    Route::post('/admin-room-add', [AdminController::class, 'postroomadd'])->name('roomadd');
-    Route::get('/admin-room-delete-{id}',[AdminController::class, 'deleteroom'])->name('deleteroom');
-    Route::get('/admin-room-edit-{id}',[AdminController::class, 'getroomedit'])->name('roomedit');
-    Route::post('/admin-room-edit-{id}',[AdminController::class, 'postroomedit'])->name('roomedit');
     //  Orders
     Route::get('/admin-orders', [AdminController::class, 'getorders'])->name('orders');
     Route::get('/admin-order-add', [AdminController::class, 'getorderadd']);
@@ -77,5 +70,16 @@ Route::group(['middleware' => 'auth.redirect'], function () {
     
     Route::get('/admin-order-activate-{id}', [AdminController::class,'orderactivate'])->name('orderactivate');
     Route::get('/admin-order-cancel-{id}', [AdminController::class,'ordercancel'])->name('ordercancel');
-
+    //Search
+    Route::get('/search',[HomeController::class,'search'])->name('rooms.search');
+    //details
+    Route::get('/rooms/{id}', 'HomeController@show')->name('room.show');
+    Route::get('/room_detail/{id}', [HomeController::class, 'showDetail'])->name('room.detail');
 });
+    //rooms
+    Route::get('/admin-rooms', [AdminController::class, 'getrooms']);
+    Route::get('/admin-room-add', [AdminController::class, 'getroomadd']);
+    Route::post('/admin-room-add', [AdminController::class, 'postroomadd'])->name('roomadd');
+    Route::get('/admin-room-delete-{id}',[AdminController::class, 'deleteroom'])->name('deleteroom');
+    Route::get('/admin-room-edit-{id}',[AdminController::class, 'getroomedit'])->name('roomedit');
+    Route::post('/admin-room-edit-{id}',[AdminController::class, 'postroomedit'])->name('roomedit');
