@@ -1,0 +1,123 @@
+/* room */
+.rooms-group {
+    margin-bottom: 20px;
+  }
+  
+  .row-index {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .col-xs-18 {
+    width: 100%;
+  }
+  
+  @media (min-width: 576px) {
+    .col-sm-6 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .col-md-4-index {
+      flex: 0 0 33.333333%;
+      max-width: 33.333333%;
+    }
+  }
+  
+  .img_thumbnail {
+    position: relative;
+  }
+  
+  .carousel-inner {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%;
+    overflow: hidden;
+  }
+  
+  .carousel-inner .carousel-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .carousel-inner .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    line-height: 30px;
+    cursor: pointer;
+  }
+  
+  .carousel-control-prev {
+    left: 10px;
+  }
+  
+  .carousel-control-next {
+    right: 10px;
+  }
+  
+  .caption {
+    padding: 10px;
+  }
+  
+  .caption h3 {
+    margin-top: 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: black;
+  }
+  .caption h4 {
+    text-align: center;
+  }
+  
+  .status-badge {
+    margin-top: 10px;
+    color: white;
+  }
+  
+  .status-badge span {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  .status-badge .bg-warning-light {
+    background-color: rgb(112, 239, 83);
+    color: white;
+  }
+  
+  .status-badge .bg-danger-light {
+    background-color: rgb(247, 70, 70);
+    color: white;
+  }
+  
+  .status-badge .bg-info-light {
+    background-color: rgb(248, 248, 56);
+    color: black;
+  }
+  
+  .purchase-info {
+    margin-top: 10px;
+  }
+  

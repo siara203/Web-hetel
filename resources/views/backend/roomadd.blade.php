@@ -197,8 +197,8 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Image *</label>
-                                        <input multiple type="file" class="form-control image-file" name="image" accept="image/*" required>
+                                        <label>Image 1 *</label>
+                                        <input multiple type="file" class="form-control image-file" name="image1" accept="image/*" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

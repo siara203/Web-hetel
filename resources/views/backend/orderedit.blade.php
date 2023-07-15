@@ -176,6 +176,7 @@
                                         <select name="status" class="selectpicker form-control" data-style="py-0" required>
                                             <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>Pending</option>
                                             <option value="active" {{ $order->status == 'active' ? 'selected' : '' }}>Active</option>
+                                            <option value="approved" {{ $order->status == 'approved' ? 'selected' : '' }}>Approved</option>
                                             <option value="cancelled" {{ $order->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                                             <option value="finished" {{ $order->status == 'finished' ? 'selected' : '' }}>Finished</option>
                                         </select>
@@ -193,33 +194,22 @@
                                         </select>
                                     </div>
                                 </div>  
-
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Services *</label>
-                                        <select name="service_id[]" class="selectpicker form-control" multiple data-style="py-0" required>
+                                        <label>Services</label>
+                                        <div class="service-checkboxes">
                                             @foreach($services as $service)
-                                                @if (!$order->services->contains('id', $service->id))
-                                                    <option class="service-option" value="{{ $service->id }}" data-quantity-input="{{ $service->id }}">{{ $service->name }}</option>
-                                                @else
-                                                    <option class="service-option selected" value="{{ $service->id }}" data-quantity-input="{{ $service->id }}" selected>{{ $service->name }}</option>
-                                                @endif
+                                                <div class="custom-control custom-checkbox custom-checkbox-color-check custom-control-inline">
+                                                    <input class="custom-control-input bg-primary" type="checkbox" name="service_id[]" value="{{ $service->id }}" id="service{{ $service->id }}" {{ $order->services->contains('id', $service->id) ? 'checked' : '' }}>
+                                                    <label class="custom-control-label" for="service{{ $service->id }}">
+                                                        {{ $service->name }}
+                                                    </label>
+                                                    <input type="number" name="quantity[]" class="form-control quantity-input" value="{{ $order->services->contains('id', $service->id) ? $order->services->find($service->id)->pivot->quantity : 0 }}" min="0">
+                                                </div>
                                             @endforeach
-                                        </select>
-                                    </div>                                    
-                                </div>
-                                <div id="service-quantity-container">
-                                    <div id="existing-service-quantity-container">
-                                        @foreach($order->services as $orderService)
-                                            <div class="service-quantity-row" id="service-{{ $orderService->id }}-quantity">
-                                                <div class="service-name col-sm">{{ $orderService->name }}</div>
-                                                <input type="number" name="quantity[]" class="form-control quantity-input col-sm" value="{{ $orderService->pivot->quantity ?? 1 }}" min="0">
-                                            </div>
-                                        @endforeach
+                                        </div>
                                     </div>
-                                    <div id="new-service-quantity-container"></div>
-                                </div>
-
+                                </div>                                
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Description</label>
@@ -245,62 +235,4 @@
     </div>
     </div>
     <!-- Wrapper End-->
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var select = document.querySelector('select[name="service_id[]"]');
-        var existingServiceContainer = document.getElementById('existing-service-quantity-container');
-        var newServiceContainer = document.getElementById('new-service-quantity-container');
-        var existingServiceQuantities = {};
-
-        // Initialize existing service quantities
-        var existingServiceRows = existingServiceContainer.getElementsByClassName('service-quantity-row');
-        for (var i = 0; i < existingServiceRows.length; i++) {
-            var existingServiceRow = existingServiceRows[i];
-            var serviceId = existingServiceRow.id.split('-')[1];
-            var quantityInput = existingServiceRow.querySelector('.quantity-input');
-            existingServiceQuantities[serviceId] = quantityInput.value;
-        }
-
-        select.addEventListener('change', function() {
-            var selectedOptions = select.selectedOptions;
-
-            // Clear new service container
-            newServiceContainer.innerHTML = '';
-
-            // Create quantity rows for selected options
-            for (var i = 0; i < selectedOptions.length; i++) {
-                var selectedOption = selectedOptions[i];
-                var serviceId = selectedOption.value;
-                var serviceName = selectedOption.textContent;
-
-                if (serviceId in existingServiceQuantities) {
-                    // Existing service, move to existing service container
-                    var existingServiceRow = document.getElementById('service-' + serviceId + '-quantity');
-                    existingServiceContainer.appendChild(existingServiceRow);
-                } else {
-                    // New service, create new quantity row
-                    var quantityRow = document.createElement('div');
-                    quantityRow.classList.add('service-quantity-row');
-                    quantityRow.id = 'service-' + serviceId + '-quantity';
-
-                    var serviceNameElement = document.createElement('div');
-                    serviceNameElement.classList.add('service-name', 'col-sm');
-                    serviceNameElement.textContent = serviceName;
-                    quantityRow.appendChild(serviceNameElement);
-
-                    var quantityInput = document.createElement('input');
-                    quantityInput.type = 'number';
-                    quantityInput.name = 'quantity[]';
-                    quantityInput.classList.add('form-control', 'quantity-input', 'col-sm');
-                    quantityInput.value = 1;
-                    quantityInput.min = 1;
-                    quantityRow.appendChild(quantityInput);
-
-                    newServiceContainer.appendChild(quantityRow);
-                }
-            }
-        });
-    });
-</script>
 @stop

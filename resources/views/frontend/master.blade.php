@@ -55,7 +55,7 @@
               padding-right: 11px;width: 300px" name="keyword">
             </div>
             <button type="submit" class="btn btn-default">Search</button>
-          </form>
+        </form>
         </div>
 <!-- header -->
 <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">

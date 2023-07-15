@@ -200,12 +200,12 @@
                                     <div class="form-group">
                                         <label>Image *</label>
                                         
-                                        <input type="file" class="form-control image-file" name="image" accept="image/*">
+                                        <input type="file" class="form-control image-file" name="image1" accept="image/*">
                                     </div>                             
                                     <div class="col-md-12">
                                     <div class="form-group">
                                         <label></label>
-                                        <img src="{{ asset('images/rooms/' . $room->picture->file_name) }}" class="img-fluid" alt="Current Image">
+                                        <img src="{{ asset('images/rooms/' . $room->image1) }}" class="img-fluid" alt="Current Image 1">
                                     </div>
                                 </div>
                                 

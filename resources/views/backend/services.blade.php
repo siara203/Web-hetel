@@ -158,22 +158,24 @@
                         </tr>
                     </thead>
                     <tbody class="ligth-body">
-                @foreach($services as $service)
-                <tr>
-                    <td>
-                    <img src="{{ asset('images/services/' . $service->picture->file_name) }}" class="img-fluid rounded avatar-50 mr-3" alt="image">
-                    </td>
-                    <td>{{ $service->name }}</td>
-                    <td>$ {{ $service->price }} </td>
-                    <td>{{ $service->description }}</td>
-                    <td>
-                        <div class="d-flex align-items-center list-action">
-                            <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href="{{ route('getserviceedit', ['id' => $service->id]) }}"><i class="ri-pencil-line mr-0"></i></a>
-                            <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href="{{ route('deleteservice', ['id' => $service->id]) }}"><i class="ri-delete-bin-line mr-0"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
+                        @foreach($services as $service)
+                        <tr>
+                            <td>
+                                
+
+                                <img src="{{ asset('images/services/'.$service->image) }}" class="img-fluid rounded avatar-50 mr-3" alt="{{ $service->name }}">
+                            </td>
+                            <td>{{ $service->name }}</td>
+                            <td>$ {{ $service->price }}</td>
+                            <td>{{ $service->description }}</td>
+                            <td>
+                                <div class="d-flex align-items-center list-action">
+                                    <a class="badge bg-success mr-2" data-toggle="tooltip" data-placement="top" title="Edit" href="{{ route('getserviceedit', ['id' => $service->id]) }}"><i class="ri-pencil-line mr-0"></i></a>
+                                    <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Delete" href="{{ route('deleteservice', ['id' => $service->id]) }}"><i class="ri-delete-bin-line mr-0"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach                    
             </tbody>
         </table>
     </div>

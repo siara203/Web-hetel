@@ -201,6 +201,8 @@
                                                 <span class="badge bg-warning-light">Cancelled</span>
                                             @elseif($order->status == 'pending')
                                                 <span class="badge bg-danger-light">Pending</span>
+                                            @elseif($order->status == 'approved')
+                                                <span class="badge bg-pink">Approved</span>
                                             @elseif($order->status == 'active')
                                                 <span class="badge bg-info-light">Active</span>
                                             @elseif($order->status == 'finished')
@@ -221,7 +223,7 @@
                                             @endphp
                                             Time: {{ $totalTime }} h, <br>Room: $ {{ $roomRate * $totalTime }}<br>
                                             Services: {{ $servicePrice }} $<br>
-                                            <i style="color: red">Total Amount: $ {{ $totalAmount }}</i>
+                                            <i style="color: red">Total Amount: $ {{ $totalAmount + ($roomRate * $totalTime) }}</i>
                                         </td>
                                         
                                         <td>{{ $order->description }}</td>
@@ -240,7 +242,7 @@
                                    
                                     <div class="modal fade" id="editModal{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="editModal{{ $order->id }}Label" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
+                                            <div class="modal-content" style="width: 1000px;margin-left: -240px;height:650px">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="editModal{{ $order->id }}Label">Edit Order Information</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -250,30 +252,27 @@
                                                 <div class="modal-body">
                                                     <form action="{{ route('updateorder', ['id' => $order->id]) }}" method="POST">
                                                         @csrf
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="check_out_date">Room</label>
+                                                                <input type="text" class="form-control" value="@foreach($order->rooms as $room){{ $room->name }}@endforeach" readonly>
+                                                            </div>  
+                                                        </div>                                                        
                                                         <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <label>Services *</label>
-                                                                <select name="service_id[]" class="selectpicker form-control" multiple data-style="py-0" required>
+                                                                <label>Services</label>
+                                                                <div class="service-checkboxes">
                                                                     @foreach($services as $service)
-                                                                        @if (!$order->services->contains('id', $service->id))
-                                                                            <option class="service-option" value="{{ $service->id }}" data-quantity-input="{{ $service->id }}">{{ $service->name }}</option>
-                                                                        @else
-                                                                            <option class="service-option selected" value="{{ $service->id }}" data-quantity-input="{{ $service->id }}" selected>{{ $service->name }}</option>
-                                                                        @endif
+                                                                        <div class="custom-control custom-checkbox custom-checkbox-color-check custom-control-inline">
+                                                                            <input class="custom-control-input bg-primary" type="checkbox" name="service_id[]" value="{{ $service->id }}" id="service{{ $service->id }}" {{ $order->services->contains('id', $service->id) ? 'checked' : '' }}>
+                                                                            <label class="custom-control-label" for="service{{ $service->id }}">
+                                                                                {{ $service->name }}
+                                                                            </label>
+                                                                            <input type="number" name="quantity[]" class="form-control quantity-input" value="{{ $order->services->contains('id', $service->id) ? $order->services->find($service->id)->pivot->quantity : 0 }}" min="0">
+                                                                        </div>
                                                                     @endforeach
-                                                                </select>
-                                                            </div>                                    
-                                                        </div>
-                                                        <div id="service-quantity-container">
-                                                            <div id="existing-service-quantity-container">
-                                                                @foreach($order->services as $orderService)
-                                                                    <div class="service-quantity-row" id="service-{{ $orderService->id }}-quantity">
-                                                                        <div class="service-name col-sm">{{ $orderService->name }}</div>
-                                                                        <input type="number" name="quantity[]" class="form-control quantity-input col-sm" value="{{ $orderService->pivot->quantity ?? 1 }}" min="0">
-                                                                    </div>
-                                                                @endforeach
+                                                                </div>
                                                             </div>
-                                                            <div id="new-service-quantity-container"></div>
                                                         </div>                                                
                                                         <div class="form-group">
                                                             <label for="check_in_date">Check in date *</label>
@@ -479,32 +478,6 @@
 
 <!-- app JavaScript -->
 <script src="{{ asset('adm/js/app.js') }}"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var select = document.querySelector('select[name="service_id[]"]');
-        var quantityInputs = document.querySelectorAll('.quantity-input');
-
-        select.addEventListener('change', function() {
-            var selectedOptions = select.selectedOptions;
-
-            // Reset quantity inputs
-            quantityInputs.forEach(function(input) {
-                input.value = 1;
-            });
-
-            // Update quantity inputs for selected options
-            for (var i = 0; i < selectedOptions.length; i++) {
-                var selectedOption = selectedOptions[i];
-                var serviceId = selectedOption.value;
-                var quantityInput = document.getElementById('quantity-' + serviceId);
-
-                if (quantityInput) {
-                    quantityInput.value = 1;
-                }
-            }
-        });
-    });
-</script>
 
 <script>
     function updateCurrentTime() {

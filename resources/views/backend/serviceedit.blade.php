@@ -167,12 +167,12 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Image *</label>
-                            <input type="file" class="form-control image-file" name="pic" accept="image/*">
+                            <input type="file" class="form-control image-file" name="image" accept="image/*">
                         </div>
                     </div>                    
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <img style="width: 400px;heght:200px" src="{{ asset('images/services/' . $service->picture->file_name) }}" class="img-fluid" alt="Current Image">
+                            <img style="width: 400px;heght:200px" src="{{ asset('images/services/'.$service->image) }}"class="img-fluid" alt="{{ $service->name }}">
                         </div>
                     </div>
                     <div class="col-md-12">

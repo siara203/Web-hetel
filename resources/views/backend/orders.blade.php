@@ -190,6 +190,8 @@
                                         <span class="badge bg-warning-light">Cancelled</span>
                                     @elseif($order->status == 'pending')
                                         <span class="badge bg-danger-light">Pending</span>
+                                    @elseif($order->status == 'approved')
+                                    <span class="badge bg-pink">Approved</span>
                                     @elseif($order->status == 'active')
                                         <span class="badge bg-info-light">Active</span>
                                     @elseif($order->status == 'finished')
@@ -210,7 +212,7 @@
                                     Time: {{ $totalTime }} h, <br>
                                     Room: $ {{ $roomRate * $totalTime }}<br>
                                     Services: $ {{ $servicePrice }}<br>
-                                    <i style="color: red">Total: $ {{ $totalAmount }}</i>
+                                    <i style="color: red">Total: $ {{  $totalAmount + ($roomRate * $totalTime) }} </i>
                                 </td>
                                  
                                  <td>{{ $order->description }}</td>
@@ -218,9 +220,11 @@
                                     <div class="d-flex align-items-center list-action">
                                         <div class="d-flex align-items-center list-action">
                                             @if($order->status == 'pending')
-                                                <a class="badge bg-primary mr-2" data-toggle="tooltip" data-placement="top" title="Active" href="{{ route('orderactivate', $order->id) }}"><i class="fas fa-check" style="color: rgb(255, 255, 255)"></i></a>
+                                                <a class="badge bg-primary mr-2" data-toggle="tooltip" data-placement="top" title="Approved" href="{{ route('orderapproved', $order->id) }}"><i class="fas fa-check" style="color: rgb(255, 255, 255)"></i></a>
                                                 <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Cancelled" href="{{ route('ordercancel', $order->id) }}"><i class="fas fa-times" style="color: rgb(255, 255, 255)"></i></a>
                                             @elseif($order->status == 'active')
+                                                <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Cancelled" href="{{ route('ordercancel', $order->id) }}"><i class="fas fa-times" style="color: rgb(255, 255, 255)"></i></a>
+                                            @elseif($order->status == 'approved')
                                                 <a class="badge bg-warning mr-2" data-toggle="tooltip" data-placement="top" title="Cancelled" href="{{ route('ordercancel', $order->id) }}"><i class="fas fa-times" style="color: rgb(255, 255, 255)"></i></a>
                                             @endif
                                        

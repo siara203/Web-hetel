@@ -179,8 +179,10 @@
                                         <select name="status" class="selectpicker form-control" data-style="py-0" required>
                                             <option value="pending">Pending</option>
                                             <option value="active">Active</option>
+                                             <option value="approved">Approved</option>
                                             <option value="cancelled">Cancelled</option> 
                                             <option value="cancelled">Finished</option>
+                                           
                                         </select>
                                     </div>
                                 </div>
@@ -199,24 +201,21 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Services *</label>
-                                        <select name="service_id[]" class="selectpicker form-control" multiple data-style="py-0" required>
+                                        <label>Services</label>
+                                        <div class="service-checkboxes">
                                             @foreach($services as $service)
-                                                <option class="service-option" value="{{ $service->id }}" data-quantity-input="{{ $service->id }}">{{ $service->name }}</option>
+                                                <div class="custom-control custom-checkbox custom-checkbox-color-check custom-control-inline">
+                                                    <input class="custom-control-input bg-primary" type="checkbox" name="service_id[]" value="{{ $service->id }}" id="service{{ $service->id }}">
+                                                    <label class="custom-control-label" for="service{{ $service->id }}">
+                                                        {{ $service->name }}
+                                                    </label>
+                                                    <input type="number" name="quantity[]" class="form-control quantity-input" value="0" min="0">
+                                                </div>
                                             @endforeach
-                                        </select>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <div id="service-quantity-container " >
-                                    @foreach($services as $service)
-                                        <div class="service-quantity-row" id="service-{{ $service->id }}-quantity">
-                                            <div class="service-name col-sm">{{ $service->name }}</div>
-                                            <input type="number" name="quantity[]" class="form-control quantity-input col-sm" value="1" min="1">
-                                        </div>
-                                    @endforeach
-                                </div>                             
-                                
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Description</label>

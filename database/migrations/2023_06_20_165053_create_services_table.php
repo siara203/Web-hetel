@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('price');
-            $table->unsignedBigInteger('picture_id')->nullable();
-            $table->foreign('picture_id')->references('id')->on('pictures');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

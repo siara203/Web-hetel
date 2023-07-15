@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Picture;
 use App\Models\Room;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
@@ -22,6 +21,7 @@ class HomeController extends Controller
     public function getrooms()
     {
         $rooms = Room::all();
+
         return view('frontend.rooms', compact('rooms'));
     }
     
@@ -34,11 +34,15 @@ class HomeController extends Controller
         return view('frontend.services');
     }
 
-    public function getdetails(){
+    public function getdetails()
+    {
+       
         return view('frontend.details');
     }
+    
 
     public function getcontact(){
+
         return view('frontend.contact');
     }
     public function gettermsofservice(){
@@ -139,34 +143,42 @@ class HomeController extends Controller
         $totalServiceAmount = 0;
     
         foreach ($serviceIds as $key => $serviceId) {
-            $service = Service::find($serviceId);
+            $quantity = $request->input('quantity.' . $key, 0);
+            $service = Service::findOrFail($serviceId);
+            $orderService = OrderServices::where('order_id', $order->id)
+                ->where('service_id', $serviceId)
+                ->first();
     
-            if ($service) {
-                $quantity = $quantityValues[$key] ?? 1;
-                $totalServiceAmount += $quantity * $service->price;
-                $orderService = OrderServices::where('order_id', $order->id)
-                    ->where('service_id', $serviceId)
-                    ->first();
-    
-                if ($orderService) {
+            if ($orderService) {
+                if ($quantity > 0) {
+                    $totalServiceAmount += $quantity * $service->price;
                     $orderService->quantity = $quantity;
                     $orderService->save();
+                } else {
+                    // Remove the service from the order if the quantity is 0
+                    $order->services()->detach($serviceId);
+                    $orderService->delete();
+                }
+            } else {
+                // Add the new service to the order
+                if ($quantity > 0) {
+                    $totalServiceAmount += $quantity * $service->price;
+                    $order->services()->attach($serviceId, ['quantity' => $quantity]);
                 }
             }
         }
     
-        $checkInDate = Carbon::parse($request->input('check_in_date'));
-        $checkOutDate = Carbon::parse($request->input('check_out_date'));
-        $totalHours = $checkInDate->diffInHours($checkOutDate);
-    
-        if ($totalHours < 1) {
-            $totalHours = 1;
-        }
-    
-        $totalAmount = ($totalHours * $roomRate) + $totalServiceAmount;
-        $order->total_amount = $totalAmount;
-        $order->save();
-    
+       // Calculate total amount
+       $orderRoom = OrderRoom::where('order_id', $order->id)->first();
+       $room = Room::findOrFail($orderRoom->room_id);
+       $roomRate = $room->price;
+       $checkInDate = Carbon::parse($request->input('check_in_date'));
+       $checkOutDate = Carbon::parse($request->input('check_out_date'));
+       $totalHours = $checkInDate->diffInHours($checkOutDate);
+   
+       if ($totalHours < 1) {
+           $totalHours = 1;
+       }
         return redirect()->back()->with('success', 'Order updated successfully.');
     }
     
@@ -189,5 +201,95 @@ class HomeController extends Controller
         return view('frontend.payment', compact('user', 'order', 'services', 'room', 'roomRate', 'totalTime'));
     }
     
+    //    rooms, rooms detail, order
 
+        public function search(Request $request)
+        {
+            $keyword = $request->input('keyword');
+        $rooms = Room::where('name','like','%'.$keyword.'%')->get();
+        return view('frontend.search',compact('rooms'));
+        }
+
+        public function show($id)
+        {
+           
+            $room = Room::findOrFail($id);
+            return view('frontend.room_detail', compact('room' ));
+        }
+        public function showDetail($id)
+        {
+            $user = Auth::user(); 
+            $room = Room::findOrFail($id); 
+            $orders = Order::where(function ($query) {
+                    $query->where('status', 'approved')
+                        ->orWhere('status', 'active');
+                })
+                ->where('check_out_date', '>', now())
+                ->join('order_rooms', 'orders.id', '=', 'order_rooms.order_id')
+                ->where('order_rooms.room_id', $room->id)
+                ->get();
+                
+            return view('frontend.room_detail', compact('room', 'user', 'orders'));
+        }        
+
+        // order
+        public function order($room_id, $user_id)
+        {
+            $room = Room::findOrFail($room_id);
+            $user = User::findOrFail($user_id);
+            $services = Service::all();
+        
+            return view('frontend.order', compact('room', 'user', 'services'));
+        }
+        
+        
+public function postOrder(Request $request, $room_id, $user_id)
+{
+    $room = Room::findOrFail($room_id);
+    $user = User::findOrFail($user_id);
+
+    $validatedData = $request->validate([
+        'quantity' => 'required|array',
+        'quantity.*' => 'integer|min:0',
+        'service_id' => 'array',
+        'service_id.*' => 'exists:services,id',
+        'check_in_date' => 'required',
+        'check_out_date' => 'required',
+    ]);
+
+    $order = new Order();
+    $order->user_id = $user->id;
+    $order->check_in_date = $request->check_in_date;
+    $order->check_out_date = $request->check_out_date;
+    $order->status = 'pending';
+    $order->description = $request->description;
+    $order->save();
+
+    $orderRoom = new OrderRoom();
+    $orderRoom->order_id = $order->id;
+    $orderRoom->room_id = $room->id;
+    $orderRoom->save();
+
+    $services = $request->service_id;
+    $quantities = $request->quantity;
+    $totalServiceAmount = 0;
+
+    if (!empty($services)) {
+        foreach ($services as $key => $serviceId) {
+            $service = Service::find($serviceId);
+            if ($service) {
+                $orderService = new OrderServices();
+                $orderService->order_id = $order->id;
+                $orderService->service_id = $service->id;
+                $orderService->quantity = $quantities[$key];
+                $orderService->save();
+
+                $totalServiceAmount += $quantities[$key] * $service->price;
+            }
+        }
+    }
+
+    return redirect()->back()->with('success', 'Bạn đã order thành công, hãy chờ được phê duyệt. Thông tin order xem tại account information.');
+}
+        
 }

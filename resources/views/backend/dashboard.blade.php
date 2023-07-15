@@ -155,8 +155,8 @@
                                         <img src="adm/images/product/1.png"  class="img-fluid" alt="image">
                                     </div>
                                     <div>
-                                        <p class="mb-2">Total Sales</p>
-                                        <h4>$ {{ $totalSales }}</h4>
+                                        {{-- <p class="mb-2">Total Sales</p>
+                                        <h4>$ {{ $totalSales }}</h4> --}}
 
                                     </div>
                                 </div>                                

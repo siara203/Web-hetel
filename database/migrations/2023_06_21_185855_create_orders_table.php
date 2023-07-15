@@ -20,7 +20,6 @@ return new class extends Migration
             $table->dateTime('check_in_date');
             $table->dateTime('check_out_date');
             $table->string('status');
-            $table->integer('total_amount')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

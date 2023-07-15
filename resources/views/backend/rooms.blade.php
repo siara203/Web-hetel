@@ -184,14 +184,14 @@
                             <td>
                                 <div id="carousel-{{ $room->id }}" class="carousel slide" data-ride="carousel">
                                     <ol class="carousel-indicators">
-                                        @if ($room->picture) <li data-target="#carousel-{{ $room->id }}" data-slide-to="0" class="active"></li> @endif
+                                        @if ($room->image1) <li data-target="#carousel-{{ $room->id }}" data-slide-to="0" class="active"></li> @endif
                                         @if ($room->image2) <li data-target="#carousel-{{ $room->id }}" data-slide-to="1"></li> @endif
                                         @if ($room->image3) <li data-target="#carousel-{{ $room->id }}" data-slide-to="2"></li> @endif
                                         @if ($room->image4) <li data-target="#carousel-{{ $room->id }}" data-slide-to="3"></li> @endif
                                         @if ($room->image5) <li data-target="#carousel-{{ $room->id }}" data-slide-to="4"></li> @endif
                                     </ol>
-                                    <div class="carousel-inner">
-                                        @if ($room->picture) <div class="carousel-item active"><img src="{{ asset('images/rooms/' . $room->picture->file_name) }}" class="img-fluid rounded avatar-50 mr-3" alt="image"></div> @endif
+                                    <div class="carousel-inner">                                                
+                                        @if ($room->image1) <div class="carousel-item active"><img src="{{ asset('images/rooms/' . $room->image1) }}" class="img-fluid rounded avatar-50 mr-3" alt="image"></div> @endif
                                         @if ($room->image2) <div class="carousel-item"><img src="{{ asset('images/rooms/' . $room->image2) }}" class="img-fluid rounded avatar-50 mr-3" alt="image"></div> @endif
                                         @if ($room->image3) <div class="carousel-item"><img src="{{ asset('images/rooms/' . $room->image3) }}" class="img-fluid rounded avatar-50 mr-3" alt="image"></div> @endif
                                         @if ($room->image4) <div class="carousel-item"><img src="{{ asset('images/rooms/' . $room->image4) }}" class="img-fluid rounded avatar-50 mr-3" alt="image"></div> @endif
@@ -206,8 +206,7 @@
                                         <span class="sr-only">Next</span>
                                     </a>
                                 </div>
-                            </td>
-
+                            </td>                            
                             <td>{{ $room->description }}</td>
                             <td>
                                 <div class="d-flex align-items-center list-action">

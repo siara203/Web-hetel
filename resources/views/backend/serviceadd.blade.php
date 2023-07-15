@@ -151,7 +151,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Image *</label>
-                                        <input multiple type="file" class="form-control image-file" name="pic" accept="image/*">
+                                        <input multiple type="file" class="form-control image-file" name="image" accept="image/*">
                                     </div>
                                 </div>
                                 <div class="col-md-12">                      

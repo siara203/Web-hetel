@@ -15,7 +15,6 @@ class Order extends Model
         'check_out_date',
         'status',
         'description',
-        'total_amount',
     ];
 
     public function user()
@@ -24,9 +23,7 @@ class Order extends Model
     }
 
     public function rooms()
-    
     {
-        
         return $this->belongsToMany(Room::class, 'order_rooms', 'order_id', 'room_id');
     }
 
@@ -50,7 +47,6 @@ class Order extends Model
     }
 
     public function getTotalServiceAmount()
-    
     {
         $totalAmount = 0;
 
@@ -59,9 +55,8 @@ class Order extends Model
             $quantity = $orderService->quantity;
             $totalAmount += $service->price * $quantity;
         }
-    
+
         return $totalAmount;
-        return $this->services()->sum('price');
     }
 
     public function getServiceQuantity($serviceId)
@@ -77,5 +72,4 @@ class Order extends Model
     {
         return $this->hasMany(OrderServices::class);
     }
-    
 }
