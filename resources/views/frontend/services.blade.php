@@ -1,71 +1,68 @@
+<link rel="stylesheet" href="{{ asset('backend/room.css') }}" />
+
 @extends('frontend.master')
 
 @section('content')
+
 <div class="container">
 
-       <h1 class="title">Services</h1>
-       <div class="row gallery">
-    <div class="col-sm-4 wowload fadeInUp">
-        <a href="{{ asset('images/photos/1.jpg') }}" title="Foods" class="gallery-image" data-gallery>
-            <img src="{{ asset('images/photos/1.jpg') }}" class="img-responsive">
-        </a>
+    <center>
+        <h2>services</h2>
+    </center>
+
+
+<!-- form -->
+
+  <div class="services-group">
+  <div class="row-index">
+    @foreach($services as $service)
+    <div class="col-xs-18 col-sm-6 col-md-4-index" >
+      <div class="img_thumbnail productlist-index">
+        <div id="carousel-{{ $service->id }}" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                @if ($service->image) <li data-target="#carousel-{{ $service->id }}" data-slide-to="0" class="active"></li> @endif
+            </ol>
+            <div class="carousel-inner">
+                @if ($service->image)
+                <div class="carousel-item active"><img src="{{ asset('images/services/' . $service->image) }}" class="img-fluid rounded avatar-50 mr-3" alt="image"></div>
+                @endif
+            </div>
+            <a class="carousel-control-prev" href="#carousel-{{ $service->id }}" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel-{{ $service->id }}" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+            </a>
+        </div>
+      </div>
+    <center>
+      <div class="caption">
+        <h3>{{ $service->name }}</h3>
+        <h4> price:  {{ $service->price }} $ </h4>
+        
+      </div>
+    </center>
     </div>
-    <div class="col-sm-4 wowload fadeInUp">
-        <a href="{{ asset('images/photos/2.jpg') }}" title="Coffee" class="gallery-image" data-gallery>
-            <img src="{{ asset('images/photos/2.jpg') }}" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-sm-4 wowload fadeInUp">
-        <a href="{{ asset('images/photos/3.jpg') }}" title="Travel" class="gallery-image" data-gallery>
-            <img src="{{ asset('images/photos/3.jpg') }}" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-sm-4 wowload fadeInUp">
-        <a href="{{ asset('images/photos/4.jpg') }}" title="Adventure" class="gallery-image" data-gallery>
-            <img src="{{ asset('images/photos/4.jpg') }}" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-sm-4 wowload fadeInUp">
-        <a href="{{ asset('images/photos/5.jpg') }}" title="Fruits" class="gallery-image" data-gallery>
-            <img src="{{ asset('images/photos/5.jpg') }}" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-sm-4 wowload fadeInUp">
-        <a href="{{ asset('images/photos/6.jpg') }}" title="Summer" class="gallery-image" data-gallery>
-            <img src="{{ asset('images/photos/6.jpg') }}" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-sm-4 wowload fadeInUp">
-        <a href="{{ asset('images/photos/7.jpg') }}" title="Bathroom" class="gallery-image" data-gallery>
-            <img src="{{ asset('images/photos/7.jpg') }}" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-sm-4 wowload fadeInUp">
-        <a href="{{ asset('images/photos/8.jpg') }}" title="Rooms" class="gallery-image" data-gallery>
-            <img src="{{ asset('images/photos/8.jpg') }}" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-sm-4 wowload fadeInUp">
-        <a href="{{ asset('images/photos/9.jpg') }}" title="Big Room" class="gallery-image" data-gallery>
-            <img src="{{ asset('images/photos/9.jpg') }}" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-sm-4 wowload fadeInUp">
-        <a href="{{ asset('images/photos/11.jpg') }}" title="Living Room" class="gallery-image" data-gallery>
-            <img src="{{ asset('images/photos/11.jpg') }}" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-sm-4 wowload fadeInUp">
-        <a href="{{ asset('images/photos/1.jpg') }}" title="Fruits" class="gallery-image" data-gallery>
-            <img src="{{ asset('images/photos/1.jpg') }}" class="img-responsive">
-        </a>
-    </div>
-    <div class="col-sm-4 wowload fadeInUp">
-        <a href="{{ asset('images/photos/3.jpg') }}" title="Travel" class="gallery-image" data-gallery>
-            <img src="{{ asset('images/photos/3.jpg') }}" class="img-responsive">
-        </a>
-    </div>
+    @endforeach
+  </div>
 </div>
+
+      
+</div>
+                     <div class="text-center">
+                     <ul class="pagination">
+                     <li class="disabled"><a href="#">«</a></li>
+                     <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                     <li><a href="#">2</a></li>
+                     <li><a href="#">3</a></li>
+                     <li><a href="#">4</a></li>
+                     <li><a href="#">»</a></li>
+                     </ul>
+                     </div>
+
 
 </div>
 @stop
+
