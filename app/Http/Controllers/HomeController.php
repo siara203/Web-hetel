@@ -30,8 +30,9 @@ class HomeController extends Controller
         return view('frontend.introduction');
     }
 
-    public function getservices(){
-        return view('frontend.services');
+    public function getservices(Request $request){
+        $services = service::all();
+        return view('frontend.services',compact('services'));
     }
 
     public function getdetails()
