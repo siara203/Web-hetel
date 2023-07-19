@@ -113,7 +113,7 @@
 
         <div class = "purchase-info">
           <button type = "button" class = "btn">
-            <a href="{{ route('order', ['room_id' => $room->id, 'user_id' => $user->id]) }}" style="color: #000;">Order</a>
+            <a href="{{ route('order', ['room_id' => $room->id, 'user_id' => $user->id]) }}" style="color: #000;">Booking</a>
           </button>
           <button type="button" class="btn" onclick="window.history.back()">Back</button>
         </div>
