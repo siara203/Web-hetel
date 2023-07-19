@@ -10,11 +10,7 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'user_id',
-        'check_in_date',
-        'check_out_date',
-        'status',
-        'description',
+        'user_id', 'check_in_date', 'check_out_date', 'status', 'description',
     ];
 
     public function user()
@@ -38,6 +34,12 @@ class Order extends Model
         return $this->hasMany(OrderRoom::class);
     }
 
+    
+    public function orderServices()
+    {
+        return $this->hasMany(OrderServices::class);
+    }
+    
     public function getTotalHours()
     {
         $checkInDate = Carbon::parse($this->check_in_date);
@@ -68,8 +70,4 @@ class Order extends Model
         return 0;
     }
 
-    public function orderServices()
-    {
-        return $this->hasMany(OrderServices::class);
-    }
 }

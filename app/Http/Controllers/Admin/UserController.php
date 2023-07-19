@@ -118,13 +118,6 @@ class UserController extends Controller
       return view('backend.useredit', compact('user','users', 'orders'));
   }
 
-  // show room types
-   public function getroomtypes()
-  {
-      $orders = Order::all();
-      $users = User::all();
-      $roomTypes = RoomType::all();
-      return view('backend.roomtypes', compact('roomTypes','users', 'orders'));
-  }
+
 
 }

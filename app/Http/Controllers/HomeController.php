@@ -233,63 +233,65 @@ class HomeController extends Controller
         }        
 
         // order
-        public function order($room_id, $user_id)
-        {
+    public function order($room_id, $user_id)
+    {
             $room = Room::findOrFail($room_id);
             $user = User::findOrFail($user_id);
             $services = Service::all();
         
             return view('frontend.order', compact('room', 'user', 'services'));
-        }
+    }
         
         
-public function postOrder(Request $request, $room_id, $user_id)
-{
-    $room = Room::findOrFail($room_id);
-    $user = User::findOrFail($user_id);
+    public function postOrder(Request $request, $room_id, $user_id)
+    {
+        $room = Room::findOrFail($room_id);
+        $user = User::findOrFail($user_id);
 
-    $validatedData = $request->validate([
-        'quantity' => 'required|array',
-        'quantity.*' => 'integer|min:0',
-        'service_id' => 'array',
-        'service_id.*' => 'exists:services,id',
-        'check_in_date' => 'required',
-        'check_out_date' => 'required',
-    ]);
+        $validatedData = $request->validate([
+            'quantity' => 'required|array',
+            'quantity.*' => 'integer|min:0',
+            'service_id' => 'array',
+            'service_id.*' => 'exists:services,id',
+            'check_in_date' => 'required',
+            'check_out_date' => 'required',
+        ]);
 
-    $order = new Order();
-    $order->user_id = $user->id;
-    $order->check_in_date = $request->check_in_date;
-    $order->check_out_date = $request->check_out_date;
-    $order->status = 'pending';
-    $order->description = $request->description;
-    $order->save();
+        $order = new Order();
+        $order->user_id = $user->id;
+        $order->check_in_date = $request->check_in_date;
+        $order->check_out_date = $request->check_out_date;
+        $order->status = 'pending';
+        $order->description = $request->description;
+        $order->save();
 
-    $orderRoom = new OrderRoom();
-    $orderRoom->order_id = $order->id;
-    $orderRoom->room_id = $room->id;
-    $orderRoom->save();
+        $orderRoom = new OrderRoom();
+        $orderRoom->order_id = $order->id;
+        $orderRoom->room_id = $room->id;
+        $orderRoom->save();
 
-    $services = $request->service_id;
-    $quantities = $request->quantity;
-    $totalServiceAmount = 0;
+        $services = $request->service_id;
+        $quantities = $request->quantity;
+        $totalServiceAmount = 0;
 
-    if (!empty($services)) {
-        foreach ($services as $key => $serviceId) {
-            $service = Service::find($serviceId);
-            if ($service) {
-                $orderService = new OrderServices();
-                $orderService->order_id = $order->id;
-                $orderService->service_id = $service->id;
-                $orderService->quantity = $quantities[$key];
-                $orderService->save();
+        if (!empty($services)) {
+            foreach ($services as $key => $serviceId) {
+                $service = Service::find($serviceId);
+                if ($service) {
+                    $orderService = new OrderServices();
+                    $orderService->order_id = $order->id;
+                    $orderService->service_id = $service->id;
+                    $orderService->quantity = $quantities[$key];
+                    $orderService->save();
 
-                $totalServiceAmount += $quantities[$key] * $service->price;
+                    $totalServiceAmount += $quantities[$key] * $service->price;
+                }
             }
         }
-    }
 
-    return redirect()->back()->with('success', 'Bạn đã order thành công, hãy chờ được phê duyệt. Thông tin order xem tại account information.');
-}
+        return redirect()->back()
+        ->with('success', 'Your order has been successfully placed, waiting for us to approve.
+         Order information can be found at account information.');
+    }
         
 }
