@@ -34,7 +34,7 @@ class ServiceController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
-            'description' => 'required',
+            'description' => 'nullable',
             'image' => 'required|image|mimes:jpeg,png,gif,jpg|max:2048',
         ]);
 
@@ -87,7 +87,7 @@ class ServiceController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
-            'description' => 'required',
+            'description' => 'nullable',
             'image' => 'image|mimes:jpeg,png,gif,jpg|max:2048',
         ]);
 

@@ -25,7 +25,7 @@
                           <ul id="people" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
                             <li class="active">
                                           <a href="{{ url('admin-users') }}">
-                                              <i class="las la-minus"></i><span>Users</span>
+                                              <i class="las la-minus"></i><span>List Users</span>
                                           </a>
                                   </li>
                                   <li class="">

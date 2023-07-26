@@ -22,53 +22,48 @@ class OrderController extends Controller
    
     // show orders
     public function getorders()
-{
-    $currentDateTime = Carbon::now();
-    
-    // Update status of active orders
-    $activeOrders = Order::where('status', 'approved')
-        ->where('check_in_date', '<=', $currentDateTime)
-        ->get();
+    {
+        $currentDateTime = Carbon::now();
+        $activeOrders = Order::where('status', 'approved')
+            ->where('check_in_date', '<=', $currentDateTime)
+            ->get();
 
-    foreach ($activeOrders as $order) {
-        $order->status = 'active';
-        $order->save();
+        foreach ($activeOrders as $order) {
+            $order->status = 'active';
+            $order->save();
 
-        $orderRooms = $order->orderRooms;
-        foreach ($orderRooms as $orderRoom) {
-            $room = $orderRoom->room;
-            if ($room) {
-                $room->status = 'active';
-                $room->save();
+            $orderRooms = $order->orderRooms;
+            foreach ($orderRooms as $orderRoom) {
+                $room = $orderRoom->room;
+                if ($room) {
+                    $room->status = 'active';
+                    $room->save();
+                }
             }
         }
-    }
+        $completedOrders = Order::where('status', '!=', 'finished')
+            ->where('check_out_date', '<=', $currentDateTime)
+            ->get();
 
-    // Update status of completed orders
-    $completedOrders = Order::where('status', '!=', 'finished')
-        ->where('check_out_date', '<=', $currentDateTime)
-        ->get();
-
-    foreach ($completedOrders as $order) {
-        $order->status = 'finished';
-        $order->save();
-        
-        $orderRooms = $order->orderRooms;
-        foreach ($orderRooms as $orderRoom) {
-            $room = $orderRoom->room;
-            if ($room) {
-                $room->status = 'vacancy';
-                $room->save();
+        foreach ($completedOrders as $order) {
+            $order->status = 'finished';
+            $order->save();
+            
+            $orderRooms = $order->orderRooms;
+            foreach ($orderRooms as $orderRoom) {
+                $room = $orderRoom->room;
+                if ($room) {
+                    $room->status = 'vacancy';
+                    $room->save();
+                }
             }
         }
+
+        $users = User::all();
+        $orders = Order::all();
+
+        return view('backend.orders', compact('orders', 'users'));
     }
-
-    $users = User::all();
-    $orders = Order::all();
-
-    return view('backend.orders', compact('orders', 'users'));
-}
-
 
     // add order
     public function getorderadd()
@@ -151,15 +146,14 @@ class OrderController extends Controller
         $subtotal = $roomTotal + $totalServiceAmount;
         $totalAmount = $subtotal;
 
-        $order->total_amount = $totalAmount;
-        $order->save();
+
 
         return redirect()->back()->with('success', 'Order added successfully.');
     }
 
     //button approved
-        public function orderapproved($id)
-        {
+    public function orderapproved($id)
+    {
         $order = Order::findOrFail($id);
         $orderRoom = OrderRoom::where('order_id', $order->id)->first();
         if ($orderRoom) {
@@ -178,7 +172,8 @@ class OrderController extends Controller
 
         return redirect()->back()->with('success', 'Order approved successfully.');
 
-        }
+    }
+
     //button cancel
     public function ordercancel($id)
     {
@@ -258,12 +253,10 @@ class OrderController extends Controller
                     $orderService->quantity = $quantity;
                     $orderService->save();
                 } else {
-                    // Remove the service from the order if the quantity is 0
                     $order->services()->detach($serviceId);
                     $orderService->delete();
                 }
             } else {
-                // Add the new service to the order
                 if ($quantity > 0) {
                     $totalServiceAmount += $quantity * $service->price;
                     $order->services()->attach($serviceId, ['quantity' => $quantity]);
@@ -271,7 +264,6 @@ class OrderController extends Controller
             }
         }
     
-        // Calculate total amount
         $orderRoom = OrderRoom::where('order_id', $order->id)->first();
         $room = Room::findOrFail($orderRoom->room_id);
         $roomRate = $room->price;
@@ -282,8 +274,7 @@ class OrderController extends Controller
         if ($totalHours < 1) {
             $totalHours = 1;
         }
-    
-        // Update room status
+
         if ($order->status === 'active' && $room->status === 'vacancy') {
             $room->status = 'active';
         } elseif ($request->input('status') === 'cancelled' || $request->input('status') === 'finished' || $request->input('status') === 'pending') {
@@ -291,7 +282,6 @@ class OrderController extends Controller
         }
         $room->save();
 
-    
         return redirect()->back()->with('success', 'Order updated successfully.');
     }
     

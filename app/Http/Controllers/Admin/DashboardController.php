@@ -27,7 +27,7 @@ class DashboardController extends Controller
            $totalRooms = Room::count();
            $totalOrders = Order::count();
            $users = User::all();
-   
+            
            return view('backend.dashboard', compact('users', 'orders','totalOrders','totalRooms'));
        }    
    

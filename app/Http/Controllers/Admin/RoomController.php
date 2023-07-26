@@ -49,7 +49,7 @@ class RoomController extends Controller
             'image3' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'image4' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'image5' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'description' => 'required',
+            'description' => 'nullable',
         ]);
    
         $room = new Room([
@@ -103,7 +103,7 @@ class RoomController extends Controller
             'image3' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'image4' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'image5' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'description' => 'required',
+            'description' => 'nullable',
         ]);
 
         $room = Room::findOrFail($id);
