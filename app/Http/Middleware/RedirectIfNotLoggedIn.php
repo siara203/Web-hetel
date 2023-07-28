@@ -9,10 +9,10 @@ class RedirectIfNotLoggedIn
 {
     public function handle($request, Closure $next)
     {
-        if (!Auth::check()) {
-            return redirect()->route('login');
+        if (Auth::check() && Auth::user()->isAdmin()) {
+            return $next($request);
         }
-
-        return $next($request);
+        
+        return redirect()->route('login')->with('error', 'You must log in to access this page.');
     }
 }

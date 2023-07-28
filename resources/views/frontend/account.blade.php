@@ -22,6 +22,7 @@
               </div>
         </div>
         <!-- loader END -->
+        <div class="wrapper">
         <div class="iq-top-navbar" style="width: calc(100% - -1px);">
             <div class="iq-navbar-custom">
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
@@ -444,7 +445,8 @@
          </div>
       </div>
       </div>
-    </div>
+    </div> 
+</div>
     <!-- Wrapper End-->
     <footer class="iq-footer" style="width: calc(112vw - 222px);margin-left: 4px;">
             <div class="container-fluid">

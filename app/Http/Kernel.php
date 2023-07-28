@@ -70,5 +70,4 @@ class Kernel extends HttpKernel
         'auth.redirect' => \App\Http\Middleware\RedirectIfNotLoggedIn::class,
     ];
 
-    
 }

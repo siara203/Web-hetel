@@ -28,7 +28,7 @@
         <div class="signup-content">
             <div class="signup-form">
                 <h2 class="form-title">Sign up</h2>
-                <h4 style="text-align: center;">@include('errors.note')</h4>
+                <p style="text-align: center;">@include('errors.note')</p>
                 <h4 id="error-message" style="text-align: center; color: red;"></h4>
                 <form action="{{ route('register') }}" method="POST" class="register-form" id="register-form" onsubmit="return validateForm();">
 
@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email"><i class="zmdi zmdi-email"></i></label>
-                        <input type="email" name="email" id="email" placeholder="Your Email" required/>
+                        <input type="text" name="email" id="email" placeholder="Your Email" required/>
                     </div>
                     <div class="form-group">
                         <label for="phone"><i class="zmdi zmdi-phone"></i></label>

@@ -178,6 +178,8 @@
                                         <span class="badge bg-danger-light">Maintenance</span>
                                     @elseif ($room->status === 'vacancy')
                                         <span class="badge bg-info-light">Vacancy</span>
+                                        @elseif ($room->status === 'ok')
+                                     
                                     @endif
                                 </div>
                             </td>

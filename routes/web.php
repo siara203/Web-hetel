@@ -32,28 +32,28 @@ Route::group(['prefix' => 'user'], function () {
 Route::get('/user/auth/google', [AuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 
-    Route::get('rooms', [HomeController::class, 'getrooms']);
-    //Search
-    Route::get('/search',[HomeController::class,'search'])->name('rooms.search');
-    Route::get('introduction', [HomeController::class, 'getintroduction']);
-    Route::get('terms-of-service', [HomeController::class, 'gettermsofservice']);
-    Route::get('details', [HomeController::class, 'getdetails']);
-    Route::get('contact', [HomeController::class, 'getcontact']);
-    Route::get('services', [HomeController::class, 'getservices']);
-    Route::get('/rooms/{id}', 'HomeController@show')->name('room.show');
-    Route::get('/room_detail/{id}', [HomeController::class, 'showDetail'])->name('room.detail');
+////////////////////////////////////////////Guest////////////////////////////////////////////
+Route::get('/search',[HomeController::class,'search'])->name('rooms.search');
+Route::get('rooms', [HomeController::class, 'getrooms']);
+Route::get('introduction', [HomeController::class, 'getintroduction']);
+Route::get('terms-of-service', [HomeController::class, 'gettermsofservice']);
+Route::get('details', [HomeController::class, 'getdetails']);
+Route::get('contact', [HomeController::class, 'getcontact']);
+Route::get('services', [HomeController::class, 'getservices']);
+Route::get('/rooms/{id}', 'HomeController@show')->name('room.show');
+Route::get('/room_detail/{id}', [HomeController::class, 'showDetail'])->name('room.detail');
     
-    //Member
-    Route::middleware('auth')->group(function () {
-        Route::get('account', [HomeController::class, 'getaccount'])->name('account');
-        Route::post('updateinfo', [HomeController::class, 'updateProfile'])->name('updateinfo');
-        Route::post('updateorder-{id}', [HomeController::class, 'updateOrder'])->name('updateorder');
-        Route::get('payment-{id}', [HomeController::class, 'payment'])->name('payment');
-        Route::get('order-{room_id}-{user_id}', [HomeController::class, 'order'])->name('order');
-        Route::post('order-{room_id}-{user_id}', [HomeController::class, 'postOrder'])->name('postorder');        
-    });
+////////////////////////////////////////////Member////////////////////////////////////////////
+Route::middleware('auth')->group(function () {
+    Route::get('account', [HomeController::class, 'getaccount'])->name('account');
+    Route::post('updateinfo', [HomeController::class, 'updateProfile'])->name('updateinfo');
+    Route::post('updateorder-{id}', [HomeController::class, 'updateOrder'])->name('updateorder');
+    Route::get('payment-{id}', [HomeController::class, 'payment'])->name('payment');
+    Route::get('order-{room_id}-{user_id}', [HomeController::class, 'order'])->name('order');
+    Route::post('order-{room_id}-{user_id}', [HomeController::class, 'postOrder'])->name('postorder');        
+});
 
-//Admin
+//////////////////////////////////////////////Admin//////////////////////////////////////////////
 Route::group(['middleware' => 'auth.redirect'], function () {
     // dashboard
     Route::get('/admin-dashboard', [DashboardController::class, 'getdashboard']);

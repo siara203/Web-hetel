@@ -48,17 +48,22 @@ class AuthController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|unique:users',
             'phone' => 'required|digits_between:5,15',
             'address' => 'required',
             'pass' => 'required|min:8',
             're_pass' => 'required|same:pass',
             'agree-term' => 'required',
         ], [
+            
             'email.unique' => 'The email has already been taken.',
             're_pass.same' => 'The password confirmation does not match.',
             'agree-term.required' => 'Please accept the terms of service.',
         ]);
+    
+        if (!filter_var($validatedData['email'], FILTER_VALIDATE_EMAIL)) {
+            return redirect()->back()->withErrors(['email' => 'Invalid email format. Please enter a valid email address.']);
+        }
     
         $user = new User;
         $user->full_name = $validatedData['name'];
@@ -71,7 +76,8 @@ class AuthController extends Controller
         $user->save();
     
         return redirect()->back()->with('success', 'You have successfully created');
-    }    
+    }
+      
 
     public function redirectToGoogle()
     {

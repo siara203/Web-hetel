@@ -16,7 +16,7 @@ class RoleMiddleware
     public function handle($request, Closure $next, $role)
     {
         if (!$request->user() || $request->user()->role !== $role) {
-            abort(403); // Hoặc bạn có thể redirect tới trang khác dành cho người dùng không có quyền.
+            abort(403); 
         }   
     
         return $next($request);

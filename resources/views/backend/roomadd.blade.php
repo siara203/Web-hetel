@@ -191,7 +191,7 @@
                                             <option value="vacancy">Vacancy</option>
                                              <option value="maintenance">Maintenance</option>
                                             <option value="active">Active</option>
-                                           
+
                                         </select>
                                     </div>
                                 </div>
