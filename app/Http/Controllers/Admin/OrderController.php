@@ -98,7 +98,8 @@ class OrderController extends Controller
         $order->user_id = $request->user_id;
         $order->check_in_date = $request->check_in_date;
         $order->check_out_date = $request->check_out_date;
-        $order->status = $request->status;
+        $order->statu
+        s = $request->status;
         $order->description = $request->description;
         $order->save();
 
@@ -150,9 +151,6 @@ class OrderController extends Controller
         $roomTotal = $roomRate * $totalHours;
         $subtotal = $roomTotal + $totalServiceAmount;
         $totalAmount = $subtotal;
-
-        $order->total_amount = $totalAmount;
-        $order->save();
 
         return redirect()->back()->with('success', 'Order added successfully.');
     }

@@ -1,4 +1,4 @@
-  /* room */
+/* Room */
 .rooms-group {
     margin-bottom: 20px;
   }
@@ -77,16 +77,17 @@
   }
   
   .caption {
-    padding: 10px;
+    padding: 50px;
   }
   
   .caption h3 {
     margin-top: 0;
     text-align: center;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 50px;
     color: black;
   }
+  
   .caption h4 {
     text-align: center;
   }
@@ -102,6 +103,7 @@
     border-radius: 4px;
   }
   
+  /* Badge colors */
   .status-badge .bg-warning-light {
     background-color: rgb(112, 239, 83);
     color: white;

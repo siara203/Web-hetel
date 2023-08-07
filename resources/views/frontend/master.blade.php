@@ -61,10 +61,10 @@
 <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">        
           <li><a href="{{ url('/') }}">Home</a></li>
-          <li><a href="{{ url('/rooms') }}">Rooms</a></li>
-      <li><a href="{{ url('/introduction') }}">Introduction</a></li>
-      <li><a href="{{ url('/services') }}">Services</a></li>
-      <li><a href="{{ url('/contact') }}">Contact</a></li>
+          <li><a href="{{ url('/rooms') }}">Giới tính</a></li>
+      <li><a href="{{ url('/introduction') }}">Sản Phẩm </a></li>
+      <li><a href="{{ url('/services') }}">Thương Hiệu</a></li>
+      <li><a href="{{ url('/contact') }}">Khuyến Mãi</a></li>
 
         @if (Auth::check())
             <li class="dropdown">

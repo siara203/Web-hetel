@@ -30,7 +30,7 @@
                         
                         <a href="{{ url('/') }}" class="header-logo">
                             <img src="adm/images/logo.png" class="img-fluid rounded-normal" alt="logo">
-                            <h5 class="logo-title ml-3">SDN Hotel</h5>
+                            <h5 class="logo-title ml-3">SHOP TOYS</h5>
                         </a>
                         
                     </div>

@@ -9,8 +9,8 @@
     <div class="welcome-message">
         <div class="wrap-info">
             <div class="information">
-                <h1  class="animated fadeInDown">SDN Hotel</h1>
-                <p class="animated fadeInUp">Most luxurious hotel of asia with the royal treatments and excellent customer service.</p>                
+                <h1  class="animated fadeInDown">SHOP TOYS</h1>
+                <p class="animated fadeInUp">"Where Fun Meets Joy - Your One-Stop Toy Shop!"</p>                
             </div>
             <a href="#information" class="arrow-nav scroll wowload fadeInDownBig"><i class="fa fa-angle-down"></i></a>
         </div>
@@ -30,7 +30,6 @@
                 </div>
             </div>
         <div class="col-sm-5 col-md-4">
-            </br></br>
             <div class="feature">        
                 <h4><i class="fa fa-home"></i> Comfortable Rooms</h4>
                 <p>Relax and unwind in our spacious and comfortable rooms designed for your ultimate comfort.</p>

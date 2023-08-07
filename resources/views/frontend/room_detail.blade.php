@@ -70,7 +70,6 @@
         <div class="product-content">
             <h2 class="product-title">{{ $room->name }}</h2>
 
-            <!-- Hiển thị đánh giá và bình luận ảo -->
             <?php
             $rating = rand(3, 5);
             $commentCount = rand(10, 50);
