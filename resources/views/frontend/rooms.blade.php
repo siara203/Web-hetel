@@ -5,9 +5,9 @@
 @section('content')
 
 <div class="container">
-
-<h2>Rooms</h2>
-
+<content>
+<h2>TOYS</h2>
+</content>
 
 <!-- form -->
 

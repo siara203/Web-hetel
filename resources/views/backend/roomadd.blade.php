@@ -191,7 +191,6 @@
                                             <option value="vacancy">Vacancy</option>
                                              <option value="maintenance">Maintenance</option>
                                             <option value="active">Active</option>
-                                           
                                         </select>
                                     </div>
                                 </div>
@@ -228,7 +227,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1">Description</label>
-                                        <textarea placeholder="Enter Description" name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                     <textarea placeholder="Enter Description" name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>

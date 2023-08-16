@@ -233,6 +233,28 @@ class HomeController extends Controller
             return view('frontend.room_detail', compact('room', 'user', 'orders'));
         }        
 
+         public function showe($id)
+        {
+           
+            $service = service::findOrFail($id);
+            return view('frontend.service_detail', compact('service' ));
+        }
+        public function showdetails($id)
+        {
+            $user = Auth::user(); 
+            $service = service::findOrFail($id); 
+            $orders = Order::where(function ($query) {
+                    $query->where('status', 'approved')
+                        ->orWhere('status', 'active');
+                })
+                ->where('check_out_date', '>', now())
+                ->join('order_rooms', 'orders.id', '=', 'order_rooms.order_id')
+                ->where('order_rooms.room_id', $service->id)
+                ->get();
+                
+            return view('frontend.service_detail', compact('service', 'user', 'orders'));
+        }            
+
         // order
         public function order($room_id, $user_id)
         {

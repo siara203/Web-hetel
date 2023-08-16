@@ -9,8 +9,8 @@
     <div class="welcome-message">
         <div class="wrap-info">
             <div class="information">
-                <h1  class="animated fadeInDown">SDN Hotel</h1>
-                <p class="animated fadeInUp">Most luxurious hotel of asia with the royal treatments and excellent customer service.</p>                
+                <h1  class="animated fadeInDown">SDN TOYS</h1>
+                <p class="animated fadeInUp">Spring into fun for the whole Family!.</p>                
             </div>
             <a href="#information" class="arrow-nav scroll wowload fadeInDownBig"><i class="fa fa-angle-down"></i></a>
         </div>
@@ -89,7 +89,7 @@
             <a class="right carousel-control" href="#RoomCarousel" role="button" data-slide="next"><i class="fa fa-angle-right"></i></a>
         </div>
         <!-- RoomCarousel -->
-        <div class="caption">Rooms<a href="{{ url('/rooms') }}" class="pull-right"><i class="fa fa-edit"></i></a></div>
+        <div class="caption">TOY<a href="{{ url('/rooms') }}" class="pull-right"><i class="fa fa-edit"></i></a></div>
     </div>
 
     <div class="col-sm-4">

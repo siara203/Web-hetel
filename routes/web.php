@@ -42,7 +42,8 @@ Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallbac
     Route::get('services', [HomeController::class, 'getservices']);
     Route::get('/rooms/{id}', 'HomeController@show')->name('room.show');
     Route::get('/room_detail/{id}', [HomeController::class, 'showDetail'])->name('room.detail');
-    
+    Route::get('/service_detail/{id}', [HomeController::class, 'showDetails'])->name('service.detail');
+
     //Member
     Route::middleware('auth')->group(function () {
         Route::get('account', [HomeController::class, 'getaccount'])->name('account');

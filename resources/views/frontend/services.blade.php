@@ -7,7 +7,7 @@
 <div class="container">
 
     <center>
-        <h2>services</h2>
+        <h2>Services</h2>
     </center>
 
 
@@ -27,12 +27,12 @@
                 <div class="carousel-item active"><img src="{{ asset('images/services/' . $service->image) }}" class="img-fluid rounded avatar-50 mr-3" alt="image"></div>
                 @endif
             </div>
-            <a class="carousel-control-prev" href="#carousel-{{ $service->id }}" role="button" data-slide="prev">
+            <a class="carousel-control-prev" href="#carousel-{{ $service->id }}" role="button" >
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carousel-{{ $service->id }}" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <a class="carousel-control-next" href="#carousel-{{ $service->id }}" role="button" >
+            <span class="carousel-control-next-icon" ></span>
             <span class="sr-only">Next</span>
             </a>
         </div>
@@ -41,9 +41,10 @@
       <div class="caption">
         <h3>{{ $service->name }}</h3>
         <h4> price:  {{ $service->price }} $ </h4>
-        
       </div>
     </center>
+    <p class="purchase-info"><a href="{{ url('/service_detail', $service->id) }}" class="btn btn-primary btn-block text-center" role="button">View Detail</a></p>
+
     </div>
     @endforeach
   </div>
