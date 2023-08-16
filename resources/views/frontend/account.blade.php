@@ -21,6 +21,7 @@
               <div id="loading-center">
               </div>
         </div>
+        <h2>hihihi</h2>
         <!-- loader END -->
         <div class="iq-top-navbar" style="width: calc(100% - -1px);">
             <div class="iq-navbar-custom">
