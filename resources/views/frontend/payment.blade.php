@@ -42,7 +42,7 @@
                                  <div class="col-sm-12">                                  
                                     <img src="adm/images/logo.png" class="logo-invoice img-fluid mb-3">
                                     <h5 class="mb-0">Hello,  {{ Auth::user()->full_name }}</h5>
-                                    <h2 style="text-align: center"><b style="color: #32bdea">SDN</b> <b style="color: coral">Hotel</b></h2>
+                                    <h2 style="text-align: center"><b style="color: #32bdea">DNS:</b> <b style="color: coral">Hotel</b></h2>
                                  </div>
                               </div>
                               <div class="row">
@@ -51,11 +51,10 @@
                                           <table class="table">
                                              <thead>
                                                 <tr>
-                                                      <th scope="col">Order Check in date</th>
-                                                      <th scope="col">Order Check out date</th>
+                                                      <th scope="col">Order Check In Date</th>
+                                                      <th scope="col">Order Check Out Date</th>
                                                       <th scope="col">Order ID</th>
                                                       <th scope="col">Room</th>
-                                                      <th scope="col">Services</th>
                                                 </tr>
                                              </thead>
                                              <tbody>
