@@ -25,10 +25,9 @@
           ?>
     
           <div class="product-price">
-              <p class="new-price"><p style="color: #000">Price:</p> {{ $service->price }} $ </p>
+              <p class="new-price"><p style="color: #000">PRICE:</p> {{ $service->price }} $ </p>
           </div>
           <div class="product-detail">
-              <h2> information:</h2>
               <ul>
                   <li>Description: {{ $service->description }}</li>
               </ul>
