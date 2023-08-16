@@ -40,7 +40,7 @@
     <center>
       <div class="caption">
         <h3>{{ $service->name }}</h3>
-        <h4> price:  {{ $service->price }} $ </h4>
+        <h4> price:  {{ $service->price }} $/h </h4>
       </div>
     </center>
     <p class="purchase-info"><a href="{{ url('/service_detail', $service->id) }}" class="btn btn-primary btn-block text-center" role="button">View Detail</a></p>
