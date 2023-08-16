@@ -70,13 +70,11 @@ class HomeController extends Controller
                 }
             }
         }
-        
         $orders = Order::where('user_id', Auth::id())->get();
         $user = Auth::user();
         $services = Service::all();
         return view('frontend.account', compact( 'user','orders','services')); 
     }
-
     public function updateProfile(Request $request)
     {
         $user = Auth::user();
@@ -196,7 +194,7 @@ class HomeController extends Controller
         $totalTime = $checkInDate->diffInHours($checkOutDate);
         
         if ($totalTime < 1) {
-            $totalTime = 1;
+          
         }
         
         return view('frontend.payment', compact('user', 'order', 'services', 'room', 'roomRate', 'totalTime'));
@@ -256,9 +254,8 @@ class HomeController extends Controller
         }            
 
         // order
-        public function order($room_id, $user_id)
+        public function order($room_id,$user_id)
         {
-            $room = Room::findOrFail($room_id);
             $user = User::findOrFail($user_id);
             $services = Service::all();
         
